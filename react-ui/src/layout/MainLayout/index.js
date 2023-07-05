@@ -24,7 +24,8 @@ import { IconChevronRight } from '@tabler/icons';
 // style constant
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex'
+        display: 'flex',
+        right: 0
     },
     appBar: {
         backgroundColor: theme.palette.background.default
@@ -42,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen
         }),
         [theme.breakpoints.up('md')]: {
-            marginLeft: -(drawerWidth - 20),
+            marginRight: -(drawerWidth - 20),
             width: `calc(100% - ${drawerWidth}px)`
         },
         [theme.breakpoints.down('md')]: {
-            marginLeft: '20px',
+            marginRight: '20px',
             width: `calc(100% - ${drawerWidth}px)`,
             padding: '16px'
         },
@@ -62,14 +63,14 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen
         }),
-        marginLeft: 0,
+        marginRight: 0,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         [theme.breakpoints.down('md')]: {
-            marginLeft: '20px'
+            marginRight: '20px'
         },
         [theme.breakpoints.down('sm')]: {
-            marginLeft: '10px'
+            marginRight: '10px'
         }
     }
 }));
