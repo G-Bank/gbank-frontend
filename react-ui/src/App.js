@@ -20,7 +20,8 @@ const App = () => {
     useEffect(() => {
         document.body.setAttribute('dir', customization.direction);
         document.documentElement.setAttribute('dir', customization.direction);
-    }, []);
+    }, [customization.direction]);
+
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme(customization, customization.direction)}>
