@@ -12,7 +12,8 @@ const config = {
     defaultPath: '/dashboard/default',
     fontFamily: `'Vazir', 'Roboto', sans-serif`,
     borderRadius: 12,
-    API_SERVER: BACKEND_SERVER
+    API_SERVER: BACKEND_SERVER,
+    direction: 'rtl'
 };
 
 export default config;
