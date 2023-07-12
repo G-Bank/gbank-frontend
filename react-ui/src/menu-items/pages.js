@@ -25,17 +25,17 @@ export const pages = {
       icon: icons['IconKey'],
       children: [
         {
-          id: 'login3',
+          id: 'login',
           title: 'Login',
           type: 'item',
-          url: '/pages/login/login3',
+          url: '/auth/login',
           target: true
         },
         {
-          id: 'register3',
+          id: 'register',
           title: 'Register',
           type: 'item',
-          url: '/pages/register/register3',
+          url: '/auth/register',
           target: true
         }
       ]

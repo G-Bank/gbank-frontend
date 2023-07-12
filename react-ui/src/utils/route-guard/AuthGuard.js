@@ -1,24 +1,18 @@
 import PropTypes from 'prop-types';
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-//-----------------------|| AUTH GUARD ||-----------------------//
-
-/**
- * Authentication guard for routes
- * @param {PropTypes.node} children children element/node
- */
 const AuthGuard = ({ children }) => {
     // todo
     // add login for authentication
 
-    // const account = useSelector((state) => state.account);
-    // const { isLoggedIn } = account;
+    const account = useSelector((state) => state.account);
+    const { isLoggedIn } = account;
 
-    // if (!isLoggedIn) {
-    //     return <Redirect to="/login" />;
-    // }
+    if (!isLoggedIn) {
+        return <Redirect to="/login" />;
+    }
 
     return children;
 };
