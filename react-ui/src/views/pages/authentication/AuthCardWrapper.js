@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//-----------------------|| AUTHENTICATION CARD WRAPPER ||-----------------------//
-
 const AuthCardWrapper = ({ children, ...other }) => {
     const classes = useStyles();
 

@@ -11,7 +11,7 @@ const config = {
     fontFamily: `'Vazir', 'Roboto', sans-serif`,
     borderRadius: 12,
     API_SERVER: BACKEND_SERVER,
-    direction: 'rtl'
+    direction: 'ltr'
 };
 
 export default config;
