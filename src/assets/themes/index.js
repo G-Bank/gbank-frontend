@@ -1,6 +1,5 @@
-import { createTheme } from '@material-ui/core/styles';
-
 // assets
+import { createTheme } from '@mui/material/styles';
 import colors from '../scss/_themes-vars.module.scss';
 
 // project imports

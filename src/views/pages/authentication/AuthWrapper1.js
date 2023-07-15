@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/styles';
+import { styled } from "@mui/styles";
 
 const AuthWrapper1 = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.primary.light,

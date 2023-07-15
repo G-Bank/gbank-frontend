@@ -4,8 +4,18 @@ import { useDispatch } from 'react-redux';
 import configData from '../../../../config';
 
 // material-ui
-import { makeStyles } from '@material-ui/styles';
-import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput, Snackbar, Stack, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput,
+  Snackbar,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 // third party
 import * as Yup from 'yup';

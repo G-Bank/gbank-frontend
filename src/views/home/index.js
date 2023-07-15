@@ -1,7 +1,7 @@
 import React from 'react';
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
-import { Button, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { Button, Card, CardContent, Grid } from '@mui/material';
 import { strings } from '../../localizedString';
 
 //==============================|| SAMPLE PAGE ||==============================//
@@ -23,10 +23,10 @@ const SamplePage = () => {
             </Grid>
             <Grid item xs={12} sm={4} md={3}>
               <Grid container>
-                <Grid md={6}>
+                <Grid item md={6}>
                   <Button>{strings.transfer}</Button>
                 </Grid>
-                <Grid md={6}>
+                <Grid item md={6}>
                   <Button>{strings.convert}</Button>
                 </Grid>
               </Grid>

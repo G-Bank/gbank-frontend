@@ -1,7 +1,8 @@
 import React from 'react';
 
 // material-ui
-import { Grid, Stack, Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/styles';
 
 // project imports
 import AuthWrapper1 from './../AuthWrapper1';

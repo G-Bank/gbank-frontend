@@ -1,8 +1,8 @@
 import React from 'react';
 
 // material-ui
-import { makeStyles } from '@material-ui/styles';
-import { Card, CardContent, Grid, Skeleton } from '@material-ui/core';
+import { Card, CardContent, Grid, Skeleton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 // style constant
 const useStyles = makeStyles({

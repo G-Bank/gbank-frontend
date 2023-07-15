@@ -1,5 +1,5 @@
 // assets
-import { Toll } from '@material-ui/icons';
+import { Toll } from '@mui/icons-material';
 import { strings } from '../localizedString';
 
 export const dashboard = {

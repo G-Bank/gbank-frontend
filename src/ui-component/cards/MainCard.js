@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 // material-ui
-import { useTheme } from '@material-ui/styles';
-import { Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { useTheme } from '@mui/styles';
 
 // constant
 const headerSX = {

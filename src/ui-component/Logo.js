@@ -1,7 +1,7 @@
+import { useTheme } from '@mui/styles';
 import React from 'react';
 
 // material-ui
-import { useTheme } from '@material-ui/styles';
 
 const Logo = () => {
   const theme = useTheme();
