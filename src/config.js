@@ -6,12 +6,12 @@ if (process.env.REACT_APP_BACKEND_SERVER) {
 }
 
 const config = {
-  basename: '/gbank-frontend',
+  basename: '/',
   defaultPath: '/dashboard',
   fontFamily: `'Vazir', 'Roboto', sans-serif`,
   borderRadius: 12,
   API_SERVER: BACKEND_SERVER,
-  direction: 'ltr'
+  direction: 'rtl'
 };
 
 export default config;
