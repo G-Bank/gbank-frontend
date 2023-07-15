@@ -81,7 +81,6 @@ const MainLayout = ({ children }) => {
   const { direction } = useSelector((state) => state.customization);
 
   const theme = useTheme();
-  console.log('🚀 ~ file: index.js:89 ~ MainLayout ~ theme:', theme);
   const classes = useStyles(direction === 'ltr')();
 
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -101,7 +100,6 @@ const MainLayout = ({ children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {/* header */}
       <AppBar
         enableColorOnDark
         position="fixed"

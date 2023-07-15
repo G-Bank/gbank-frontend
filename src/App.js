@@ -13,8 +13,7 @@ const App = () => {
     document.body.setAttribute('dir', customization.direction);
     document.documentElement.setAttribute('dir', customization.direction);
     strings.setLanguage(customization.direction === 'rtl' ? 'fa' : 'en');
-  }, [customization.direction]);
-
+  }, [customization]);
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme(customization, customization.direction)}>

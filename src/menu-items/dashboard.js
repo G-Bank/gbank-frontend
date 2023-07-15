@@ -1,10 +1,9 @@
 // assets
 import { Toll } from '@mui/icons-material';
-import { strings } from '../localizedString';
 
-export const dashboard = {
+export const dashboard = (strings) => ({
   id: 'dashboard',
-  title: 'Dashboard',
+  title: strings.dashboard,
   type: 'group',
   children: [
     {
@@ -16,4 +15,4 @@ export const dashboard = {
       breadcrumbs: false
     }
   ]
-};
+});

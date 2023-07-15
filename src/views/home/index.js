@@ -3,6 +3,7 @@ import React from 'react';
 import MainCard from '../../ui-component/cards/MainCard';
 import { Button, Card, CardContent, Grid } from '@mui/material';
 import { strings } from '../../localizedString';
+import Wallet from './Wallet';
 
 //==============================|| SAMPLE PAGE ||==============================//
 
@@ -32,6 +33,9 @@ const SamplePage = () => {
               </Grid>
             </Grid>
           </Grid>
+        </CardContent>
+        <CardContent>
+          <Wallet />
         </CardContent>
       </Card>
     </MainCard>
