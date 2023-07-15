@@ -1,24 +1,41 @@
 import React from 'react';
-
-// material-ui
-import { Typography } from '@material-ui/core';
-
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
+import { Button, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { strings } from '../../localizedString';
 
 //==============================|| SAMPLE PAGE ||==============================//
 
 const SamplePage = () => {
-    return (
-        <MainCard title="Sample Card">
-            <Typography variant="body2">
-                Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut
-                enif ad minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue
-                dolor in reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president,
-                sunk in culpa qui officiate descent molls anim id est labours.
-            </Typography>
-        </MainCard>
-    );
+  return (
+    <MainCard title={strings.wallet}>
+      <Card>
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12} sm={4} md={3}>
+              {strings.valueInventory}
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              {strings.availableInventory}
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              {strings.inOrder}
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Grid container>
+                <Grid md={6}>
+                  <Button>{strings.transfer}</Button>
+                </Grid>
+                <Grid md={6}>
+                  <Button>{strings.convert}</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </MainCard>
+  );
 };
 
 export default SamplePage;

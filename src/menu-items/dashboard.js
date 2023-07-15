@@ -1,13 +1,6 @@
 // assets
-import { IconDashboard, IconDeviceAnalytics } from '@tabler/icons';
-
-// constant
-const icons = {
-  IconDashboard: IconDashboard,
-  IconDeviceAnalytics
-};
-
-//-----------------------|| DASHBOARD MENU ITEMS ||-----------------------//
+import { Toll } from '@material-ui/icons';
+import { strings } from '../localizedString';
 
 export const dashboard = {
   id: 'dashboard',
@@ -16,10 +9,10 @@ export const dashboard = {
   children: [
     {
       id: 'default',
-      title: 'Dashboard',
+      title: strings.wallet,
       type: 'item',
       url: '/',
-      icon: icons['IconDashboard'],
+      icon: Toll,
       breadcrumbs: false
     }
   ]
