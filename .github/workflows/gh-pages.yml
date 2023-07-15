@@ -23,6 +23,9 @@ jobs:
           node-version: 16.x
 
       - name: Installing NPM packages
+        run: npm i
+        
+      - name: Installing NPM packages
         run: npm ci
 
       - name: Building project
