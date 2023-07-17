@@ -3,7 +3,6 @@ import React from 'react';
 
 // project imports
 
-//-----------------------|| MINIMAL LAYOUT ||-----------------------//
 
 const MinimalLayout = (props) => {
     return (

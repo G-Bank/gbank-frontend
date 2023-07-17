@@ -9,7 +9,6 @@ import AuthGuard from './../utils/route-guard/AuthGuard';
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
 
-//-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
   const location = useLocation();

@@ -8,6 +8,7 @@ import { useTheme } from '@mui/styles';
 import AuthWrapper1 from './../AuthWrapper1';
 import AuthCardWrapper from './../AuthCardWrapper';
 import RestLogin from './RestLogin';
+import { strings } from '../../../../localizedString';
 
 // assets
 
@@ -29,10 +30,10 @@ const Login = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Hi, Welcome Back
+                            {strings.welcome}
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                            Enter your phone number to continue
+                            {strings.welcomeSubtitle}
                           </Typography>
                         </Stack>
                       </Grid>

@@ -5,9 +5,7 @@ import { Button, Card, CardContent, Grid } from '@mui/material';
 import { strings } from '../../localizedString';
 import Wallet from './Wallet';
 
-//==============================|| SAMPLE PAGE ||==============================//
-
-const SamplePage = () => {
+const HomePage = () => {
   return (
     <MainCard title={strings.wallet}>
       <Card>
@@ -42,4 +40,4 @@ const SamplePage = () => {
   );
 };
 
-export default SamplePage;
+export default HomePage;

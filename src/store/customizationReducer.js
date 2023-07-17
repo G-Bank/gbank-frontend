@@ -12,7 +12,6 @@ export const initialState = {
   direction: config.direction
 };
 
-//-----------------------|| CUSTOMIZATION REDUCER ||-----------------------//
 
 const customizationReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -10,7 +10,6 @@ import Loadable from '../ui-component/Loadable';
 // login routing
 const AuthLogin = Loadable(lazy(() => import('../views/pages/authentication/login')));
 
-//-----------------------|| AUTH ROUTING ||-----------------------//
 
 const LoginRoutes = () => {
   const location = useLocation();

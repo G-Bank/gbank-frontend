@@ -6,7 +6,6 @@ import storage from 'redux-persist/lib/storage';
 import customizationReducer from './customizationReducer';
 import accountReducer from './accountReducer';
 
-//-----------------------|| COMBINE REDUCER ||-----------------------//
 
 const reducer = combineReducers({
   account: persistReducer(

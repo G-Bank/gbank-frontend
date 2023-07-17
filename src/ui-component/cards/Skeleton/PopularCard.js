@@ -16,7 +16,6 @@ const useStyles = makeStyles({
     }
 });
 
-//-----------------------|| SKELETON - POPULAR CARD ||-----------------------//
 
 const PopularCard = () => {
     const classes = useStyles();

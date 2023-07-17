@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//-----------------------|| Loader ||-----------------------//
 
 const Loader = () => {
   const classes = useStyles();

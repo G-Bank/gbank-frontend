@@ -1,20 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import configData from '../../../../config';
 
 // material-ui
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  OutlinedInput,
-  Snackbar,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput, Snackbar, Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 // third party
@@ -26,6 +16,7 @@ import axios from 'axios';
 import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
+import { strings } from '../../../../localizedString';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -69,17 +60,18 @@ const useStyles = makeStyles((theme) => ({
 const RestLogin = (props, { ...others }) => {
   const classes = useStyles();
   const dispatcher = useDispatch();
+  const { direction } = useSelector((state) => state.customization);
 
   const scriptedRef = useScriptRef();
 
   function getOTP(phone) {
     axios
       .post(configData.API_SERVER + 'login/', {
-        phonenumber: phone
+        phone_number: phone
       })
 
       .then(function (response) {
-        setOTP(response.otp);
+        setOTP(response.data.otp);
         handleClick();
       });
   }
@@ -108,22 +100,22 @@ const RestLogin = (props, { ...others }) => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          phonenumber: Yup.string().length(11).required('phone number is required'),
-          otp: Yup.number().min(1000).max(9999).required('OTP code is required')
+          phonenumber: Yup.string().length(11).required(strings.phoneNumberError),
+          otp: Yup.number().min(1000).max(9999).required(strings.otpError)
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             axios
               .post(configData.API_SERVER + 'verify/', {
-                phonenumber: values.phonenumber,
+                phone_number: values.phonenumber,
                 otp: values.otp
               })
               .then(function (response) {
-                if (response.data.success) {
-                  console.log(response.data);
+                if (response.status === 200) {
+                  console.log('here 2');
                   dispatcher({
                     type: ACCOUNT_INITIALIZE,
-                    payload: { isLoggedIn: true, user: {}, token: response.token }
+                    payload: { isLoggedIn: true, user: {}, token: response.data.token }
                   });
                   if (scriptedRef.current) {
                     setStatus({ success: true });
@@ -153,15 +145,18 @@ const RestLogin = (props, { ...others }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.phonenumber && errors.phonenumber)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-phonenumber-login">Phone Number</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-phonenumber-login">{strings.phoneNumber}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-phonenumber-login"
-                type="email"
+                type="text"
                 value={values.phonenumber}
                 name="phonenumber"
                 onBlur={handleBlur}
-                onChange={handleChange}
-                label="Phone Number"
+                onChange={(e) => {
+                  handleChange(e);
+                  if (e.target.value.length === 11) getOTP(e.target.value);
+                }}
+                label={strings.phoneNumber}
                 inputProps={{
                   classes: {
                     notchedOutline: classes.notchedOutline
@@ -169,39 +164,56 @@ const RestLogin = (props, { ...others }) => {
                 }}
               />
               {touched.phonenumber && errors.phonenumber && (
-                <FormHelperText error id="standard-weight-helper-text-phonenumber-login">
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-phonenumber-login"
+                  style={{ textAlign: direction === 'ltr' ? 'left' : 'right' }}
+                >
                   {errors.phonenumber}
                 </FormHelperText>
               )}
             </FormControl>
 
-            <FormControl fullWidth error={Boolean(touched.otp && errors.otp)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-otp-login">OTP</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-otp-login"
-                type={'number'}
-                value={values.otp}
-                name="otp"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                label="OTP"
-                inputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline
-                  }
-                }}
-              />
-              {touched.otp && errors.otp && (
-                <FormHelperText error id="standard-weight-helper-text-otp-login">
-                  {errors.otp}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-              <Typography variant="subtitle1" color="secondary" onClick={() => getOTP(values.phonenumber)} sx={{ textDecoration: 'none' }}>
-                Didn't get the otp?
-              </Typography>
-            </Stack>
+            {values.phonenumber.length === 11 && (
+              <FormControl fullWidth error={Boolean(touched.otp && errors.otp)} className={classes.loginInput}>
+                <InputLabel htmlFor="outlined-adornment-otp-login">{strings.otp}</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-otp-login"
+                  type={'number'}
+                  value={values.otp}
+                  name="otp"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  label={strings.otp}
+                  inputProps={{
+                    classes: {
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                />
+                {touched.otp && errors.otp && (
+                  <FormHelperText
+                    error
+                    id="standard-weight-helper-text-otp-login"
+                    style={{ textAlign: direction === 'ltr' ? 'left' : 'right' }}
+                  >
+                    {errors.otp}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            )}
+            {values.phonenumber.length === 11 && (
+              <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                <Typography
+                  variant="subtitle1"
+                  color="secondary"
+                  onClick={() => getOTP(values.phonenumber)}
+                  sx={{ textDecoration: 'none' }}
+                >
+                  {strings.otpWarning}
+                </Typography>
+              </Stack>
+            )}
             {errors.submit && (
               <Box
                 sx={{
@@ -219,14 +231,14 @@ const RestLogin = (props, { ...others }) => {
             >
               <AnimateButton>
                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
-                  Sign IN
+                  {strings.signIn}
                 </Button>
               </AnimateButton>
             </Box>
           </form>
         )}
       </Formik>
-      <Snackbar open={open} autoHideDuration={3 * 60 * 1000} onClose={handleClose} message={'your otp is ' + otp} />
+      <Snackbar open={open} autoHideDuration={3 * 60 * 1000} onClose={handleClose} message={strings.otpText + otp} />
     </React.Fragment>
   );
 };

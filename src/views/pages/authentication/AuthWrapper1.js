@@ -1,4 +1,4 @@
-import { styled } from "@mui/styles";
+import { styled } from '@mui/styles';
 
 const AuthWrapper1 = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.primary.light,

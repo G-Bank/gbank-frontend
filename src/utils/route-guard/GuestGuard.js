@@ -6,25 +6,20 @@ import { Redirect } from 'react-router-dom';
 // project imports
 import config from '../../config';
 
-//-----------------------|| GUEST GUARD ||-----------------------//
 
-/**
- * Guest guard for routes having no auth required
- * @param {PropTypes.node} children children element/node
- */
 const GuestGuard = ({ children }) => {
-    const account = useSelector((state) => state.account);
-    const { isLoggedIn } = account;
+  const account = useSelector((state) => state.account);
+  const { isLoggedIn } = account;
 
-    if (isLoggedIn) {
-        return <Redirect to={config.defaultPath} />;
-    }
+  if (isLoggedIn) {
+    return <Redirect to={config.defaultPath} />;
+  }
 
-    return children;
+  return children;
 };
 
 GuestGuard.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node
 };
 
 export default GuestGuard;

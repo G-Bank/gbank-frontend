@@ -8,7 +8,6 @@ export const initialState = {
   user: null
 };
 
-//-----------------------|| ACCOUNT REDUCER ||-----------------------//
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {

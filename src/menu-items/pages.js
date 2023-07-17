@@ -10,7 +10,6 @@ const icons = {
   IconPhoneCall: IconPhoneCall
 };
 
-//-----------------------|| EXTRA PAGES MENU ITEMS ||-----------------------//
 
 export const pages = {
   id: 'pages',
