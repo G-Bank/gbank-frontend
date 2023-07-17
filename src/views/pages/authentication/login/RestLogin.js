@@ -100,8 +100,8 @@ const RestLogin = (props, { ...others }) => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          phonenumber: Yup.string().length(11).required(strings.phoneNumberError),
-          otp: Yup.number().min(1000).max(9999).required(strings.otpError)
+          phonenumber: Yup.string().length(11).required(strings?.phoneNumberError),
+          otp: Yup.number().min(1000).max(9999).required(strings?.otpError)
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -145,7 +145,7 @@ const RestLogin = (props, { ...others }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.phonenumber && errors.phonenumber)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-phonenumber-login">{strings.phoneNumber}</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-phonenumber-login">{strings?.phoneNumber}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-phonenumber-login"
                 type="text"
@@ -156,7 +156,7 @@ const RestLogin = (props, { ...others }) => {
                   handleChange(e);
                   if (e.target.value.length === 11) getOTP(e.target.value);
                 }}
-                label={strings.phoneNumber}
+                label={strings?.phoneNumber}
                 inputProps={{
                   classes: {
                     notchedOutline: classes.notchedOutline
@@ -176,7 +176,7 @@ const RestLogin = (props, { ...others }) => {
 
             {values.phonenumber.length === 11 && (
               <FormControl fullWidth error={Boolean(touched.otp && errors.otp)} className={classes.loginInput}>
-                <InputLabel htmlFor="outlined-adornment-otp-login">{strings.otp}</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-otp-login">{strings?.otp}</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-otp-login"
                   type={'number'}
@@ -184,7 +184,7 @@ const RestLogin = (props, { ...others }) => {
                   name="otp"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  label={strings.otp}
+                  label={strings?.otp}
                   inputProps={{
                     classes: {
                       notchedOutline: classes.notchedOutline
@@ -210,7 +210,7 @@ const RestLogin = (props, { ...others }) => {
                   onClick={() => getOTP(values.phonenumber)}
                   sx={{ textDecoration: 'none' }}
                 >
-                  {strings.otpWarning}
+                  {strings?.otpWarning}
                 </Typography>
               </Stack>
             )}
@@ -231,14 +231,14 @@ const RestLogin = (props, { ...others }) => {
             >
               <AnimateButton>
                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
-                  {strings.signIn}
+                  {strings?.signIn}
                 </Button>
               </AnimateButton>
             </Box>
           </form>
         )}
       </Formik>
-      <Snackbar open={open} autoHideDuration={3 * 60 * 1000} onClose={handleClose} message={strings.otpText + otp} />
+      <Snackbar open={open} autoHideDuration={3 * 60 * 1000} onClose={handleClose} message={strings?.otpText + otp} />
     </React.Fragment>
   );
 };

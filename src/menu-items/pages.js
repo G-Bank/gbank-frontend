@@ -29,13 +29,6 @@ export const pages = {
           type: 'item',
           url: '/auth/login',
           target: true
-        },
-        {
-          id: 'register',
-          title: 'Register',
-          type: 'item',
-          url: '/auth/register',
-          target: true
         }
       ]
     }

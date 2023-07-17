@@ -15,7 +15,7 @@ const LoginRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/auth/login', '/auth/register']}>
+    <Route path={['/auth/login']}>
       <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <NavMotion>

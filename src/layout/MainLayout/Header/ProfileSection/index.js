@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import configData from '../../../../config';
+// import configData from '../../../../config';
 
 // material-ui
 import {
@@ -27,7 +27,7 @@ import { makeStyles } from '@mui/styles';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import axios from 'axios';
+// import axios from 'axios';
 
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
@@ -133,19 +133,20 @@ const ProfileSection = () => {
   const anchorRef = React.useRef(null);
   const handleLogout = () => {
     console.log(account.token);
-    axios
-      .post(configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
-      .then(function (response) {
-        // Force the LOGOUT
-        //if (response.data.success) {
-        dispatcher({ type: LOGOUT });
-        //} else {
-        //    console.log('response - ', response.data.msg);
-        //}
-      })
-      .catch(function (error) {
-        console.log('error - ', error);
-      });
+    dispatcher({ type: LOGOUT });
+    // axios
+    //   .post(configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
+    //   .then(function (response) {
+    //     // Force the LOGOUT
+    //     //if (response.data.success) {
+    //     dispatcher({ type: LOGOUT });
+    //     //} else {
+    //     //    console.log('response - ', response.data.msg);
+    //     //}
+    //   })
+    //   .catch(function (error) {
+    //     console.log('error - ', error);
+    //   });
   };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

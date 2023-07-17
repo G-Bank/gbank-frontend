@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => {
     document.body.setAttribute('dir', customization.direction);
     document.documentElement.setAttribute('dir', customization.direction);
-    strings.setLanguage(customization.direction === 'rtl' ? 'fa' : 'en');
+    if (strings) strings.setLanguage(customization.direction === 'rtl' ? 'fa' : 'en');
   }, [customization]);
   return (
     <StyledEngineProvider injectFirst>
