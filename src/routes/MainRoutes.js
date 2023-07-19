@@ -8,17 +8,18 @@ import AuthGuard from './../utils/route-guard/AuthGuard';
 
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
-
+const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
 
 const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard']}>
+    <Route path={['/dashboard', '/profile']}>
       <MainLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
             <Route path="/dashboard" component={HomePage} />
+            <Route path="/profile" component={ProfilePage} />
           </AuthGuard>
         </Switch>
       </MainLayout>

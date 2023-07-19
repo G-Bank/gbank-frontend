@@ -199,7 +199,7 @@ const ProfileSection = () => {
                   <CardContent className={classes.cardContent}>
                     <Grid container direction="column" spacing={0}>
                       <Grid item className={classes.flex}>
-                        <Typography variant="h4">{strings.welcome}</Typography>
+                        <Typography variant="h4">{strings?.welcome}</Typography>
                       </Grid>
                       <Grid item>
                         <Typography variant="subtitle2">Project Admin</Typography>
@@ -215,7 +215,7 @@ const ProfileSection = () => {
                         <ListItemIcon>
                           <IconLogout stroke={1.5} size="1.3rem" />
                         </ListItemIcon>
-                        <ListItemText primary={<Typography variant="body2">{strings.logout}</Typography>} />
+                        <ListItemText primary={<Typography variant="body2">{strings?.logout}</Typography>} />
                       </ListItemButton>
                     </List>
                   </CardContent>

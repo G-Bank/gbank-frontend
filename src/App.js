@@ -9,11 +9,13 @@ import { CssBaseline, StyledEngineProvider } from '@mui/material';
 
 const App = () => {
   const customization = useSelector((state) => state.customization);
+
   useEffect(() => {
     document.body.setAttribute('dir', customization.direction);
     document.documentElement.setAttribute('dir', customization.direction);
     if (strings) strings.setLanguage(customization.direction === 'rtl' ? 'fa' : 'en');
   }, [customization]);
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme(customization, customization.direction)}>
