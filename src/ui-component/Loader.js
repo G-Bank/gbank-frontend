@@ -1,7 +1,7 @@
 import React from 'react';
 
 // material-ui
-import {LinearProgress} from '@mui/material';
+import { LinearProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 // style constant
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
-
 
 const Loader = () => {
   const classes = useStyles();

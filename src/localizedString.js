@@ -2,14 +2,30 @@ import LocalizedStrings from 'react-localization';
 
 export const strings = new LocalizedStrings({
   en: {
+    // general
     dashboard: 'dashboard',
-    wallet: 'my wallet',
-    valueInventory: 'Total value of inventory',
-    availableInventory: 'Available Inventory',
-    inOrder: 'In Order',
-    transfer: 'transfer',
-    convert: 'convert',
+    home: 'home',
+    profile: 'profile',
     welcome: 'Hi, Welcome Back',
+    submit: 'submit',
+
+    // home
+    crypto: 'Crypto',
+    balance: 'Total Balance (USDT)',
+    rial: 'Rial',
+    convert: 'Convert',
+
+    // profile
+    generalError: 'Field is required!',
+    firstname: 'First name',
+    lastname: 'Lastname',
+    national_code: 'National Code',
+    email: 'Email',
+    address: 'Address',
+    postal_code: 'Postal Code',
+    date_of_birth: 'Date of birth',
+
+    // authentication
     welcomeSubtitle: 'Enter your phone number to continue',
     phoneNumber: 'Phone Number',
     otp: 'otp',
@@ -17,17 +33,34 @@ export const strings = new LocalizedStrings({
     signIn: 'sign in',
     phoneNumberError: 'phone number is required',
     otpError: 'OTP code is required',
-    otpText: 'Your otp is '
+    otpText: 'Your otp is ',
+    logout: 'logout'
   },
   fa: {
+    // general
     dashboard: 'داشبرد',
-    wallet: 'کیف پول من',
-    valueInventory: 'ارزش کل موجودی ها',
-    availableInventory: 'موجودی در دسترس',
-    inOrder: 'موجودی در سفارش ',
-    transfer: 'انتقال',
-    convert: 'تبدیل',
+    home: 'خانه',
+    profile: 'حساب کاربری',
     welcome: 'سلام، خوش آمدید',
+    submit: 'ثبت اطلاعات',
+
+    // home
+    crypto: 'کریپتو',
+    balance: 'ارزش کل (USDT)',
+    rial: 'ریال',
+    convert: 'تبدیل',
+
+    // profile
+    generalError: 'لطفا این فیلد را پر کنید!',
+    firstname: 'نام',
+    lastname: 'نام خانوادگی',
+    national_code: 'کد ملی',
+    email: 'رایانامه',
+    address: 'آدرس',
+    postal_code: 'کد پستی',
+    date_of_birth: 'تاریخ تولد',
+
+    // authentication
     welcomeSubtitle: 'شماره تماس فعال خود را برای ادامه وارد کنید.',
     phoneNumber: 'شماره تماس',
     otp: 'کد 4 رقمی',
@@ -35,6 +68,7 @@ export const strings = new LocalizedStrings({
     signIn: 'ورود',
     phoneNumberError: 'شماره تماس ضروری است',
     otpError: 'کد 4 رقمی ضروری است',
-    otpText: 'کد شما: '
+    otpText: 'کد شما: ',
+    logout: 'خروج از حساب'
   }
 });

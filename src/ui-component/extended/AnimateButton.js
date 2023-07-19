@@ -4,7 +4,6 @@ import React from 'react';
 // third-party
 import { motion, useCycle } from 'framer-motion';
 
-
 const AnimateButton = React.forwardRef(({ children, type, direction, offset, scale }, ref) => {
   let offset1;
   let offset2;

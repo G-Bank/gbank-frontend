@@ -1,40 +1,36 @@
 import React from 'react';
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
-import { Button, Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, CardContent, Tab } from '@mui/material';
 import { strings } from '../../localizedString';
-import Wallet from './Wallet';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import Crypto from './Crypto';
 
 const HomePage = () => {
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    <MainCard title={strings?.wallet}>
+    <MainCard title={strings?.dashboard}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs">
+            <Tab label={strings?.crypto} value="1" />
+            <Tab label={strings?.rial} value="2" />
+            <Tab label={strings?.convert} value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="1">
+          <Crypto />
+        </TabPanel>
+        <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="3">Item Three</TabPanel>
+      </TabContext>
       <Card>
-        <CardContent>
-          <Grid container>
-            <Grid item xs={12} sm={4} md={3}>
-              {strings?.valueInventory}
-            </Grid>
-            <Grid item xs={12} sm={4} md={3}>
-              {strings?.availableInventory}
-            </Grid>
-            <Grid item xs={12} sm={4} md={3}>
-              {strings?.inOrder}
-            </Grid>
-            <Grid item xs={12} sm={4} md={3}>
-              <Grid container>
-                <Grid item md={6}>
-                  <Button>{strings?.transfer}</Button>
-                </Grid>
-                <Grid item md={6}>
-                  <Button>{strings?.convert}</Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardContent>
-          <Wallet />
-        </CardContent>
+        <CardContent></CardContent>
       </Card>
     </MainCard>
   );

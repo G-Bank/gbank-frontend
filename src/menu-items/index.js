@@ -1,7 +1,6 @@
 import { dashboard } from './dashboard';
 
-
-const menuItems =(strings)=> ({
+const menuItems = (strings) => ({
   items: [dashboard(strings)]
 });
 
