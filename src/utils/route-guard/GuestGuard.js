@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 // project imports
 import config from '../../config';
 
-
 const GuestGuard = ({ children }) => {
   const account = useSelector((state) => state.account);
   const { isLoggedIn } = account;
