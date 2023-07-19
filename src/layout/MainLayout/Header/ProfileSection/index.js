@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import configData from '../../../../config';
 
 // material-ui
 import {
@@ -27,7 +26,6 @@ import { makeStyles } from '@mui/styles';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-// import axios from 'axios';
 
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
