@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//-----------------------|| MAIN NAVBAR / HEADER ||-----------------------//
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const classes = useStyles();

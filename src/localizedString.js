@@ -17,7 +17,8 @@ export const strings = new LocalizedStrings({
     signIn: 'sign in',
     phoneNumberError: 'phone number is required',
     otpError: 'OTP code is required',
-    otpText: 'Your otp is '
+    otpText: 'Your otp is ',
+    logout: 'logout'
   },
   fa: {
     dashboard: 'داشبرد',
@@ -35,6 +36,7 @@ export const strings = new LocalizedStrings({
     signIn: 'ورود',
     phoneNumberError: 'شماره تماس ضروری است',
     otpError: 'کد 4 رقمی ضروری است',
-    otpText: 'کد شما: '
+    otpText: 'کد شما: ',
+    logout: 'خروج از حساب'
   }
 });

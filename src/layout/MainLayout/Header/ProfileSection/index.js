@@ -3,29 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import {
-  Avatar,
-  Card,
   CardContent,
   Chip,
   ClickAwayListener,
-  Divider,
   Grid,
-  InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
-  Switch,
   Typography,
   useTheme
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 // third-party
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import configData from '../../../../config';
 
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
@@ -33,8 +27,9 @@ import Transitions from '../../../../ui-component/extended/Transitions';
 import { LOGOUT } from './../../../../store/actions';
 
 // assets
-import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
-import User1 from './../../../../assets/images/users/user-round.svg';
+import { IconLogout, IconSettings } from '@tabler/icons';
+import { strings } from '../../../../localizedString';
+import axios from 'axios';
 
 // style const
 const useStyles = makeStyles((theme) => ({
@@ -122,30 +117,19 @@ const ProfileSection = () => {
   const account = useSelector((state) => state.account);
   const dispatcher = useDispatch();
 
-  const [sdm, setSdm] = React.useState(true);
-  const [value, setValue] = React.useState('');
-  const [notification, setNotification] = React.useState(false);
   const [selectedIndex] = React.useState(1);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const handleLogout = () => {
-    console.log(account.token);
-    dispatcher({ type: LOGOUT });
-    // alter later
-    // axios
-    //   .post(configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
-    //   .then(function (response) {
-    //     // Force the LOGOUT
-    //     //if (response.data.success) {
-    //     dispatcher({ type: LOGOUT });
-    //     //} else {
-    //     //    console.log('response - ', response.data.msg);
-    //     //}
-    //   })
-    //   .catch(function (error) {
-    //     console.log('error - ', error);
-    //   });
+    axios
+      .post(configData.API_SERVER + 'logout/', { token: `${account.token}` }, { headers: { Authorization: `Token ${account.token}` } })
+      .then(function (response) {
+        dispatcher({ type: LOGOUT });
+      })
+      .catch(function (error) {
+        console.log('error - ', error);
+      });
   };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -170,16 +154,17 @@ const ProfileSection = () => {
       <Chip
         classes={{ label: classes.profileLabel }}
         className={classes.profileChip}
-        icon={
-          <Avatar
-            src={User1}
-            className={classes.headerAvatar}
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            color="inherit"
-          />
-        }
+        // add avatar to chip
+        // icon={
+        //   <Avatar
+        //     src={User1}
+        //     className={classes.headerAvatar}
+        //     ref={anchorRef}
+        //     aria-controls={open ? 'menu-list-grow' : undefined}
+        //     aria-haspopup="true"
+        //     color="inherit"
+        //   />
+        // }
         label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
         variant="outlined"
         ref={anchorRef}
@@ -214,86 +199,25 @@ const ProfileSection = () => {
                   <CardContent className={classes.cardContent}>
                     <Grid container direction="column" spacing={0}>
                       <Grid item className={classes.flex}>
-                        <Typography variant="h4">Good Morning,</Typography>
-                        <Typography component="span" variant="h4" className={classes.name}>
-                          John
-                        </Typography>
+                        <Typography variant="h4">{strings.welcome}</Typography>
                       </Grid>
                       <Grid item>
                         <Typography variant="subtitle2">Project Admin</Typography>
                       </Grid>
                     </Grid>
-                    <OutlinedInput
-                      className={classes.searchControl}
-                      id="input-search-profile"
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                      placeholder="Search profile options"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <IconSearch stroke={1.5} size="1.3rem" className={classes.startAdornment} />
-                        </InputAdornment>
-                      }
-                      aria-describedby="search-helper-text"
-                      inputProps={{
-                        'aria-label': 'weight'
-                      }}
-                    />
-                    <Divider />
-                    <PerfectScrollbar className={classes.ScrollHeight}>
-                      <Divider />
-                      <Card className={classes.card}>
-                        <CardContent>
-                          <Grid container spacing={3} direction="column">
-                            <Grid item>
-                              <Grid item container alignItems="center" justifyContent="space-between">
-                                <Grid item>
-                                  <Typography variant="subtitle1">Start DND Mode</Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Switch
-                                    color="primary"
-                                    checked={sdm}
-                                    onChange={(e) => setSdm(e.target.checked)}
-                                    name="sdm"
-                                    size="small"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid item container alignItems="center" justifyContent="space-between">
-                                <Grid item>
-                                  <Typography variant="subtitle1">Allow Notifications</Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Switch
-                                    checked={notification}
-                                    onChange={(e) => setNotification(e.target.checked)}
-                                    name="sdm"
-                                    size="small"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                      <Divider />
-                      <List component="nav" className={classes.navContainer}>
-                        <ListItemButton
-                          className={classes.listItem}
-                          sx={{ borderRadius: customization.borderRadius + 'px' }}
-                          selected={selectedIndex === 4}
-                          onClick={handleLogout}
-                        >
-                          <ListItemIcon>
-                            <IconLogout stroke={1.5} size="1.3rem" />
-                          </ListItemIcon>
-                          <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
-                        </ListItemButton>
-                      </List>
-                    </PerfectScrollbar>
+                    <List component="nav" className={classes.navContainer}>
+                      <ListItemButton
+                        className={classes.listItem}
+                        sx={{ borderRadius: customization.borderRadius + 'px' }}
+                        selected={selectedIndex === 4}
+                        onClick={handleLogout}
+                      >
+                        <ListItemIcon>
+                          <IconLogout stroke={1.5} size="1.3rem" />
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant="body2">{strings.logout}</Typography>} />
+                      </ListItemButton>
+                    </List>
                   </CardContent>
                 </MainCard>
               </ClickAwayListener>
