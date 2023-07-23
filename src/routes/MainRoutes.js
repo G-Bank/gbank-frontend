@@ -5,6 +5,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import MainLayout from './../layout/MainLayout';
 import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
+import AccountGuard from '../utils/route-guard/AccountGuard';
 
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
@@ -18,8 +19,10 @@ const MainRoutes = () => {
       <MainLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
-            <Route path="/dashboard" component={HomePage} />
-            <Route path="/profile" component={ProfilePage} />
+            <AccountGuard>
+              <Route path="/dashboard" component={HomePage} />
+              <Route path="/profile" component={ProfilePage} />
+            </AccountGuard>
           </AuthGuard>
         </Switch>
       </MainLayout>

@@ -25,6 +25,13 @@ export const strings = new LocalizedStrings({
     postal_code: 'Postal Code',
     date_of_birth: 'Date of birth',
 
+    // account
+    accountWelcome: 'You are now logged in',
+    accountMessage: 'Please choose your account type!',
+    profitAccount: 'Profit account',
+    investmentAccount: 'Investment account',
+    moneyAccount: 'Pocket money account',
+
     // authentication
     welcomeSubtitle: 'Enter your phone number to continue',
     phoneNumber: 'Phone Number',
@@ -42,7 +49,7 @@ export const strings = new LocalizedStrings({
     home: 'خانه',
     profile: 'حساب کاربری',
     welcome: 'سلام، خوش آمدید',
-    submit: 'ثبت اطلاعات',
+    submit: 'ثبت',
 
     // home
     crypto: 'کریپتو',
@@ -59,6 +66,13 @@ export const strings = new LocalizedStrings({
     address: 'آدرس',
     postal_code: 'کد پستی',
     date_of_birth: 'تاریخ تولد',
+
+    // account
+    accountWelcome: ' شما وارد شدید',
+    accountMessage: 'لطفا نوع حساب کاربری خود را انتخاب کنید.',
+    profitAccount: 'حساب سود',
+    investmentAccount: 'حساب سرمایه‌گذاری',
+    moneyAccount: 'حساب پول تو جیبی',
 
     // authentication
     welcomeSubtitle: 'شماره تماس فعال خود را برای ادامه وارد کنید.',

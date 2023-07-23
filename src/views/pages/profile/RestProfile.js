@@ -69,7 +69,7 @@ const RestProfile = (props, { ...others }) => {
                 if (response.status === 200) {
                   dispatcher({
                     type: ACCOUNT_INITIALIZE,
-                    payload: { isLoggedIn: true, user: response.data, token: account.token }
+                    payload: { ...account, user: response.data }
                   });
                 }
               })
