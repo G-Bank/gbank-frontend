@@ -5,14 +5,14 @@ export const initialState = {
   token: '',
   isLoggedIn: false,
   isInitialized: false,
-  hasAccount: false,
+  hasAccount: true, // for create account
   user: null
 };
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACCOUNT_INITIALIZE: {
-      const { isLoggedIn, user, token, hasAccount = false } = action.payload;
+      const { isLoggedIn, user, token, hasAccount = true } = action.payload;
       return {
         ...state,
         isLoggedIn,
@@ -29,7 +29,7 @@ const accountReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         user,
-        hasAccount: false // todo - must be changed later
+        hasAccount: true // todo - must be changed later
       };
     }
     case LOGOUT: {

@@ -19,7 +19,7 @@ export function theme(customization, direction = 'ltr') {
     heading: color.grey900,
     paper: color.paper,
     backgroundDefault: color.paper,
-    background: color.primaryLight,
+    background: color.grey100,
     darkTextPrimary: color.grey700,
     darkTextSecondary: color.grey500,
     textDark: color.grey900,

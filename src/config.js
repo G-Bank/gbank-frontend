@@ -2,7 +2,7 @@ let BACKEND_SERVER = null;
 if (process.env.REACT_APP_BACKEND_SERVER) {
   BACKEND_SERVER = process.env.REACT_APP_BACKEND_SERVER;
 } else {
-  BACKEND_SERVER = 'https://376914ce-8df7-4567-999e-0c1f3a410a8e.mock.pstmn.io/api/';
+  BACKEND_SERVER = 'https://5e2bf869-8829-46e7-83f6-aa63b96475f7.mock.pstmn.io/api/';
 }
 
 const config = {

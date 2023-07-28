@@ -8,12 +8,17 @@ export const strings = new LocalizedStrings({
     profile: 'profile',
     welcome: 'Hi, Welcome Back',
     submit: 'submit',
+    available: 'available',
+    bio: 'bio',
 
     // home
     crypto: 'Crypto',
-    balance: 'Total Balance (USDT)',
+    balanceUSDT: 'Total Balance (USDT)',
+    balanceRial: 'Total Balance (ريال)',
     rial: 'Rial',
     convert: 'Convert',
+    transfer: 'transfer',
+    charge: 'charge',
 
     // profile
     generalError: 'Field is required!',
@@ -50,12 +55,17 @@ export const strings = new LocalizedStrings({
     profile: 'حساب کاربری',
     welcome: 'سلام، خوش آمدید',
     submit: 'ثبت',
+    available: 'موجود',
+    bio: 'احراز',
 
     // home
     crypto: 'کریپتو',
-    balance: 'ارزش کل (USDT)',
+    balanceUSDT: 'ارزش کل (USDT)',
+    balanceRial: 'ارزش کل (ريال)',
     rial: 'ریال',
     convert: 'تبدیل',
+    transfer: 'انتقال',
+    charge: 'واریز',
 
     // profile
     generalError: 'لطفا این فیلد را پر کنید!',
