@@ -64,10 +64,16 @@ const HomePage = () => {
 
   useEffect(() => {
     if (account)
+      // todo
+      // add account id to api
+      // wrong api is called there, replace it later:
       axios
         .get(configData.API_SERVER + 'deposit/limit?account_id=3', { headers: { Authorization: `Token ${account.token}` } })
         .then(function (response) {
           setWallet(response.data);
+        })
+        .catch(function (error) {
+          console.log('error - ', error);
         });
   }, [account]);
 

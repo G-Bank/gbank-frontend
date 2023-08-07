@@ -10,6 +10,9 @@ import AccountCardWrapper from '../AccountCardWrapper';
 import { strings } from '../../../../localizedString';
 import RestAccount from './RestAccount';
 
+
+// todo
+// select the account type
 const CreateAccountPage = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));

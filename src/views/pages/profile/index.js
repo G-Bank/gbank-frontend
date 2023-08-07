@@ -61,7 +61,7 @@ const ProfilePage = () => {
           }
         })
         .catch(function (error) {
-          console.error(error);
+          console.log('error - ', error);
         });
     } catch (err) {
       console.error(err);

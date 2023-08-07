@@ -2,7 +2,7 @@
 import { Avatar, Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
 
 import { strings } from '../../../localizedString';
-import tether from '../../../assets/images/icons/rial.svg';
+import rial from '../../../assets/images/icons/rial.svg';
 import TomanConverter from '../../../utils/convertor/TomanConvertor';
 
 const Rial = ({ wallet }) => {
@@ -22,7 +22,7 @@ const Rial = ({ wallet }) => {
             </Typography>
           </Grid>
           <Grid item xs={6} container justifyContent={'flex-end'}>
-            <Avatar alt="Tether" src={tether} sx={{ width: 'auto', height: { sm: '100%', xs: 50 } }} />
+            <Avatar alt="Rial" src={rial} sx={{ width: 'auto', height: { sm: '100%', xs: 50 } }} />
           </Grid>
         </Grid>
       </CardContent>

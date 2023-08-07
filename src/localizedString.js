@@ -13,6 +13,7 @@ export const strings = new LocalizedStrings({
     submit: 'submit',
     available: 'available',
     bio: 'bio',
+    cancel: 'cancel',
 
     // home
     crypto: 'Crypto',
@@ -49,7 +50,12 @@ export const strings = new LocalizedStrings({
     phoneNumberError: 'phone number is required',
     otpError: 'OTP code is required',
     otpText: 'Your otp is ',
-    logout: 'logout'
+    logout: 'logout',
+
+    // transfer
+    currentWallet: 'Your maximum transfer limit',
+    messageForSelect: 'Select the receiver.',
+    selectTypeOfTransfer: 'Select transfer source'
   },
   fa: {
     // brand
@@ -63,6 +69,7 @@ export const strings = new LocalizedStrings({
     submit: 'ثبت',
     available: 'موجود',
     bio: 'احراز',
+    cancel: 'بستن',
 
     // home
     crypto: 'کریپتو',
@@ -99,6 +106,11 @@ export const strings = new LocalizedStrings({
     phoneNumberError: 'شماره تماس ضروری است',
     otpError: 'کد 4 رقمی ضروری است',
     otpText: 'کد شما: ',
-    logout: 'خروج از حساب'
+    logout: 'خروج از حساب',
+
+    // transfer
+    currentWallet: 'بیشینه مقدار قابل انتقال',
+    messageForSelect: 'دریافت کننده وجه را انتخاب کنید',
+    selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید'
   }
 });

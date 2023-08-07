@@ -16,7 +16,7 @@ const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard', '/profile']}>
+    <Route path={['/dashboard', '/profile', '/transfer']}>
       <MainLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
