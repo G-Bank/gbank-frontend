@@ -45,13 +45,13 @@ const RestProfile = (props, { ...others }) => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().required(strings?.generalError),
-          lastname: Yup.string().required(strings?.generalError),
-          national_code: Yup.string().length(10).required(strings?.generalError),
-          email: Yup.string().email().required(strings?.generalError),
-          address: Yup.string().required(strings?.generalError),
+          firstname: Yup.string(),
+          lastname: Yup.string(),
+          national_code: Yup.string().length(10),
+          email: Yup.string().email(),
+          address: Yup.string(),
           postal_code: Yup.string(),
-          date_of_birth: Yup.date().required(strings?.generalError)
+          date_of_birth: Yup.date()
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {

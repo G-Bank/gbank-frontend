@@ -2,7 +2,7 @@ import { Avatar, Button, Card, CardActions, CardContent, Grid, Typography } from
 import { strings } from '../../localizedString';
 import tether from '../../assets/images/icons/tether.svg';
 
-const Crypto = () => {
+const Convert = () => {
   return (
     <Card>
       <CardContent sx={{ padding: { xs: 0, sm: 0, md: 2 } }}>
@@ -25,17 +25,17 @@ const Crypto = () => {
       </CardContent>
       <CardActions sx={{ padding: { xs: 0, sm: 0, md: 2 }, mt: 2 }}>
         <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
+          {strings?.convert}
+        </Button>
+        <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
           {strings?.transfer}
         </Button>
         <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
           {strings?.charge}
-        </Button>
-        <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }} disabled>
-          {strings?.convert}
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default Crypto;
+export default Convert;

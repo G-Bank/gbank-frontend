@@ -4,17 +4,23 @@ import { styled } from '@mui/material/styles';
 import TransformIcon from '@mui/icons-material/Transform';
 import HomeIcon from '@mui/icons-material/Home';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
+
+
 import { strings } from '../../../localizedString';
 
+
 const FloadingMenu = () => {
+  function isActive(addr, index) {
+    return addr === window.location.hash.replace('#', '');
+  }
   const StyledFab = styled(Fab)({
     zIndex: 1,
     left: 0,
     right: 0,
     margin: '0 auto'
   });
-// todo
-// add link to FAB
+  // todo
+  // add link to FAB
   return (
     <AppBar
       position="fixed"
@@ -38,13 +44,13 @@ const FloadingMenu = () => {
           ].map((item, index) => (
             <Grid container key={index} item xs={4} flexDirection={'column'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
               <Grid item>
-                <StyledFab size="medium" color="inherit" aria-label="add">
+                <StyledFab size="medium" color={isActive(item.link, index) ? 'info' : 'inherit'} aria-label="add">
                   {item.Icon}
                 </StyledFab>
               </Grid>
-              <Grid item>
+              {/* <Grid item>
                 <small>{item.name}</small>
-              </Grid>
+              </Grid> */}
             </Grid>
           ))}
         </Grid>

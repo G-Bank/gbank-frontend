@@ -2,6 +2,9 @@ import LocalizedStrings from 'react-localization';
 
 export const strings = new LocalizedStrings({
   en: {
+    // brand
+    name: 'felexin',
+
     // general
     dashboard: 'dashboard',
     home: 'home',
@@ -49,6 +52,9 @@ export const strings = new LocalizedStrings({
     logout: 'logout'
   },
   fa: {
+    // brand
+    name: 'فلکسین',
+
     // general
     dashboard: 'داشبرد',
     home: 'خانه',

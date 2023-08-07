@@ -25,6 +25,7 @@ const MainRoutes = () => {
             </AccountGuard>
           </AuthGuard>
         </Switch>
+        <div style={{ margin: '5em' }} />
       </MainLayout>
     </Route>
   );

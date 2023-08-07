@@ -1,18 +1,19 @@
 import { Avatar, Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
 import { strings } from '../../localizedString';
-import tether from '../../assets/images/icons/tether.svg';
+import tether from '../../assets/images/icons/rial.svg';
+import TomanConverter from '../../utils/convertor/TomanConvertor';
 
-const Crypto = () => {
+const Rial = () => {
   return (
     <Card>
       <CardContent sx={{ padding: { xs: 0, sm: 0, md: 2 } }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {strings?.balanceUSDT}
+          {strings?.balanceRial}
         </Typography>
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h4" component="div">
-              23.42
+              {TomanConverter(4320190)}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {strings?.available}
@@ -30,12 +31,9 @@ const Crypto = () => {
         <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
           {strings?.charge}
         </Button>
-        <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }} disabled>
-          {strings?.convert}
-        </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default Crypto;
+export default Rial;
