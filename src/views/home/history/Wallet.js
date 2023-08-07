@@ -13,7 +13,7 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import MainCard from '../../ui-component/cards/MainCard';
+import MainCard from '../../../ui-component/cards/MainCard';
 
 // style constant
 const useStyles = makeStyles((theme) => ({

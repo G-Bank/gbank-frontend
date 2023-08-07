@@ -1,5 +1,5 @@
-const TomanConverter = (Rial) => {
-  return <>{Rial === 0 || Rial === '0' ? <span>رایگان</span> : `${(Rial / 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}</>;
+const TomanConverter = (toman) => {
+  return <>{toman === 0 || toman === '0' ? <span>رایگان</span> : `${(toman * 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}</>;
 };
 
 export default TomanConverter;

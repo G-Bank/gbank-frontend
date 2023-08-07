@@ -10,6 +10,7 @@ import AccountGuard from '../utils/route-guard/AccountGuard';
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
 const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
+const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const MainRoutes = () => {
             <AccountGuard>
               <Route path="/dashboard" component={HomePage} />
               <Route path="/profile" component={ProfilePage} />
+              <Route path="/transfer" component={TransferPage} />
             </AccountGuard>
           </AuthGuard>
         </Switch>

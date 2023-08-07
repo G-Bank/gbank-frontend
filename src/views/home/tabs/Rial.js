@@ -1,18 +1,21 @@
+// material-ui
 import { Avatar, Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
-import { strings } from '../../localizedString';
-import tether from '../../assets/images/icons/tether.svg';
 
-const Convert = () => {
+import { strings } from '../../../localizedString';
+import tether from '../../../assets/images/icons/rial.svg';
+import TomanConverter from '../../../utils/convertor/TomanConvertor';
+
+const Rial = ({ wallet }) => {
   return (
     <Card>
       <CardContent sx={{ padding: { xs: 0, sm: 0, md: 2 } }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {strings?.balanceUSDT}
+          {strings?.balanceRial}
         </Typography>
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h4" component="div">
-              23.42
+              {TomanConverter(wallet)}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {strings?.available}
@@ -25,9 +28,6 @@ const Convert = () => {
       </CardContent>
       <CardActions sx={{ padding: { xs: 0, sm: 0, md: 2 }, mt: 2 }}>
         <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
-          {strings?.convert}
-        </Button>
-        <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
           {strings?.transfer}
         </Button>
         <Button variant="contained" color="primary" sx={{ m: { xs: '0.2em', sm: '0.5em', md: 1 } }}>
@@ -38,4 +38,4 @@ const Convert = () => {
   );
 };
 
-export default Convert;
+export default Rial;
