@@ -202,7 +202,7 @@ const ProfileSection = () => {
                         <Typography variant="h4">{strings?.welcome}</Typography>
                       </Grid>
                       <Grid item>
-                        <Typography variant="subtitle2">Project Admin</Typography>
+                        <Typography variant="subtitle2">{account.user.name}</Typography>
                       </Grid>
                     </Grid>
                     <List component="nav" className={classes.navContainer}>

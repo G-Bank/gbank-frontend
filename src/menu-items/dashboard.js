@@ -1,5 +1,5 @@
 // assets
-import { AccountCircle, Toll } from '@mui/icons-material';
+import { AccountCircle, Toll, Transform } from '@mui/icons-material';
 
 export const dashboard = (strings) => ({
   id: 'dashboard',
@@ -12,6 +12,13 @@ export const dashboard = (strings) => ({
       type: 'item',
       url: '/',
       icon: Toll
+    },
+    {
+      id: 'transfer',
+      title: strings?.transfer,
+      type: 'item',
+      url: '/transfer',
+      icon: Transform
     },
     {
       id: 'profile',

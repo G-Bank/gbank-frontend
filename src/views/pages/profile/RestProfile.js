@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import configData from '../../../config';
@@ -33,39 +33,25 @@ const RestProfile = (props, { ...others }) => {
 
   const account = useSelector((state) => state.account);
 
-  function getProfile() {
-    if (account)
-      axios
-        .get(configData.API_SERVER + 'user/profile/', { headers: { Authorization: `Token ${account.token}` } })
-
-        .then(function (response) {
-          setProfile(response.data);
-        });
-  }
-
-  const [profile, setProfile] = React.useState();
-
   const Headers = ['firstname', 'lastname', 'national_code', 'email', 'address', 'postal_code', 'date_of_birth'];
 
-  useEffect(getProfile, [account]);
-
-  if (!profile) return <Loader />;
+  if (!props.profile) return <Loader />;
 
   return (
     <React.Fragment>
       <Formik
         initialValues={{
-          ...profile,
+          ...props.profile,
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().required(strings?.generalError),
-          lastname: Yup.string().required(strings?.generalError),
-          national_code: Yup.string().length(10).required(strings?.generalError),
-          email: Yup.string().email().required(strings?.generalError),
-          address: Yup.string().required(strings?.generalError),
+          firstname: Yup.string(),
+          lastname: Yup.string(),
+          national_code: Yup.string().length(10),
+          email: Yup.string().email(),
+          address: Yup.string(),
           postal_code: Yup.string(),
-          date_of_birth: Yup.date().required(strings?.generalError)
+          date_of_birth: Yup.date()
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -83,7 +69,7 @@ const RestProfile = (props, { ...others }) => {
                 if (response.status === 200) {
                   dispatcher({
                     type: ACCOUNT_INITIALIZE,
-                    payload: { isLoggedIn: true, user: response.data, token: account.token }
+                    payload: { ...account, user: response.data }
                   });
                 }
               })
@@ -104,7 +90,7 @@ const RestProfile = (props, { ...others }) => {
                 key={i}
                 error={Boolean(touched[item] && errors[item])}
                 className={classes.input}
-                sx={{ width: { md: '45%', sm: '95%', xs: '100%' } }}
+                sx={{ width: { md: '45%', sm: '95%', xs: '100%' }, p: 0.5 }}
               >
                 <InputLabel htmlFor={'outlined-adornment-' + item}>{strings[item]}</InputLabel>
                 <OutlinedInput

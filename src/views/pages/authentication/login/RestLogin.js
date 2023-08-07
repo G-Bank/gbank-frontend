@@ -41,6 +41,9 @@ const RestLogin = (props, { ...others }) => {
       .then(function (response) {
         setOTP(response.data.otp);
         handleClick();
+      })
+      .catch(function (error) {
+        console.log('error - ', error);
       });
   }
 

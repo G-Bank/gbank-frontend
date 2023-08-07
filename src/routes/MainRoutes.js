@@ -5,23 +5,29 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import MainLayout from './../layout/MainLayout';
 import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
+import AccountGuard from '../utils/route-guard/AccountGuard';
 
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
 const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
+const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 
 const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard', '/profile']}>
+    <Route path={['/dashboard', '/profile', '/transfer']}>
       <MainLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
-            <Route path="/dashboard" component={HomePage} />
-            <Route path="/profile" component={ProfilePage} />
+            <AccountGuard>
+              <Route path="/dashboard" component={HomePage} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/transfer" component={TransferPage} />
+            </AccountGuard>
           </AuthGuard>
         </Switch>
+        <div style={{ margin: '5em' }} />
       </MainLayout>
     </Route>
   );
