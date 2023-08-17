@@ -87,12 +87,12 @@ const HomePage = () => {
   if (!wallet) return <Loader />;
   return (
     <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" sx={{ boxShadow: 'none !important' }}>
         <Tabs
+          indicatorColor="secondary"
+          textColor="inherit"
           value={value}
           onChange={handleChange}
-          indicatorColor="inherit"
-          textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs"
         >
