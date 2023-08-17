@@ -39,7 +39,7 @@ const RestLogin = (props, { ...others }) => {
       })
 
       .then(function (response) {
-        setOTP(response.data.otp);
+        setOTP(response.data.id);
         handleClick();
       })
       .catch(function (error) {
