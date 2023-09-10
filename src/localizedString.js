@@ -55,7 +55,8 @@ export const strings = new LocalizedStrings({
     // transfer
     currentWallet: 'Your maximum transfer limit',
     messageForSelect: 'Select the receiver.',
-    selectTypeOfTransfer: 'Select transfer source'
+    selectTypeOfTransfer: 'Select transfer source',
+    continue: 'Continue',
   },
   fa: {
     // brand
@@ -111,6 +112,7 @@ export const strings = new LocalizedStrings({
     // transfer
     currentWallet: 'بیشینه مقدار قابل انتقال',
     messageForSelect: 'دریافت کننده وجه را انتخاب کنید',
-    selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید'
+    selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید',
+    continue: 'ادامه',
   }
 });
