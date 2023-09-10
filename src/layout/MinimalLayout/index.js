@@ -6,7 +6,7 @@ import React from 'react';
 
 const MinimalLayout = (props) => {
   return (
-    <Box width="100vw" height="100vh" bgcolor="#e7e7e7">
+    <Box width="100vw" height="100vh" bgcolor="#e7e7e7" padding={2}>
       {props.children}
     </Box>
   );

@@ -5,40 +5,15 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 // material ui
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 // project imports
 import FloatingMenu from '../../layout/MainLayout/FloatingMenu';
 import configData from '../../config';
 import Loader from '../../ui-component/Loader';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
-};
+import { Avatar } from '@mui/material';
+import settingsIcon from '../../assets/images/icons/settings.svg';
+import alertIcon from '../../assets/images/icons/alert.svg';
 
 const HomePage = () => {
   const [wallet, setWallet] = useState(false);
@@ -63,6 +38,13 @@ const HomePage = () => {
   if (!wallet) return <Loader />;
   return (
     <Box>
+      <Box display='flex' justifyContent='space-between'>
+        <Avatar />
+        <Box display='flex' gap={1}>
+          <img alt="alert" src={alertIcon} />
+          <img alt="settings" src={settingsIcon} />
+        </Box>
+      </Box>
       <FloatingMenu />
     </Box>
   );
