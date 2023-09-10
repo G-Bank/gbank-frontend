@@ -2,10 +2,10 @@ import React, { lazy } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 // project imports
-import MainLayout from './../layout/MainLayout';
 import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
 import AccountGuard from '../utils/route-guard/AccountGuard';
+import MinimalLayout from '../layout/MinimalLayout';
 
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
@@ -17,7 +17,7 @@ const MainRoutes = () => {
 
   return (
     <Route path={['/dashboard', '/profile', '/transfer']}>
-      <MainLayout>
+      <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
             <AccountGuard>
@@ -27,8 +27,7 @@ const MainRoutes = () => {
             </AccountGuard>
           </AuthGuard>
         </Switch>
-        <div style={{ margin: '5em' }} />
-      </MainLayout>
+      </MinimalLayout>
     </Route>
   );
 };
