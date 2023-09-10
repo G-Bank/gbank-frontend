@@ -13,6 +13,7 @@ export const strings = new LocalizedStrings({
     submit: 'submit',
     available: 'available',
     bio: 'bio',
+    allServices: 'all services',
     cancel: 'cancel',
 
     // home
@@ -69,6 +70,7 @@ export const strings = new LocalizedStrings({
     submit: 'ثبت',
     available: 'موجود',
     bio: 'احراز',
+    allServices: 'همه خدمات',
     cancel: 'بستن',
 
     // home

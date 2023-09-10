@@ -1,26 +1,26 @@
 // material-ui
-import { AppBar, Fab, Grid, Toolbar } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import TransformIcon from '@mui/icons-material/Transform';
-import HomeIcon from '@mui/icons-material/Home';
+import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 
+import homeIcon from '../../../assets/images/icons/home.svg';
+import transferIcon from '../../../assets/images/icons/transfer.svg';
+import servicesIcon from '../../../assets/images/icons/services.svg';
 
 import { strings } from '../../../localizedString';
+import { makeStyles } from '@mui/styles';
 
-
-const FloadingMenu = () => {
-  function isActive(addr, index) {
-    return addr === window.location.hash.replace('#', '');
+const useStyles = makeStyles(theme => ({
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 40,
+    paddingTop: 6,
+    boxShadow: '0px 2px 2px 0px rgba(54, 54, 54, 0.15)',
   }
-  const StyledFab = styled(Fab)({
-    zIndex: 1,
-    left: 0,
-    right: 0,
-    margin: '0 auto'
-  });
-  // todo
-  // add link to FAB
+}));
+
+const FloatingMenu = () => {
+  const styles = useStyles();
+
   return (
     <AppBar
       position="fixed"
@@ -29,28 +29,23 @@ const FloadingMenu = () => {
         top: 'auto',
         bottom: 15,
         right: '5%',
-        display: { sm: 'none', xs: 'block' },
         boxShadow: 'none',
         borderRadius: '40em',
         width: '90%'
       }}
     >
       <Toolbar>
-        <Grid container>
+        <Grid container className={styles.container}>
           {[
-            { name: strings?.transfer, Icon: <TransformIcon />, link: '/transfer' },
-            { name: strings?.home, Icon: <HomeIcon />, link: '/dashboard' },
-            { name: strings?.bio, Icon: <FingerprintIcon />, link: '/auth' }
+            { name: strings?.bio, Icon: <img alt='transfer' src={servicesIcon} />, link: '' },
+            { name: strings?.transfer, Icon: <img alt='transfer' src={transferIcon} />, link: '/transfer' },
+            { name: strings?.home, Icon: <img alt='home' src={homeIcon} />, link: '/dashboard' },
           ].map((item, index) => (
             <Grid container key={index} item xs={4} flexDirection={'column'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
-              <Grid item>
-                <StyledFab size="medium" color={isActive(item.link, index) ? 'info' : 'inherit'} aria-label="add">
-                  {item.Icon}
-                </StyledFab>
+              <Grid item display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
+                {item.Icon}
+                <Typography m='3px' variant='subtitle2'>{item.name}</Typography>
               </Grid>
-              {/* <Grid item>
-                <small>{item.name}</small>
-              </Grid> */}
             </Grid>
           ))}
         </Grid>
@@ -59,4 +54,4 @@ const FloadingMenu = () => {
   );
 };
 
-export default FloadingMenu;
+export default FloatingMenu;

@@ -14,7 +14,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import { drawerWidth } from '../../store/constant';
 import { SET_MENU } from './../../store/actions';
-import FloadingMenu from './FloatingMenu';
+import FloatingMenu from './FloatingMenu';
 
 // style constant
 const useStyles = (dir) =>
@@ -129,7 +129,7 @@ const MainLayout = ({ children }) => {
         <div>{children}</div>
         {/* </Main> */}
       </main>
-      <FloadingMenu />
+      <FloatingMenu />
     </div>
   );
 };
