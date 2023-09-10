@@ -24,6 +24,9 @@ export const strings = new LocalizedStrings({
     convert: 'Convert',
     transfer: 'transfer',
     charge: 'charge',
+    wallet: 'wallet',
+    transactions: 'transactions',
+    exchange: 'exchange',
 
     // profile
     generalError: 'Field is required!',
@@ -81,6 +84,9 @@ export const strings = new LocalizedStrings({
     convert: 'تبدیل',
     transfer: 'انتقال',
     charge: 'واریز',
+    wallet: 'کیف پول',
+    transactions: 'تراکنش‌ها',
+    exchange: 'مبادله',
 
     // profile
     generalError: 'لطفا این فیلد را پر کنید!',

@@ -14,6 +14,9 @@ import Loader from '../../ui-component/Loader';
 import { Avatar } from '@mui/material';
 import settingsIcon from '../../assets/images/icons/settings.svg';
 import alertIcon from '../../assets/images/icons/alert.svg';
+import MainCard from '../../ui-component/cards/MainCard';
+import { strings } from '../../localizedString';
+import TransactionRow from '../../ui-component/TransactionRow';
 
 const HomePage = () => {
   const [wallet, setWallet] = useState(false);
@@ -38,13 +41,28 @@ const HomePage = () => {
   if (!wallet) return <Loader />;
   return (
     <Box>
-      <Box display='flex' justifyContent='space-between'>
+      <Box display="flex" justifyContent="space-between">
         <Avatar />
-        <Box display='flex' gap={1}>
+        <Box display="flex" gap={1}>
           <img alt="alert" src={alertIcon} />
           <img alt="settings" src={settingsIcon} />
         </Box>
       </Box>
+
+      <MainCard title={strings?.wallet}></MainCard>
+
+      <MainCard title={strings?.transactions}>
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />{' '}
+      </MainCard>
+
+      <MainCard title={strings?.exchange}>
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+      </MainCard>
+
       <FloatingMenu />
     </Box>
   );
