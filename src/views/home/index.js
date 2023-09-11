@@ -11,12 +11,15 @@ import Box from '@mui/material/Box';
 import FloatingMenu from '../../layout/MainLayout/FloatingMenu';
 import configData from '../../config';
 import Loader from '../../ui-component/Loader';
-import { Avatar, Button, Grid } from '@mui/material';
+import { Avatar, Button, Grid, Typography } from '@mui/material';
 import settingsIcon from '../../assets/images/icons/settings.svg';
 import alertIcon from '../../assets/images/icons/alert.svg';
+import coinPic from '../../assets/images/coin.png';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
+import MoreOptions from '../../ui-component/MoreOptions';
+import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 
 const HomePage = () => {
   const [wallet, setWallet] = useState(false);
@@ -50,10 +53,21 @@ const HomePage = () => {
       </Box>
 
       <MainCard title={strings?.wallet}>
-        <TransactionRow title="gold" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="bitcoin" imageUrl={settingsIcon} amount={25432003} />
+        <Box display="flex" justifyContent="space-between" alignItems='center' mt={1} mb={3} width="100%">
+          <Box display="flex" flexDirection='column' gap={1}>
+            <Typography variant='subtitle2'>معادل موجودی شما به طلا</Typography>
+            <Typography variant='h2'>{getPersianNumber(44494949)}</Typography>
+          </Box>
+          <Box display="flex" gap={1}>
+            <img width={60} height={60} alt='balance' src={coinPic} />
+          </Box>
+        </Box>
 
-        <Grid container gap={1}>
+        <TransactionRow title="gold" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="bitcoin" imageUrl={coinPic} amount={25432003} />
+        <MoreOptions />
+
+        <Grid container gap={1} mt={3}>
           <Button variant="contained" color="secondary">
             {strings?.deposite}
           </Button>
@@ -67,15 +81,17 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.transactions}>
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <MoreOptions />
       </MainCard>
 
       <MainCard title={strings?.exchange}>
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <MoreOptions />
       </MainCard>
 
       <FloatingMenu />

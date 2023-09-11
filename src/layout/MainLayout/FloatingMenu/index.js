@@ -38,7 +38,7 @@ const FloatingMenu = () => {
       <Toolbar>
         <Grid container className={styles.container}>
           {[
-            { name: strings?.bio, Icon: <img alt='transfer' src={servicesIcon} />, link: '' },
+            { name: strings?.allServices, Icon: <img alt='transfer' src={servicesIcon} />, link: '' },
             { name: strings?.transfer, Icon: <img alt='transfer' src={transferIcon} />, link: '/transfer' },
             { name: strings?.home, Icon: <img alt='home' src={homeIcon} />, link: '/dashboard' },
           ].map((item, index) => (
