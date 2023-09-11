@@ -21,12 +21,12 @@ export const strings = new LocalizedStrings({
     balanceUSDT: 'Total Balance (USDT)',
     balanceRial: 'Total Balance (ريال)',
     rial: 'Rial',
-    convert: 'Convert',
+    exchange: 'exchange',
     transfer: 'transfer',
     charge: 'charge',
     wallet: 'wallet',
     transactions: 'transactions',
-    exchange: 'exchange',
+    deposite: 'deposite',
 
     // profile
     generalError: 'Field is required!',
@@ -81,12 +81,12 @@ export const strings = new LocalizedStrings({
     balanceUSDT: 'ارزش کل (USDT)',
     balanceRial: 'ارزش کل (ريال)',
     rial: 'ریال',
-    convert: 'تبدیل',
+    exchange: 'تبدیل',
     transfer: 'انتقال',
     charge: 'واریز',
     wallet: 'کیف پول',
     transactions: 'تراکنش‌ها',
-    exchange: 'مبادله',
+    deposite: 'واریز',
 
     // profile
     generalError: 'لطفا این فیلد را پر کنید!',

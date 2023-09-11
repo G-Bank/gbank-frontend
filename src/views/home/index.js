@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import FloatingMenu from '../../layout/MainLayout/FloatingMenu';
 import configData from '../../config';
 import Loader from '../../ui-component/Loader';
-import { Avatar } from '@mui/material';
+import { Avatar, Button, Grid } from '@mui/material';
 import settingsIcon from '../../assets/images/icons/settings.svg';
 import alertIcon from '../../assets/images/icons/alert.svg';
 import MainCard from '../../ui-component/cards/MainCard';
@@ -49,12 +49,27 @@ const HomePage = () => {
         </Box>
       </Box>
 
-      <MainCard title={strings?.wallet}></MainCard>
+      <MainCard title={strings?.wallet}>
+        <TransactionRow title="gold" imageUrl={settingsIcon} amount={25432003} />
+        <TransactionRow title="bitcoin" imageUrl={settingsIcon} amount={25432003} />
+
+        <Grid container gap={1}>
+          <Button variant="contained" color="secondary">
+            {strings?.deposite}
+          </Button>
+          <Button variant="contained" color="secondary">
+            {strings?.transfer}
+          </Button>
+          <Button variant="contained" color="info">
+            {strings?.exchange}
+          </Button>
+        </Grid>
+      </MainCard>
 
       <MainCard title={strings?.transactions}>
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />{' '}
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={settingsIcon} amount={25432003} />
       </MainCard>
 
       <MainCard title={strings?.exchange}>

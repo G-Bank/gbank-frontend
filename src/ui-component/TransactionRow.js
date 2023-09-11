@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import { strings } from '../localizedString';
 import { getPersianNumber } from '../utils/convertor/TomanConvertor';
 
 const TransactionRow = ({ title, subtitle, imageUrl, amount, unit }) => {
@@ -11,7 +10,7 @@ const TransactionRow = ({ title, subtitle, imageUrl, amount, unit }) => {
         <Typography variant='h4'>{getPersianNumber(amount)}</Typography>
       </Box>
       <Box display="flex" gap={1}>
-        <Box display="flex" flexDirection="column" alignItems="flex-end">
+        <Box display="flex" flexDirection="column" alignItems="flex-end" justifyContent='center'>
           <Typography variant="h4">{title}</Typography>
           <Typography variant="subtitle2">{subtitle}</Typography>
         </Box>
@@ -30,7 +29,7 @@ TransactionRow.propTypes = {
 };
 
 TransactionRow.defaultProps = {
-  unit: strings?.rial
+  unit: null,
 };
 
 export default TransactionRow;
