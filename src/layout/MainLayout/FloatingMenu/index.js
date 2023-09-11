@@ -1,6 +1,5 @@
 // material-ui
 import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
 
 import homeIcon from '../../../assets/images/icons/home.svg';
 import transferIcon from '../../../assets/images/icons/transfer.svg';
@@ -28,10 +27,12 @@ const FloatingMenu = () => {
       sx={{
         top: 'auto',
         bottom: 15,
-        right: '5%',
+        right: '50%',
+        transform: 'translateX(50%)',
         boxShadow: 'none',
         borderRadius: '40em',
-        width: '90%'
+        width: '90%',
+        maxWidth: 400,
       }}
     >
       <Toolbar>
