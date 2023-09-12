@@ -37,6 +37,9 @@ export const strings = new LocalizedStrings({
     address: 'Address',
     postal_code: 'Postal Code',
     date_of_birth: 'Date of birth',
+    cards: 'cards',
+    authenticationRequiredForCards: 'authentication Required for cards',
+    maxDailyWithdraw: 'Max Daily Withdraw',
 
     // account
     accountWelcome: 'You are now logged in',
@@ -97,6 +100,9 @@ export const strings = new LocalizedStrings({
     address: 'آدرس',
     postal_code: 'کد پستی',
     date_of_birth: 'تاریخ تولد',
+    cards: 'کارت‌ها',
+    authenticationRequiredForCards: 'برای افزودن کارت احراز هویت کنید',
+    maxDailyWithdraw: 'سقف برداشت روزانه',
 
     // account
     accountWelcome: ' شما وارد شدید',

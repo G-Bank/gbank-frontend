@@ -10,6 +10,7 @@ import MinimalLayout from '../layout/MinimalLayout';
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
 const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
+const AuthPage = Loadable(lazy(() => import('../views/pages/profile/ProfileAuthentication')));
 const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 
 const MainRoutes = () => {
@@ -23,6 +24,7 @@ const MainRoutes = () => {
             <AccountGuard>
               <Route path="/dashboard" component={HomePage} />
               <Route path="/profile" component={ProfilePage} />
+              <Route path="/authentication" component={AuthPage} />
               <Route path="/transfer" component={TransferPage} />
             </AccountGuard>
           </AuthGuard>

@@ -4,6 +4,8 @@ const TomanConverter = (toman) => {
 
 const numberWithCommas = (amount) => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
+export const splitCardNumber = number => number.toString().replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
+
 const Numbers = {
   1: '۱',
   2: '۲',
