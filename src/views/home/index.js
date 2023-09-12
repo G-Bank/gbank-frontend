@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // third patry
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // material ui
 import Box from '@mui/material/Box';
@@ -45,7 +46,9 @@ const HomePage = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Avatar />
+        <Link to='/profile'>
+          <Avatar />
+        </Link>
         <Box display="flex" gap={1}>
           <img alt="alert" src={alertIcon} />
           <img alt="settings" src={settingsIcon} />
