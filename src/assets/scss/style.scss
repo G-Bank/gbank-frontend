@@ -4,6 +4,10 @@
 // third-party
 @import '~react-perfect-scrollbar/dist/css/styles.css';
 
+body {
+    background-color: #e7e7e7;
+}
+
 //-----------------------|| APEXCHART ||-----------------------//
 
 .apexcharts-legend-series .apexcharts-legend-marker {
