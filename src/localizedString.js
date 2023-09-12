@@ -40,6 +40,7 @@ export const strings = new LocalizedStrings({
     cards: 'cards',
     authenticationRequiredForCards: 'authentication Required for cards',
     maxDailyWithdraw: 'Max Daily Withdraw',
+    authentication: 'authentication',
 
     // account
     accountWelcome: 'You are now logged in',
@@ -103,6 +104,7 @@ export const strings = new LocalizedStrings({
     cards: 'کارت‌ها',
     authenticationRequiredForCards: 'برای افزودن کارت احراز هویت کنید',
     maxDailyWithdraw: 'سقف برداشت روزانه',
+    authentication: 'احراز هویت',
 
     // account
     accountWelcome: ' شما وارد شدید',
