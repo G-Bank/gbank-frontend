@@ -1,13 +1,41 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { Avatar, Box, Button, Typography } from '@mui/material';
+
 import BackHeader from '../../../ui-component/BackHeader';
 import { strings } from '../../../localizedString';
 import MainCard from '../../../ui-component/cards/MainCard';
 import BankCard from '../../../ui-component/cards/BankCard';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { AddCircle } from '@mui/icons-material';
 import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
+import Loader from '../../../ui-component/Loader';
+import { getUserProfile } from '../../../api/user';
 
 const ProfilePage = () => {
+  const [profile, setProfile] = useState();
+
+  const account = useSelector((state) => state.account);
+
+  useEffect(() => {
+    if (account) {
+      // This API is for احراز هویت
+      // I need cards, user level
+      getUserProfile()
+        .then(function (response) {
+          setProfile(response.data);
+        })
+        .catch(function (error) {
+          console.log('error - ', error);
+        });
+    }
+  }, [account]);
+
+  if (!profile) {
+    return <Loader />;
+  }
+
   return (
     <Box>
       <BackHeader title={strings?.profile} />

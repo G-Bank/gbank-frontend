@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 // third patry
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 // material ui
@@ -10,7 +9,6 @@ import Box from '@mui/material/Box';
 
 // project imports
 import FloatingMenu from '../../layout/MainLayout/FloatingMenu';
-import configData from '../../config';
 import Loader from '../../ui-component/Loader';
 import { Avatar, Button, Grid, Typography } from '@mui/material';
 import settingsIcon from '../../assets/images/icons/settings.svg';
@@ -21,6 +19,7 @@ import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
 import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
+import { getAccountById } from '../../api/user';
 
 const HomePage = () => {
   const [wallet, setWallet] = useState(false);
@@ -28,25 +27,30 @@ const HomePage = () => {
   const account = useSelector((state) => state.account);
 
   useEffect(() => {
-    if (account)
-      // todo
-      // add account id to api
-      // wrong api is called there, replace it later:
-      axios
-        .get(configData.API_SERVER + 'deposit/limit?account_id=3', { headers: { Authorization: `Token ${account.token}` } })
+    if (account) {
+      // how to fetch my account?
+      // what is user id?
+      // is this secure?
+      // I also need transactions history, and total balance to gold
+      // I need persian names and pictures
+      getAccountById(3)
         .then(function (response) {
           setWallet(response.data);
         })
         .catch(function (error) {
           console.log('error - ', error);
         });
+    }
   }, [account]);
 
-  if (!wallet) return <Loader />;
+  if (!wallet) {
+    return <Loader />;
+  }
+
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Link to='/profile'>
+        <Link to="/profile">
           <Avatar />
         </Link>
         <Box display="flex" gap={1}>
@@ -56,13 +60,13 @@ const HomePage = () => {
       </Box>
 
       <MainCard title={strings?.wallet}>
-        <Box display="flex" justifyContent="space-between" alignItems='center' mt={1} mb={3} width="100%">
-          <Box display="flex" flexDirection='column' gap={1}>
-            <Typography variant='subtitle2'>معادل موجودی شما به طلا</Typography>
-            <Typography variant='h2'>{getPersianNumber(44494949)}</Typography>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} mb={3} width="100%">
+          <Box display="flex" flexDirection="column" gap={1}>
+            <Typography variant="subtitle2">معادل موجودی شما به طلا</Typography>
+            <Typography variant="h2">{getPersianNumber(44494949)}</Typography>
           </Box>
           <Box display="flex" gap={1}>
-            <img width={60} height={60} alt='balance' src={coinPic} />
+            <img width={60} height={60} alt="balance" src={coinPic} />
           </Box>
         </Box>
 
