@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import configData from '../../../../config';
+import { useSelector } from 'react-redux';
 
 // material-ui
 import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput, Snackbar, Stack, Typography } from '@mui/material';
@@ -10,13 +8,12 @@ import { makeStyles } from '@mui/styles';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
 
 // project imports
 import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
 import { strings } from '../../../../localizedString';
+import { getOTP, loginUser } from '../../../../api/user';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -27,17 +24,12 @@ const useStyles = makeStyles((theme) => ({
 
 const RestLogin = (props, { ...others }) => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
   const { direction } = useSelector((state) => state.customization);
 
   const scriptedRef = useScriptRef();
 
-  function getOTP(phone) {
-    axios
-      .post(configData.API_SERVER + 'login/', {
-        phone_number: phone
-      })
-
+  function requestOTP(phone) {
+    getOTP(phone)
       .then(function (response) {
         setOTP(response.data.otp);
         handleClick();
@@ -75,41 +67,18 @@ const RestLogin = (props, { ...others }) => {
           otp: Yup.number().min(1000).max(9999).required(strings?.otpError)
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-          try {
-            axios
-              .post(configData.API_SERVER + 'verify/', {
-                phone_number: values.phonenumber,
-                otp: values.otp
-              })
-              .then(function (response) {
-                if (response.status === 200) {
-                  dispatcher({
-                    type: ACCOUNT_INITIALIZE,
-                    payload: { isLoggedIn: true, user: {}, token: response.data.token }
-                  });
-                  if (scriptedRef.current) {
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                  }
-                } else {
-                  setStatus({ success: false });
-                  setErrors({ submit: response.error });
-                  setSubmitting(false);
-                }
-              })
-              .catch(function (error) {
-                setStatus({ success: false });
-                setErrors({ submit: error.error });
+          loginUser(values.phonenumber, values.otp)
+            .then(() => {
+              if (scriptedRef.current) {
+                setStatus({ success: true });
                 setSubmitting(false);
-              });
-          } catch (err) {
-            console.error(err);
-            if (scriptedRef.current) {
+              }
+            })
+            .catch((err) => {
               setStatus({ success: false });
-              setErrors({ submit: err.message });
+              setErrors({ submit: err.error });
               setSubmitting(false);
-            }
-          }
+            });
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -124,7 +93,7 @@ const RestLogin = (props, { ...others }) => {
                 onBlur={handleBlur}
                 onChange={(e) => {
                   handleChange(e);
-                  if (e.target.value.length === 11) getOTP(e.target.value);
+                  if (e.target.value.length === 11) requestOTP(e.target.value);
                 }}
                 label={strings?.phoneNumber}
                 inputProps={{
@@ -177,7 +146,7 @@ const RestLogin = (props, { ...others }) => {
                 <Typography
                   variant="subtitle1"
                   color="secondary"
-                  onClick={() => getOTP(values.phonenumber)}
+                  onClick={() => requestOTP(values.phonenumber)}
                   sx={{ textDecoration: 'none' }}
                 >
                   {strings?.otpWarning}

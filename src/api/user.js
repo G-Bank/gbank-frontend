@@ -1,5 +1,39 @@
-import { get } from "./server";
+import { store } from "../store";
+import { ACCOUNT_INITIALIZE, LOGIN, SET_BANK_CARDS, SET_USER_PROFILE } from "../store/actions";
+import { get, post } from "./server";
 
-export const getAccountById = (accountId) => get('account', { account_id: accountId });
+export const getOTP = (phoneNumber) => post('login/', { phone_number: phoneNumber });
 
-export const getUserProfile = () => get('user/profile');
+export const loginUser = async (phoneNumber, otp) => {
+  const response = await post('verify/', { phone_number: phoneNumber, otp });
+  store.dispatch({
+    type: LOGIN,
+    payload: { token: response.data.token, hasAccount: true }
+  });
+};
+
+export const getUserAccount = async () => {
+  const response = await get('account/');
+  store.dispatch({
+    type: ACCOUNT_INITIALIZE,
+    // TODO: choose current account
+    // TODO: change balance to balances
+    payload: { balances: response.data.accounts[0].balance },
+  });
+};
+
+export const getUserProfile = async () => {
+  const response = await get('user/profile/');
+  store.dispatch({
+    type: SET_USER_PROFILE,
+    payload: { user: { ...response.data.user, ...response.data.profile } },
+  })
+};
+
+export const getUserBankCards = async () => {
+  const response = await get('bank-card/');
+  store.dispatch({
+    type: SET_BANK_CARDS,
+    payload: { cards: response.data.bank_cards },
+  });
+};

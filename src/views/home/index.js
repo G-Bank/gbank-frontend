@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // third patry
 import { useSelector } from 'react-redux';
@@ -19,31 +19,16 @@ import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
 import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
-import { getAccountById } from '../../api/user';
+import { getUserAccount } from '../../api/user';
 
 const HomePage = () => {
-  const [wallet, setWallet] = useState(false);
-
-  const account = useSelector((state) => state.account);
+  const { balances } = useSelector((state) => state.account);
 
   useEffect(() => {
-    if (account) {
-      // how to fetch my account?
-      // what is user id?
-      // is this secure?
-      // I also need transactions history, and total balance to gold
-      // I need persian names and pictures
-      getAccountById(3)
-        .then(function (response) {
-          setWallet(response.data);
-        })
-        .catch(function (error) {
-          console.log('error - ', error);
-        });
-    }
-  }, [account]);
-
-  if (!wallet) {
+    getUserAccount();
+  }, []);
+  
+  if (!balances) {
     return <Loader />;
   }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -11,28 +11,17 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle } from '@mui/icons-material';
 import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getUserProfile } from '../../../api/user';
+import { getUserBankCards, getUserProfile } from '../../../api/user';
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState();
-
-  const account = useSelector((state) => state.account);
+  const { user, cards } = useSelector((state) => state.account);
 
   useEffect(() => {
-    if (account) {
-      // This API is for احراز هویت
-      // I need cards, user level
-      getUserProfile()
-        .then(function (response) {
-          setProfile(response.data);
-        })
-        .catch(function (error) {
-          console.log('error - ', error);
-        });
-    }
-  }, [account]);
+    getUserProfile();
+    getUserBankCards();
+  }, []);
 
-  if (!profile) {
+  if (!user || !cards) {
     return <Loader />;
   }
 

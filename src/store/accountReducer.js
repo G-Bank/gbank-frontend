@@ -1,35 +1,46 @@
 // action - state management
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT } from './actions';
+import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_USER_PROFILE } from './actions';
 
 export const initialState = {
   token: '',
   isLoggedIn: false,
-  isInitialized: false,
-  hasAccount: true, // for create account
-  user: null
+  hasAccount: false,
+  user: null,
+  balances: [],
+  transactions: [],
+  cards: [],
 };
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACCOUNT_INITIALIZE: {
-      const { isLoggedIn, user, token, hasAccount = true } = action.payload;
+      const { balances } = action.payload;
       return {
         ...state,
-        isLoggedIn,
-        isInitialized: true,
-        token,
-        user,
-        hasAccount
+        balances,
       };
     }
-    case LOGIN: {
-      // todo - must be changed later: add hasAccount
+    case SET_USER_PROFILE: {
       const { user } = action.payload;
       return {
         ...state,
-        isLoggedIn: true,
         user,
-        hasAccount: true // todo - must be changed later
+      }
+    }
+    case SET_BANK_CARDS: {
+      const { cards } = action.payload;
+      return {
+        ...state,
+        cards,
+      };
+    }
+    case LOGIN: {
+      const { hasAccount, token } = action.payload;
+      return {
+        ...state,
+        isLoggedIn: true,
+        hasAccount,
+        token,
       };
     }
     case LOGOUT: {
