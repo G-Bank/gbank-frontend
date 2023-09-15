@@ -7,7 +7,10 @@ export const get = (endpoint, params) => {
   return axios.get(`${config.API_SERVER}${endpoint}`, { params, headers: { Authorization: `Token ${token}` } });
 };
 
-export const post = (endpoint, body, params) => {
+export const post = (endpoint, body, params, contentType) => {
   const token = store.getState().account?.token;
-  return axios.post(`${config.API_SERVER}${endpoint}`, body, { params, headers: { Authorization: token && `Token ${token}` } });
+  return axios.post(`${config.API_SERVER}${endpoint}`, body, {
+    params,
+    headers: { Authorization: token && `Token ${token}`, contentType }
+  });
 };

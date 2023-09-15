@@ -1,22 +1,21 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import configData from '../../../config';
+import { useSelector } from 'react-redux';
 
 // material-ui
-import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material';
+import { Avatar, Badge, Box, Button, Chip, FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
 
 // project imports
 import AnimateButton from '../../../ui-component/extended/AnimateButton';
-import { ACCOUNT_INITIALIZE } from '../../../store/actions';
 import { strings } from '../../../localizedString';
 import Loader from '../../../ui-component/Loader';
+import { setUserProfile, setUserProfilePicture } from '../../../api/user.js';
+import BackHeader from '../../../ui-component/BackHeader';
+import { useRef } from 'react';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -26,28 +25,50 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RestProfile = (props, { ...others }) => {
+const EditProfile = () => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
+
   const { direction } = useSelector((state) => state.customization);
+  const { user } = useSelector((state) => state.account);
 
-  const account = useSelector((state) => state.account);
+  const ref = useRef(null);
 
-  const Headers = ['firstname', 'lastname', 'national_code', 'email', 'address', 'postal_code', 'date_of_birth'];
+  const Headers = ['firstname', 'lastname', 'email', 'address', 'postal_code', 'date_of_birth'];
 
-  if (!props.profile) return <Loader />;
+  function selectProfile() {
+    ref.current.click();
+  }
+
+  function submitProfile(e) {
+    const data = new FormData();
+    data.append('picture', e.target.files[0]);
+    setUserProfilePicture(data).catch(function (error) {
+      console.log('error - ', error);
+    });
+  }
+
+  if (!user) return <Loader />;
 
   return (
     <React.Fragment>
+      <BackHeader title={strings?.profile} />
+      <Badge
+        overlap="circular"
+        style={{ margin: 16 }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        badgeContent={<Chip className={classes.addProfile} label="+" onClick={selectProfile}></Chip>}
+      >
+        <input type="file" accept="image/*" ref={ref} hidden onChange={submitProfile} />
+        <Avatar alt={user.firstname} src={user.picture} sx={{ width: 80, height: 80 }} />
+      </Badge>
       <Formik
         initialValues={{
-          ...props.profile,
+          ...user,
           submit: null
         }}
         validationSchema={Yup.object().shape({
           firstname: Yup.string(),
           lastname: Yup.string(),
-          national_code: Yup.string().length(10),
           email: Yup.string().email(),
           address: Yup.string(),
           postal_code: Yup.string(),
@@ -55,36 +76,18 @@ const RestProfile = (props, { ...others }) => {
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            axios
-              .post(configData.API_SERVER + 'user/profile/', {
-                firstname: values.firstname,
-                lastname: values.lastname,
-                national_code: values.national_code,
-                email: values.email,
-                address: values.address,
-                postal_code: values.postal_code,
-                date_of_birth: values.date_of_birth
-              })
-              .then(function (response) {
-                if (response.status === 200) {
-                  dispatcher({
-                    type: ACCOUNT_INITIALIZE,
-                    payload: { ...account, user: response.data }
-                  });
-                }
-              })
-              .catch(function (error) {
-                setStatus({ success: false });
-                setErrors({ submit: error.error });
-                setSubmitting(false);
-              });
+            setUserProfile(values).catch(function (error) {
+              setStatus({ success: false });
+              setErrors({ submit: error.error });
+              setSubmitting(false);
+            });
           } catch (err) {
             console.error(err);
           }
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-          <form noValidate onSubmit={handleSubmit} {...others}>
+          <form noValidate onSubmit={handleSubmit}>
             {Headers.map((item, i) => (
               <FormControl
                 key={i}
@@ -147,4 +150,4 @@ const RestProfile = (props, { ...others }) => {
   );
 };
 
-export default RestProfile;
+export default EditProfile;

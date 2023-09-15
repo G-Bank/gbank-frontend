@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Box, Button, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Button, Typography } from '@mui/material';
 
 import BackHeader from '../../../ui-component/BackHeader';
 import { strings } from '../../../localizedString';
 import MainCard from '../../../ui-component/cards/MainCard';
 import BankCard from '../../../ui-component/cards/BankCard';
-import { AddCircle } from '@mui/icons-material';
+import { AddCircle, Edit } from '@mui/icons-material';
 import { getPersianNumber, getPersianTextOfNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
 
@@ -30,7 +30,11 @@ const ProfilePage = () => {
       <BackHeader title={strings?.profile} />
 
       <Box display="flex" flexDirection="column" mx="auto" my={4} alignItems="center" gap={2}>
-        <Avatar src={user.picture} />
+        <Link to="/edit">
+          <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} badgeContent={<Edit />}>
+            <Avatar alt={user.firstname} src={user.picture} sx={{ width: 60, height: 60 }} />
+          </Badge>
+        </Link>
         {userName && <Typography variant="h4">{userName}</Typography>}
         <Typography variant="h5">{getPersianNumber(user.phone_number, false)}</Typography>
       </Box>
@@ -38,7 +42,7 @@ const ProfilePage = () => {
       {/* TODO: fetch bank name */}
       {/* TODO: add a new card */}
       <Box my={2} width="100%">
-        <Box display='flex' alignItems='center' gap={1}>
+        <Box display="flex" alignItems="center" gap={1}>
           <Typography variant="h4">{strings?.cards}</Typography>
           <AddCircle />
         </Box>

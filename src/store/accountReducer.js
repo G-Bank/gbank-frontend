@@ -1,5 +1,5 @@
 // action - state management
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_USER_PROFILE } from './actions';
+import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_USER_PICTURE, SET_USER_PROFILE } from './actions';
 
 export const initialState = {
   token: '',
@@ -8,7 +8,7 @@ export const initialState = {
   user: null,
   balances: [],
   transactions: [],
-  cards: [],
+  cards: []
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -17,21 +17,32 @@ const accountReducer = (state = initialState, action) => {
       const { balances } = action.payload;
       return {
         ...state,
-        balances,
+        balances
+      };
+    }
+    case SET_USER_PICTURE: {
+      const { picture } = action.payload;
+      console.log(picture);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          picture
+        }
       };
     }
     case SET_USER_PROFILE: {
       const { user } = action.payload;
       return {
         ...state,
-        user,
-      }
+        user
+      };
     }
     case SET_BANK_CARDS: {
       const { cards } = action.payload;
       return {
         ...state,
-        cards,
+        cards
       };
     }
     case LOGIN: {
@@ -40,7 +51,7 @@ const accountReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         hasAccount,
-        token,
+        token
       };
     }
     case LOGOUT: {

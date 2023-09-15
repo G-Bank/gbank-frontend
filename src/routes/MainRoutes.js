@@ -11,19 +11,21 @@ import MinimalLayout from '../layout/MinimalLayout';
 const HomePage = Loadable(lazy(() => import('../views/home')));
 const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
 const AuthPage = Loadable(lazy(() => import('../views/pages/profile/ProfileAuthentication')));
+const EditProfilePage = Loadable(lazy(() => import('../views/pages/profile/EditProfile')));
 const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 
 const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard', '/profile', '/authentication', '/transfer']}>
+    <Route path={['/dashboard', '/profile', '/authentication', '/edit', '/transfer']}>
       <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
             <AccountGuard>
               <Route path="/dashboard" component={HomePage} />
               <Route path="/profile" component={ProfilePage} />
+              <Route path="/edit" component={EditProfilePage} />
               <Route path="/authentication" component={AuthPage} />
               <Route path="/transfer" component={TransferPage} />
             </AccountGuard>

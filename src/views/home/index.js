@@ -23,7 +23,7 @@ import images from '../../assets/images';
 
 const HomePage = () => {
   const { user, balances } = useSelector((state) => state.account);
-  
+
   if (!balances || !user) {
     return <Loader />;
   }
@@ -51,9 +51,9 @@ const HomePage = () => {
             <img width={60} height={60} alt="balance" src={images.gold} />
           </Box>
         </Box>
-        {balances.map(balance => {
+        {balances.map((balance) => {
           const { title, picture } = currencyDetails[balance.currency];
-          return <TransactionRow title={title} imageUrl={picture} amount={balance.value} />
+          return <TransactionRow title={title} imageUrl={picture} amount={balance.value} />;
         })}
         <MoreOptions />
 

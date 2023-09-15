@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import Loader from '../../../ui-component/Loader';
 import { useRef } from 'react';
 import { useState } from 'react';
-import { setUserProfile } from '../../../api/user';
+import { registerNationalCode, setUserProfile } from '../../../api/user';
 
 const ProfileAuthentication = () => {
   const formRef = useRef(null);
@@ -37,23 +37,23 @@ const ProfileAuthentication = () => {
     />
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setUserProfile(form)
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((err) => {
-        const code = err.response.data.code;
-        if (code === 'kyc-01') {
-          setError(strings?.enter_national_code);
-        }
-        if (code === 'kyc-02') {
-          setError(strings?.national_code_not_matched);
-        }
-        setLoading(false);
-      });
+    try {
+      await setUserProfile(form);
+      await registerNationalCode();
+      setLoading(false);
+    } catch (err) {
+      const code = err.response.data.code;
+      if (code === 'kyc-01') {
+        setError(strings?.enter_national_code);
+      }
+      if (code === 'kyc-02') {
+        setError(strings?.national_code_not_matched);
+      }
+      setLoading(false);
+    }
   };
 
   return (
