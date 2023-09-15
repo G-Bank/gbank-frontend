@@ -46,6 +46,10 @@ export const strings = new LocalizedStrings({
     maxDailyWithdraw: 'Max Daily Withdraw',
     authentication: 'authentication',
     authLevel: 'Authentication Level',
+    enter_national_code: 'Enter National Code',
+    national_code_not_matched: 'National Code not matched',
+    authenticationSuccessful: 'Authentication Successful',
+    backToHomePage: 'Back to Home Page',
 
     // account
     accountWelcome: 'You are now logged in',
@@ -56,7 +60,7 @@ export const strings = new LocalizedStrings({
 
     // authentication
     welcomeSubtitle: 'Enter your phone number to continue',
-    phoneNumber: 'Phone Number',
+    phone_number: 'Phone Number',
     otp: 'otp',
     otpWarning: "Didn't get the otp?",
     signIn: 'sign in',
@@ -115,6 +119,10 @@ export const strings = new LocalizedStrings({
     maxDailyWithdraw: 'سقف برداشت روزانه',
     authentication: 'احراز هویت',
     authLevel: 'سطح کاربری',
+    enter_national_code: 'لطفا کد ملی را وارد کنید',
+    national_code_not_matched: 'کد ملی مطابق نیست',
+    authenticationSuccessful: 'احراز هویت شما با موفقیت انجام شد',
+    backToHomePage: 'بازگشت به صفحه اصلی',
 
     // account
     accountWelcome: ' شما وارد شدید',
@@ -125,7 +133,7 @@ export const strings = new LocalizedStrings({
 
     // authentication
     welcomeSubtitle: 'شماره تماس فعال خود را برای ادامه وارد کنید.',
-    phoneNumber: 'شماره تماس',
+    phone_number: 'شماره تماس',
     otp: 'کد 4 رقمی',
     otpWarning: 'کد 4 رقمی را دریافت نکردم!',
     signIn: 'ورود',

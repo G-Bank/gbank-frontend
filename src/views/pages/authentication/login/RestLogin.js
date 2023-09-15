@@ -84,7 +84,7 @@ const RestLogin = (props, { ...others }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.phonenumber && errors.phonenumber)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-phonenumber-login">{strings?.phoneNumber}</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-phonenumber-login">{strings?.phone_number}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-phonenumber-login"
                 type="text"
@@ -95,7 +95,7 @@ const RestLogin = (props, { ...others }) => {
                   handleChange(e);
                   if (e.target.value.length === 11) requestOTP(e.target.value);
                 }}
-                label={strings?.phoneNumber}
+                label={strings?.phone_number}
                 inputProps={{
                   classes: {
                     notchedOutline: classes.notchedOutline

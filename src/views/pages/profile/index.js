@@ -37,13 +37,18 @@ const ProfilePage = () => {
 
       {/* TODO: fetch bank name */}
       {/* TODO: add a new card */}
-      {cards.length ? (
-        cards.map((card, index) => (
-          <MainCard title={strings?.cards} titleButton={!index && <AddCircle />}>
-            <BankCard bankName="پاسارگاد" cardNumber={card.card_number} />
-          </MainCard>
-        ))
-      ) : (
+      <Box my={2} width="100%">
+        <Box display='flex' alignItems='center' gap={1}>
+          <Typography variant="h4">{strings?.cards}</Typography>
+          <AddCircle />
+        </Box>
+      </Box>
+      {cards.map((card, index) => (
+        <MainCard>
+          <BankCard bankName="پاسارگاد" cardNumber={card.card_number} />
+        </MainCard>
+      ))}
+      {!user.is_national_code_verified && (
         <Link to="/authentication">
           <Button fullWidth variant="contained">
             {strings?.authenticationRequiredForCards}

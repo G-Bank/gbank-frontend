@@ -29,8 +29,18 @@ export const getUserProfile = async () => {
   store.dispatch({
     type: SET_USER_PROFILE,
     payload: { user: { ...response.data.user, ...response.data.profile } },
-  })
+  });
 };
+
+export const setUserProfile = async (profile) => {
+  const response = await post('user/profile/', profile);
+  store.dispatch({
+    type: SET_USER_PROFILE,
+    payload: { user: { ...response.data.user, ...response.data.profile }}
+  });
+
+  await post('kyc/national_code/');
+}
 
 export const getUserBankCards = async () => {
   const response = await get('bank-card/');
