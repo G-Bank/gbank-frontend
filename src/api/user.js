@@ -20,8 +20,7 @@ export const getUserAccount = async () => {
   store.dispatch({
     type: ACCOUNT_INITIALIZE,
     // TODO: choose current account
-    // TODO: change balance to balances
-    payload: { balances: response.data.accounts[0].balance },
+    payload: { balances: response.data.accounts[0].balances },
   });
 };
 

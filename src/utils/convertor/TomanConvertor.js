@@ -18,11 +18,11 @@ const Numbers = {
   9: '۹',
   0: '۰'
 };
-export const getPersianNumber = (number) => {
+export const getPersianNumber = (number, commaSeparated = true) => {
   if (!number) {
     return '';
   }
-  const _numbers = numberWithCommas(number);
+  const _numbers = commaSeparated ? numberWithCommas(number) : number.toString();
   let _string = '';
   for (let i = 0, len = _numbers.length; i < len; i++) {
     if (Numbers[_numbers[i]]) {
@@ -33,5 +33,14 @@ export const getPersianNumber = (number) => {
   }
   return _string;
 };
+
+const Texts = {
+  0: 'صفر',
+  1: 'یک',
+  2: 'دو',
+  3: 'سه',
+}
+
+export const getPersianTextOfNumber = (number) => Texts[number];
 
 export default TomanConverter;
