@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // third patry
 import { useSelector } from 'react-redux';
@@ -13,22 +13,18 @@ import Loader from '../../ui-component/Loader';
 import { Avatar, Button, Grid, Typography } from '@mui/material';
 import settingsIcon from '../../assets/images/icons/settings.svg';
 import alertIcon from '../../assets/images/icons/alert.svg';
-import coinPic from '../../assets/images/coin.png';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
 import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
-import { getUserAccount } from '../../api/user';
+import { currencyDetails } from '../models/currency';
+import images from '../../assets/images';
 
 const HomePage = () => {
-  const { balances } = useSelector((state) => state.account);
-
-  useEffect(() => {
-    getUserAccount();
-  }, []);
+  const { user, balances } = useSelector((state) => state.account);
   
-  if (!balances) {
+  if (!balances || !user) {
     return <Loader />;
   }
 
@@ -36,7 +32,7 @@ const HomePage = () => {
     <Box>
       <Box display="flex" justifyContent="space-between">
         <Link to="/profile">
-          <Avatar />
+          <Avatar src={user.picture} />
         </Link>
         <Box display="flex" gap={1}>
           <img alt="alert" src={alertIcon} />
@@ -47,16 +43,18 @@ const HomePage = () => {
       <MainCard title={strings?.wallet}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} mb={3} width="100%">
           <Box display="flex" flexDirection="column" gap={1}>
+            {/* TODO: get from server */}
             <Typography variant="subtitle2">معادل موجودی شما به طلا</Typography>
             <Typography variant="h2">{getPersianNumber(44494949)}</Typography>
           </Box>
           <Box display="flex" gap={1}>
-            <img width={60} height={60} alt="balance" src={coinPic} />
+            <img width={60} height={60} alt="balance" src={images.gold} />
           </Box>
         </Box>
-
-        <TransactionRow title="gold" imageUrl={coinPic} amount={25432003} />
-        <TransactionRow title="bitcoin" imageUrl={coinPic} amount={25432003} />
+        {balances.map(balance => {
+          const { title, picture } = currencyDetails[balance.currency];
+          return <TransactionRow title={title} imageUrl={picture} amount={balance.value} />
+        })}
         <MoreOptions />
 
         <Grid container gap={1} mt={3}>
@@ -73,16 +71,16 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.transactions}>
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <MoreOptions />
       </MainCard>
 
       <MainCard title={strings?.exchange}>
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={coinPic} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <MoreOptions />
       </MainCard>
 

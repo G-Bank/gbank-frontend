@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -11,15 +10,9 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle } from '@mui/icons-material';
 import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getUserBankCards, getUserProfile } from '../../../api/user';
 
 const ProfilePage = () => {
   const { user, cards } = useSelector((state) => state.account);
-
-  useEffect(() => {
-    getUserProfile();
-    getUserBankCards();
-  }, []);
 
   if (!user || !cards) {
     return <Loader />;

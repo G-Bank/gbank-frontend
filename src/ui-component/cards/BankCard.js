@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { splitCardNumber } from '../../utils/convertor/TomanConvertor';
-import bankLogo from '../../assets/images/pasargad.png';
+import bankLogo from '../../assets/images/finance/pasargad.png';
 
 const MainCard = ({ bankName, cardNumber }) => {
   return (
