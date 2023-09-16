@@ -8,16 +8,18 @@ export const initialState = {
   user: null,
   balances: [],
   transactions: [],
-  cards: []
+  cards: [],
+  accountId: null,
 };
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACCOUNT_INITIALIZE: {
-      const { balances } = action.payload;
+      const { account } = action.payload;
       return {
         ...state,
-        balances
+        balances: account.balances,
+        accountId: account.id,
       };
     }
     case SET_USER_PICTURE: {
@@ -55,11 +57,7 @@ const accountReducer = (state = initialState, action) => {
     }
     case LOGOUT: {
       return {
-        ...state,
-        isLoggedIn: false,
-        token: '',
-        user: null,
-        hasAccount: false
+        ...initialState,
       };
     }
     default: {

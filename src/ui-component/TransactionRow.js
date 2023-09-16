@@ -24,7 +24,7 @@ TransactionRow.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   imageUrl: PropTypes.string,
-  amount: PropTypes.string,
+  amount: PropTypes.number,
   unit: PropTypes.string
 };
 

@@ -20,7 +20,7 @@ export const getUserAccount = async () => {
   store.dispatch({
     type: ACCOUNT_INITIALIZE,
     // TODO: choose current account
-    payload: { balances: response.data.accounts[0].balances }
+    payload: { account: response.data.accounts[0] }
   });
 };
 
@@ -57,3 +57,5 @@ export const getUserBankCards = async () => {
     payload: { cards: response.data.bank_cards }
   });
 };
+
+export const getMaxWithdrawLimit = (accountId, currency) => get('withdraw/limit/', { account_id: accountId, currency });

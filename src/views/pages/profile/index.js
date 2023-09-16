@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -11,9 +11,11 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle, Edit } from '@mui/icons-material';
 import { getPersianNumber, getPersianTextOfNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
+import { getMaxWithdrawLimit } from '../../../api/user';
 
 const ProfilePage = () => {
-  const { user, cards } = useSelector((state) => state.account);
+  const [maxWithdrawLimit, setMaxWithdrawLimit] = useState(null);
+  const { user, cards, accountId } = useSelector((state) => state.account);
 
   const userName = useMemo(() => {
     if (user.firstname || user.lastname) {
@@ -21,7 +23,13 @@ const ProfilePage = () => {
     }
   }, [user]);
 
-  if (!user || !cards) {
+  useEffect(() => {
+    getMaxWithdrawLimit(accountId, 'irr').then((res) => {
+      setMaxWithdrawLimit(res.data.limit);
+    });
+  }, [accountId]);
+
+  if (!maxWithdrawLimit) {
     return <Loader />;
   }
 
@@ -69,8 +77,7 @@ const ProfilePage = () => {
         <Box display="flex" justifyContent="space-between">
           <Typography>{strings?.maxDailyWithdraw}</Typography>
           <Typography>
-            {/* TODO: max daily withdraw */}
-            {getPersianNumber(114572382)} {strings?.rial}
+            {getPersianNumber(maxWithdrawLimit)} {strings?.toman}
           </Typography>
         </Box>
       </MainCard>

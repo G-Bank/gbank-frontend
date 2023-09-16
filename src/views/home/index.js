@@ -35,6 +35,7 @@ const HomePage = () => {
           <Avatar src={user.picture} />
         </Link>
         <Box display="flex" gap={1}>
+          {/* TODO: click on these buttons */}
           <img alt="alert" src={alertIcon} />
           <img alt="settings" src={settingsIcon} />
         </Box>
@@ -43,7 +44,7 @@ const HomePage = () => {
       <MainCard title={strings?.wallet}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} mb={3} width="100%">
           <Box display="flex" flexDirection="column" gap={1}>
-            {/* TODO: get from server */}
+            {/* TODO: all balance to gold */}
             <Typography variant="subtitle2">معادل موجودی شما به طلا</Typography>
             <Typography variant="h2">{getPersianNumber(44494949)}</Typography>
           </Box>
@@ -71,6 +72,7 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.transactions}>
+        {/* TODO: transactions history */}
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
@@ -78,6 +80,7 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.exchange}>
+        {/* TODO: exchange history */}
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
