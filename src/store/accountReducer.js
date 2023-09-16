@@ -22,7 +22,6 @@ const accountReducer = (state = initialState, action) => {
     }
     case SET_USER_PICTURE: {
       const { picture } = action.payload;
-      console.log(picture);
       return {
         ...state,
         user: {

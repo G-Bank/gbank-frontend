@@ -40,7 +40,7 @@ export const setUserProfile = async (profile) => {
   });
 };
 
-export const registerNationalCode = () => post('kyc/national_code');
+export const registerNationalCode = () => post('kyc/national_code/');
 
 export const setUserProfilePicture = async (data) => {
   const response = await post('user/picture/', data, null, 'multipart/form-data');

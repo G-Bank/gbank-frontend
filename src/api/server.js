@@ -11,6 +11,6 @@ export const post = (endpoint, body, params, contentType) => {
   const token = store.getState().account?.token;
   return axios.post(`${config.API_SERVER}${endpoint}`, body, {
     params,
-    headers: { Authorization: token && `Token ${token}`, contentType }
+    headers: { Authorization: token && `Token ${token}`, 'Content-type': contentType || 'application/json' }
   });
 };
