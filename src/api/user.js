@@ -63,4 +63,9 @@ export const getUserBankCards = async () => {
   });
 };
 
+export const addNewBankCard = async (cardNumber) => {
+  await post('bank-card/', { card_number: cardNumber });
+  await getUserBankCards();
+};
+
 export const getMaxWithdrawLimit = (accountId, currency) => get('withdraw/limit/', { account_id: accountId, currency });

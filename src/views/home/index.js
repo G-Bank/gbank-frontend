@@ -32,7 +32,7 @@ const HomePage = () => {
     <Box>
       <Box display="flex" justifyContent="space-between">
         <Link to="/profile">
-          <Avatar src={user.picture} />
+          <Avatar alt={user.firstname} src={user.picture} />
         </Link>
         <Box display="flex" gap={1}>
           {/* TODO: click on these buttons */}

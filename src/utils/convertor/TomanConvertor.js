@@ -4,7 +4,15 @@ const TomanConverter = (toman) => {
 
 const numberWithCommas = (amount) => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-export const splitCardNumber = number => number.toString().replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
+export const splitCardNumber = (number) =>
+  number.toString()
+    .split('')
+    .reverse()
+    .join('')
+    .replace(/\B(?=(\d{4})+(?!\d))/g, ' ')
+    .split('')
+    .reverse()
+    .join('');
 
 const Numbers = {
   1: '۱',
@@ -38,8 +46,8 @@ const Texts = {
   0: 'صفر',
   1: 'یک',
   2: 'دو',
-  3: 'سه',
-}
+  3: 'سه'
+};
 
 export const getPersianTextOfNumber = (number) => Texts[number];
 
