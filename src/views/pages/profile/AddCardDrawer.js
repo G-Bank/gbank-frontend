@@ -36,19 +36,21 @@ const AddCardDrawer = ({ open, onClose }) => {
   const handleSetCardNumber = (e) => {
     const value = e.target.value.replace(/ /g, '');
     if (value.length === 0 || (!isNaN(parseInt(value, 10)) && value.length <= 16)) {
+      setError('');
       setCardNumber(value);
     }
   };
 
   useEffect(() => {
     setCardNumber('');
+    setError('');
   }, [open]);
 
   return (
     <SwipeableDrawer anchor="bottom" open={open} onClose={onClose} onOpen={() => {}}>
       <Box p={2}>
         {loading && <Loader />}
-        <BackHeader title={strings?.addNewCard} />
+        <BackHeader title={strings?.addNewCard} onClick={onClose} />
 
         <Box bgcolor="#E0E0E0" p={3} my={3} borderRadius={3}>
           <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
