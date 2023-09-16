@@ -11,7 +11,7 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle, Edit } from '@mui/icons-material';
 import { getPersianNumber, getPersianTextOfNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getMaxWithdrawLimit } from '../../../api/user';
+import { getMaxWithdrawLimit, logoutUser } from '../../../api/user';
 
 const ProfilePage = () => {
   const [maxWithdrawLimit, setMaxWithdrawLimit] = useState(null);
@@ -29,6 +29,8 @@ const ProfilePage = () => {
     });
   }, [accountId]);
 
+  const handleLogout = () => logoutUser();
+
   if (!maxWithdrawLimit) {
     return <Loader />;
   }
@@ -45,6 +47,9 @@ const ProfilePage = () => {
         </Link>
         {userName && <Typography variant="h4">{userName}</Typography>}
         <Typography variant="h5">{getPersianNumber(user.phone_number, false)}</Typography>
+        <Button variant="contained" color="error" onClick={handleLogout}>
+          {strings?.logout}
+        </Button>
       </Box>
 
       {/* TODO: fetch bank name */}

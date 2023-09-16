@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { ACCOUNT_INITIALIZE, LOGIN, SET_BANK_CARDS, SET_USER_PICTURE, SET_USER_PROFILE } from '../store/actions';
+import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_USER_PICTURE, SET_USER_PROFILE } from '../store/actions';
 import { get, post } from './server';
 
 export const getOTP = (phoneNumber) => post('login/', { phone_number: phoneNumber });
@@ -13,6 +13,11 @@ export const loginUser = async (phoneNumber, otp) => {
   getUserAccount();
   getUserProfile();
   getUserBankCards();
+};
+
+export const logoutUser = async () => {
+  await post('logout/');
+  store.dispatch({ type: LOGOUT });
 };
 
 export const getUserAccount = async () => {
