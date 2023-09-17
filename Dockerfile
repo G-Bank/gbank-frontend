@@ -9,11 +9,12 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json ./
-RUN npm install --silent
-RUN npm install react-scripts@4.0.0 -g --silent
+RUN npm install
+RUN npm install react-scripts@4.0.0 -g
 
 # add app
 COPY . ./
+ENV NODE_ENV production
 
 # Expose port
 EXPOSE 3000
