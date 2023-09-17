@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
 
-  sample:
+  front_end:
     container_name: react-gbank
     build:
       context: .
