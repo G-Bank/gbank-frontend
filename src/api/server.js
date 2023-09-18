@@ -11,6 +11,7 @@ export const get = async (endpoint, params) => {
     if (err.response.status === 401) {
       logoutUser();
     }
+    throw err;
   }
 };
 
@@ -24,6 +25,7 @@ export const post = async (endpoint, body, params, contentType) => {
   } catch (err) {
     if (err.response.status === 401) {
       logoutUser();
+      throw err;
     }
   }
 };
