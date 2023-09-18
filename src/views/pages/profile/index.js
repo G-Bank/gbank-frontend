@@ -69,8 +69,8 @@ const ProfilePage = () => {
             <AddCircle />
           </Box>
         </Box>
-        {cards.map((card, index) => (
-          <MainCard>
+        {cards.map((card) => (
+          <MainCard key={card.card_number}>
             <BankCard bankName="پاسارگاد" cardNumber={card.card_number} />
           </MainCard>
         ))}

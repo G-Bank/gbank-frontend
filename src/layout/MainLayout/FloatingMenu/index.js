@@ -41,8 +41,8 @@ const FloatingMenu = () => {
             { name: strings?.allServices, Icon: <img alt='transfer' src={servicesIcon} />, link: '' },
             { name: strings?.transfer, Icon: <img alt='transfer' src={transferIcon} />, link: '/transfer' },
             { name: strings?.home, Icon: <img alt='home' src={homeIcon} />, link: '/dashboard' },
-          ].map((item, index) => (
-            <Grid container key={index} item xs={4} flexDirection={'column'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
+          ].map(item => (
+            <Grid container key={item.name} item xs={4} flexDirection={'column'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
               <Grid item display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
                 {item.Icon}
                 <Typography m='3px' variant='subtitle2'>{item.name}</Typography>
