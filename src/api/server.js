@@ -1,7 +1,9 @@
 import axios from 'axios';
 import config from '../config';
 import { store } from '../store';
-import { logoutUser } from './user';
+import { LOGOUT } from '../store/actions';
+
+const logout = () => store.dispatch({ type: LOGOUT });
 
 export const get = async (endpoint, params) => {
   try {
@@ -9,7 +11,7 @@ export const get = async (endpoint, params) => {
     return await axios.get(`${config.API_SERVER}${endpoint}`, { params, headers: { Authorization: `Token ${token}` } });
   } catch (err) {
     if (err.response.status === 401) {
-      logoutUser();
+      logout();
     }
     throw err;
   }
@@ -24,8 +26,8 @@ export const post = async (endpoint, body, params, contentType) => {
       });
   } catch (err) {
     if (err.response.status === 401) {
-      logoutUser();
-      throw err;
+      logout();
     }
+    throw err;
   }
 };
