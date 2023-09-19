@@ -12,6 +12,7 @@ import { cancelOrder, getCurrencyList, getExchanges, openExchangeOrder } from '.
 import { getPersianNumber, numberWithCommas } from '../../utils/convertor/TomanConvertor';
 import { icons } from '../../assets/images';
 import { currencyDetails } from '../models/currency';
+import MoreOptions from '../../ui-component/MoreOptions';
 
 const useStyles = makeStyles(() => ({
   cancelButton: {
@@ -210,9 +211,14 @@ const ExchangePage = () => {
         </Button>
       </MainCard>
 
-      <MainCard title={strings?.openOrders}>{openOrders.map((order) => renderTransactionRow(order))}</MainCard>
+      <MainCard title={strings?.openOrders}>
+        {openOrders.map((order) => renderTransactionRow(order))}
+        <MoreOptions />
+      </MainCard>
 
-      <MainCard title={strings?.transactions}>{closedOrders.map((order) => renderTransactionRow(order))}</MainCard>
+      <MainCard title={strings?.transactions}>{closedOrders.map((order) => renderTransactionRow(order))}
+        <MoreOptions />
+      </MainCard>
 
       <Dialog open={cancelPromot.open} onClose={handleCloseCancelPrompt}>
         <DialogTitle>{strings?.areYouSure}</DialogTitle>
