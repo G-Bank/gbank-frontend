@@ -84,6 +84,10 @@ export const strings = new LocalizedStrings({
     amountYouReceive: 'The amount you receive',
     notEnoughBalance: 'Not Enouch Balance',
     openOrders: 'Open Orders',
+    receivingAmount: 'Receiving Amount',
+    areYouSure: 'Are You Sure?',
+    yes: 'Yes',
+    no: 'No',
   },
   fa: {
     // brand
@@ -168,5 +172,9 @@ export const strings = new LocalizedStrings({
     amountYouReceive: 'مقداری که دریافت می‌کنید',
     notEnoughBalance: 'موجودی حساب شما کافی نیست',
     openOrders: 'سفارش های باز',
+    receivingAmount: 'مقدار دریافتی',
+    areYouSure: 'آیا مطمئن هستید؟',
+    yes: 'بله',
+    no: 'خیر',
   }
 });
