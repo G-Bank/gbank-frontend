@@ -1,12 +1,9 @@
 // material-ui
 import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
-
-import homeIcon from '../../../assets/images/icons/home.svg';
-import transferIcon from '../../../assets/images/icons/transfer.svg';
-import servicesIcon from '../../../assets/images/icons/services.svg';
+import { makeStyles } from '@mui/styles';
 
 import { strings } from '../../../localizedString';
-import { makeStyles } from '@mui/styles';
+import { icons } from '../../../assets/images';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -38,9 +35,9 @@ const FloatingMenu = () => {
       <Toolbar>
         <Grid container className={styles.container}>
           {[
-            { name: strings?.allServices, Icon: <img alt='transfer' src={servicesIcon} />, link: '' },
-            { name: strings?.transfer, Icon: <img alt='transfer' src={transferIcon} />, link: '/transfer' },
-            { name: strings?.home, Icon: <img alt='home' src={homeIcon} />, link: '/dashboard' },
+            { name: strings?.allServices, Icon: <img alt='transfer' src={icons.servicesIcon} />, link: '' },
+            { name: strings?.transfer, Icon: <img alt='transfer' src={icons.transferIcon} />, link: '/transfer' },
+            { name: strings?.home, Icon: <img alt='home' src={icons.homeIcon} />, link: '/dashboard' },
           ].map(item => (
             <Grid container key={item.name} item xs={4} flexDirection={'column'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
               <Grid item display='flex' flexDirection='column' alignItems='center' justifyContent='center'>

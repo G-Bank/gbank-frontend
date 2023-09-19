@@ -25,6 +25,7 @@ export const strings = new LocalizedStrings({
     gold: 'Gold',
     usdt: 'Tether',
     btc: 'Bitcoin',
+    usd: 'Dollar',
     exchange: 'exchange',
     transfer: 'transfer',
     charge: 'charge',
@@ -74,7 +75,13 @@ export const strings = new LocalizedStrings({
     // transfer
     currentWallet: 'Your maximum transfer limit',
     messageForSelect: 'Select the receiver.',
-    selectTypeOfTransfer: 'Select transfer source'
+    selectTypeOfTransfer: 'Select transfer source',
+
+    // exchange
+    amountYouPay: 'The amount you pay',
+    stock: 'Stock',
+    exchangeRate: 'Exchange Rate',
+    amountYouReceive: 'The amount you receive',
   },
   fa: {
     // brand
@@ -100,6 +107,7 @@ export const strings = new LocalizedStrings({
     gold: 'طلا',
     usdt: 'تتر',
     btc: 'بیت کوین',
+    usd: 'دلار',
     exchange: 'تبدیل',
     transfer: 'انتقال',
     charge: 'واریز',
@@ -149,6 +157,12 @@ export const strings = new LocalizedStrings({
     // transfer
     currentWallet: 'بیشینه مقدار قابل انتقال',
     messageForSelect: 'دریافت کننده وجه را انتخاب کنید',
-    selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید'
+    selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید',
+
+    // exchange
+    amountYouPay: 'مقداری که پرداخت می‌کنید',
+    stock: 'سهم',
+    exchangeRate: 'نرخ تبدیل',
+    amountYouReceive: 'مقداری که دریافت می‌کنید',
   }
 });

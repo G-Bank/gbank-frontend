@@ -2,7 +2,7 @@ const TomanConverter = (toman) => {
   return <>{toman === 0 || toman === '0' ? <span>رایگان</span> : `${(toman * 10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}</>;
 };
 
-const numberWithCommas = (amount) => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const numberWithCommas = (amount) => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export const splitCardNumber = (number) =>
   number.toString()

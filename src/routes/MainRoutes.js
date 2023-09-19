@@ -13,12 +13,13 @@ const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
 const AuthPage = Loadable(lazy(() => import('../views/pages/profile/ProfileAuthentication')));
 const EditProfilePage = Loadable(lazy(() => import('../views/pages/profile/EditProfile')));
 const TransferPage = Loadable(lazy(() => import('../views/transfer')));
+const ExchangePage = Loadable(lazy(() => import('../views/exchange')));
 
 const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard', '/profile', '/authentication', '/edit', '/transfer']}>
+    <Route path={['/dashboard', '/profile', '/authentication', '/edit', '/transfer', '/exchange']}>
       <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
@@ -28,6 +29,7 @@ const MainRoutes = () => {
               <Route path="/edit" component={EditProfilePage} />
               <Route path="/authentication" component={AuthPage} />
               <Route path="/transfer" component={TransferPage} />
+              <Route path="/exchange" component={ExchangePage} />
             </AccountGuard>
           </AuthGuard>
         </Switch>

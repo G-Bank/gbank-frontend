@@ -11,15 +11,13 @@ import Box from '@mui/material/Box';
 import FloatingMenu from '../../layout/MainLayout/FloatingMenu';
 import Loader from '../../ui-component/Loader';
 import { Avatar, Button, Grid, Typography } from '@mui/material';
-import settingsIcon from '../../assets/images/icons/settings.svg';
-import alertIcon from '../../assets/images/icons/alert.svg';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
 import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
-import images from '../../assets/images';
+import { icons, images } from '../../assets/images';
 
 const HomePage = () => {
   const { user, balances } = useSelector((state) => state.account);
@@ -36,8 +34,8 @@ const HomePage = () => {
         </Link>
         <Box display="flex" gap={1}>
           {/* TODO: click on these buttons */}
-          <img alt="alert" src={alertIcon} />
-          <img alt="settings" src={settingsIcon} />
+          <img alt="alert" src={icons.alertIcon} />
+          <img alt="settings" src={icons.settingsIcon} />
         </Box>
       </Box>
 
@@ -65,9 +63,11 @@ const HomePage = () => {
           <Button variant="contained" color="secondary">
             {strings?.transfer}
           </Button>
-          <Button variant="contained" color="info">
-            {strings?.exchange}
-          </Button>
+          <Link to="/exchange">
+            <Button variant="contained" color="info">
+              {strings?.exchange}
+            </Button>
+          </Link>
         </Grid>
       </MainCard>
 
