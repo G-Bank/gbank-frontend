@@ -82,6 +82,8 @@ export const strings = new LocalizedStrings({
     stock: 'Stock',
     exchangeRate: 'Exchange Rate',
     amountYouReceive: 'The amount you receive',
+    notEnoughBalance: 'Not Enouch Balance',
+    openOrders: 'Open Orders',
   },
   fa: {
     // brand
@@ -164,5 +166,7 @@ export const strings = new LocalizedStrings({
     stock: 'سهم',
     exchangeRate: 'نرخ تبدیل',
     amountYouReceive: 'مقداری که دریافت می‌کنید',
+    notEnoughBalance: 'موجودی حساب شما کافی نیست',
+    openOrders: 'سفارش های باز',
   }
 });
