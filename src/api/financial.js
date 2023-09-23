@@ -3,6 +3,8 @@ import { get, post } from './server';
 
 export const getCurrencyList = () => get('currency/');
 
+export const getExchangeRate = (from, to) => get('exchange/rate/', { currency1: from, currency2: to });
+
 export const openExchangeOrder = (from, to, amount) =>
   post('crypto/exchange/', { account_id: store.getState().account.accountId, from_currency: from, to_currency: to, amount });
 

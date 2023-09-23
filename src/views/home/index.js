@@ -52,7 +52,7 @@ const HomePage = () => {
         </Box>
         {balances.map((balance) => {
           const { title, picture } = currencyDetails[balance.currency];
-          return <TransactionRow key={title} title={title} imageUrl={picture} amount={balance.value} />;
+          return <TransactionRow key={title} title={title} imageUrl={picture} amount={balance.amount} />;
         })}
         <MoreOptions />
 

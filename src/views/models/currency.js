@@ -14,6 +14,10 @@ export const currencyDetails = {
     title: strings?.gold,
     picture: images.gold,
   },
+  'lotf-gold': {
+    title: strings?.gold,
+    picture: images.gold,
+  },
   usdt: {
     title: strings?.usdt,
     picture: images.tether,

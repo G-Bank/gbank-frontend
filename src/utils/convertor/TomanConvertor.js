@@ -24,10 +24,11 @@ const Numbers = {
   7: '۷',
   8: '۸',
   9: '۹',
-  0: '۰'
+  0: '۰',
+  '.': '/',
 };
 export const getPersianNumber = (number, commaSeparated = true) => {
-  if (!number) {
+  if (!number && number !== 0) {
     return '';
   }
   const _numbers = commaSeparated ? numberWithCommas(number) : number.toString();

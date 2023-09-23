@@ -8,7 +8,7 @@ import BackHeader from '../../ui-component/BackHeader';
 import Loader from '../../ui-component/Loader';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
-import { cancelOrder, getCurrencyList, getExchanges, openExchangeOrder } from '../../api/financial';
+import { cancelOrder, getCurrencyList, getExchangeRate, getExchanges, openExchangeOrder } from '../../api/financial';
 import { getPersianNumber, numberWithCommas } from '../../utils/convertor/TomanConvertor';
 import { icons } from '../../assets/images';
 import { currencyDetails } from '../models/currency';
@@ -47,10 +47,10 @@ const ExchangePage = () => {
   const [orders, setOrders] = useState([]);
   const [originCurrency, setOriginCurrency] = useState('');
   const [destinationCurrency, setDestinationCurrency] = useState('');
+  const [exchangeLoading, setExchangeLoading] = useState(false);
+  const [exchange, setExchange] = useState(1);
   const [error, setError] = useState('');
   const [cancelPromot, setCancelPrompt] = useState({ open: false, deletingOrderId: null });
-
-  const rate = 5000;
 
   const { openOrders, closedOrders } = useMemo(() => {
     const opens = [];
@@ -66,6 +66,35 @@ const ExchangePage = () => {
     return { openOrders: opens, closedOrders: closed };
   }, [orders]);
 
+  const receivingAmount = useMemo(() => {
+    if (!exchange) {
+      return 0;
+    }
+
+    const { base, buy, sell } = exchange;
+
+    if (base === originCurrency) {
+      return payAmount / sell;
+    } else if (base === destinationCurrency) {
+      return payAmount * buy;
+    }
+
+    return 0;
+  }, [payAmount, exchange, originCurrency, destinationCurrency]);
+
+  const exchangeRate = useMemo(() => {
+    if (!exchange) {
+      return 0;
+    }
+    const { base, buy, sell } = exchange;
+
+    if (base === originCurrency) {
+      return sell;
+    } else if (base === destinationCurrency) {
+      return buy;
+    }
+  }, [exchange, originCurrency, destinationCurrency]);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -75,6 +104,18 @@ const ExchangePage = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (originCurrency && destinationCurrency) {
+      setExchangeLoading(true);
+      getExchangeRate(originCurrency, destinationCurrency)
+        .then((response) => {
+          setExchange(response.data);
+          setExchangeLoading(false);
+        })
+        .catch(() => setExchangeLoading(false));
+    }
+  }, [originCurrency, destinationCurrency]);
 
   const handleSwitch = () => {
     setOriginCurrency(destinationCurrency);
@@ -124,7 +165,6 @@ const ExchangePage = () => {
       .catch(() => setLoading(false));
   };
 
-
   const renderSelect = (value, onChange) => (
     <Select value={value} onChange={onChange}>
       {currencyList.map((currency) => {
@@ -166,7 +206,14 @@ const ExchangePage = () => {
           </Box>
         </Box>
         {!order.closed_at && (
-          <Box display="flex" justifyContent='flex-end' gap={1} mt={1} pl={1} onClick={() => setCancelPrompt({ open: true, deletingOrderId: order.id })}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            gap={1}
+            mt={1}
+            pl={1}
+            onClick={() => setCancelPrompt({ open: true, deletingOrderId: order.id })}
+          >
             <Typography>{strings?.cancel}</Typography>
             <Close className={styles.cancelButton} />
           </Box>
@@ -193,20 +240,20 @@ const ExchangePage = () => {
         <Box display="flex" justifyContent="space-between" my={3}>
           <img alt="switch" src={icons.switchIcon} onClick={handleSwitch} />
           <Typography style={{ margin: 'auto' }} variant="h3">
-            {strings?.exchangeRate} {getPersianNumber(rate)}
+            {strings?.exchangeRate} {getPersianNumber(exchangeRate, false)}
           </Typography>
         </Box>
 
         <Typography>{strings?.amountYouReceive}</Typography>
         <Box my={2} display="flex" justifyContent="space-between">
-          <Input readOnly value={getPersianNumber(payAmount * rate)} />
+          <Input readOnly value={getPersianNumber(receivingAmount)} />
           {renderSelect(destinationCurrency, (e) => setDestinationCurrency(e.target.value))}
         </Box>
 
         <Typography my={1} mx="auto" variant="h5" color="error">
           {error}
         </Typography>
-        <Button fullWidth variant="contained" color="secondary" onClick={handleSubmit}>
+        <Button fullWidth disabled={exchangeLoading} variant="contained" color="secondary" onClick={handleSubmit}>
           {strings?.exchange}
         </Button>
       </MainCard>
@@ -216,7 +263,8 @@ const ExchangePage = () => {
         <MoreOptions />
       </MainCard>
 
-      <MainCard title={strings?.transactions}>{closedOrders.map((order) => renderTransactionRow(order))}
+      <MainCard title={strings?.transactions}>
+        {closedOrders.map((order) => renderTransactionRow(order))}
         <MoreOptions />
       </MainCard>
 
