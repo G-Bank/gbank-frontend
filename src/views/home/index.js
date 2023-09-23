@@ -18,15 +18,19 @@ import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
 import { icons, images } from '../../assets/images';
-import { getExchangeRate } from '../../api/financial';
+import { convertCurrency } from '../../api/financial';
+import { useMemo } from 'react';
+import ExchangeRow from '../../ui-component/ExchangeRow';
+
+const baseCurrency = 'lotf-gold';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [allBalance, setAllBalance] = useState(0);
 
-  const { user, balances } = useSelector((state) => state.account);
+  const { user, balances, transactions } = useSelector((state) => state.account);
 
-  const baseCurrency = 'lotf-gold';
+  const exchangeHistory = useMemo(() => transactions.filter((trx) => trx.type === 'exchange'), [transactions]);
 
   useEffect(() => {
     const loadTotalBalance = async () => {
@@ -34,34 +38,19 @@ const HomePage = () => {
         setAllBalance(0);
         return;
       }
-  
+
       setLoading(true);
       for (const balance of balances) {
-        if (balance.currency === baseCurrency) {
-          setAllBalance(ab => ab + balance.amount);
-          continue;
-        }
-  
-        if (balance.amount === 0) {
-          continue;
-        }
-  
-        const { data: { base, sell, buy } } = await getExchangeRate(balance.currency, baseCurrency);
-  
-        if (base === balance.currency) {
-          console.log(balance.amount, sell, balance.amount / sell);
-          setAllBalance(ab => ab + balance.amount / sell);
-        } else if (base === baseCurrency) {
-          setAllBalance(ab => ab + balance.amount * buy);
-        }
+        const { amount } = await convertCurrency(balance.currency, baseCurrency, balance.amount);
+        setAllBalance((ab) => ab + amount);
       }
       setLoading(false);
     };
 
     loadTotalBalance();
-  }, [balances, baseCurrency]);
+  }, [balances]);
 
-  if (!balances || !user || loading) {
+  if (!balances || !user || !transactions || loading) {
     return <Loader />;
   }
 
@@ -118,10 +107,9 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.exchange}>
-        {/* TODO: exchange history */}
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        {exchangeHistory.map((trx, index) => (
+          <ExchangeRow key={index} {...trx} />
+        ))}
         <MoreOptions />
       </MainCard>
 

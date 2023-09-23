@@ -10,4 +10,33 @@ export const openExchangeOrder = (from, to, amount) =>
 
 export const getExchanges = () => get('crypto/exchange/');
 
+let lastRate = {
+  symbol: null,
+  base: null,
+  sell: null,
+  buy: null
+};
+export const convertCurrency = async (from, to, amount) => {
+  if (from === to) {
+    return { amount, rate: 1 };
+  }
+
+  if (lastRate.from !== from && lastRate.to !== to) {
+    const { data } = await getExchangeRate(from, to);
+    lastRate = data;
+    lastRate.from = from;
+    lastRate.to = to;
+  }
+
+  let result = { amount: 0, rate: 0 };
+  const { base, sell, buy } = lastRate;
+  if (base === from) {
+    result = { amount: amount / sell, rate: sell };
+  } else if (base === to) {
+    result = { amount: amount * buy, rate: buy };
+  }
+
+  return result;
+};
+
 export const cancelOrder = (orderId) => post('crypto/exchange/cancel/', { order_id: orderId });

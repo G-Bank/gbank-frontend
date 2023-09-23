@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_USER_PICTURE, SET_USER_PROFILE } from '../store/actions';
+import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_TRANSACTIONS, SET_USER_PICTURE, SET_USER_PROFILE } from '../store/actions';
 import { get, post } from './server';
 
 export const getOTP = (phoneNumber) => post('login/', { phone_number: phoneNumber });
@@ -13,6 +13,7 @@ export const loginUser = async (phoneNumber, otp) => {
   getUserAccount();
   getUserProfile();
   getUserBankCards();
+  getUserTransactions();
 };
 
 export const logoutUser = async () => {
@@ -69,3 +70,11 @@ export const addNewBankCard = async (cardNumber) => {
 };
 
 export const getMaxWithdrawLimit = (accountId, currency) => get('withdraw/limit/', { account_id: accountId, currency });
+
+export const getUserTransactions = async () => {
+  const response = await get('transactions/');
+  store.dispatch({
+    type: SET_TRANSACTIONS,
+    payload: { transactions: response.data.transactions }
+  });
+};
