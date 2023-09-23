@@ -40,3 +40,6 @@ export const convertCurrency = async (from, to, amount) => {
 };
 
 export const cancelOrder = (orderId) => post('crypto/exchange/cancel/', { order_id: orderId });
+
+export const transferRequest = (from, to, amount, currency, description) =>
+  post('transfer/', { to_account_id: to, from_account_id: from, amount, currency, description });
