@@ -76,6 +76,7 @@ export const strings = new LocalizedStrings({
     currentWallet: 'Your maximum transfer limit',
     messageForSelect: 'Select the receiver.',
     selectTypeOfTransfer: 'Select transfer source',
+    continue: 'Continue',
 
     // exchange
     amountYouPay: 'The amount you pay',
@@ -164,6 +165,7 @@ export const strings = new LocalizedStrings({
     currentWallet: 'بیشینه مقدار قابل انتقال',
     messageForSelect: 'دریافت کننده وجه را انتخاب کنید',
     selectTypeOfTransfer: 'منبع انتقال را انتخاب کنید',
+    continue: 'ادامه',
 
     // exchange
     amountYouPay: 'مقداری که پرداخت می‌کنید',

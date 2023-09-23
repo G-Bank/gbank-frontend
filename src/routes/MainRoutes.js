@@ -6,6 +6,7 @@ import Loadable from '../ui-component/Loadable';
 import AuthGuard from './../utils/route-guard/AuthGuard';
 import AccountGuard from '../utils/route-guard/AccountGuard';
 import MinimalLayout from '../layout/MinimalLayout';
+import TransferRoutes from './TransferRoutes';
 
 // sample page routing
 const HomePage = Loadable(lazy(() => import('../views/home')));
@@ -30,6 +31,7 @@ const MainRoutes = () => {
               <Route path="/authentication" component={AuthPage} />
               <Route path="/transfer" component={TransferPage} />
               <Route path="/exchange" component={ExchangePage} />
+              <TransferRoutes />
             </AccountGuard>
           </AuthGuard>
         </Switch>
