@@ -87,9 +87,11 @@ const HomePage = () => {
           <Button variant="contained" color="secondary">
             {strings?.deposite}
           </Button>
-          <Button variant="contained" color="secondary">
-            {strings?.transfer}
-          </Button>
+          <Link to="/transfer">
+            <Button variant="contained" color="secondary">
+              {strings?.transfer}
+            </Button>
+          </Link>
           <Link to="/exchange">
             <Button variant="contained" color="info">
               {strings?.exchange}
