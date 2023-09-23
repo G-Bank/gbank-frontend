@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // third patry
 import { useSelector } from 'react-redux';
@@ -18,11 +18,50 @@ import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
 import { icons, images } from '../../assets/images';
+import { getExchangeRate } from '../../api/financial';
 
 const HomePage = () => {
+  const [loading, setLoading] = useState(false);
+  const [allBalance, setAllBalance] = useState(0);
+
   const { user, balances } = useSelector((state) => state.account);
 
-  if (!balances || !user) {
+  const baseCurrency = 'lotf-gold';
+
+  useEffect(() => {
+    const loadTotalBalance = async () => {
+      if (!balances?.length) {
+        setAllBalance(0);
+        return;
+      }
+  
+      setLoading(true);
+      for (const balance of balances) {
+        if (balance.currency === baseCurrency) {
+          setAllBalance(ab => ab + balance.amount);
+          continue;
+        }
+  
+        if (balance.amount === 0) {
+          continue;
+        }
+  
+        const { data: { base, sell, buy } } = await getExchangeRate(balance.currency, baseCurrency);
+  
+        if (base === balance.currency) {
+          console.log(balance.amount, sell, balance.amount / sell);
+          setAllBalance(ab => ab + balance.amount / sell);
+        } else if (base === baseCurrency) {
+          setAllBalance(ab => ab + balance.amount * buy);
+        }
+      }
+      setLoading(false);
+    };
+
+    loadTotalBalance();
+  }, [balances, baseCurrency]);
+
+  if (!balances || !user || loading) {
     return <Loader />;
   }
 
@@ -42,12 +81,11 @@ const HomePage = () => {
       <MainCard title={strings?.wallet}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} mb={3} width="100%">
           <Box display="flex" flexDirection="column" gap={1}>
-            {/* TODO: all balance to gold */}
-            <Typography variant="subtitle2">معادل موجودی شما به طلا</Typography>
-            <Typography variant="h2">{getPersianNumber(44494949)}</Typography>
+            <Typography variant="subtitle2">معادل موجودی شما به {currencyDetails[baseCurrency].title}</Typography>
+            <Typography variant="h2">{getPersianNumber(Number(allBalance).toFixed(5))}</Typography>
           </Box>
           <Box display="flex" gap={1}>
-            <img width={60} height={60} alt="balance" src={images.gold} />
+            <img width={60} height={60} alt="balance" src={currencyDetails[baseCurrency].picture} />
           </Box>
         </Box>
         {balances.map((balance) => {
