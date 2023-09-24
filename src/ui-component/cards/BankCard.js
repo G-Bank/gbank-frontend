@@ -1,15 +1,14 @@
 import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { splitCardNumber } from '../../utils/convertor/TomanConvertor';
-import bankLogo from '../../assets/images/finance/pasargad.png';
 
-const MainCard = ({ bankName, cardNumber }) => {
+const MainCard = ({ bankName, logo, cardNumber }) => {
   return (
-    <Box my={2} width='100%'>
+    <Box mb={2} width='100%'>
       <Box my={1} borderRadius={4} width='100%' textAlign='center'>
-        <Box display='flex' justifyContent='space-between'>
+        <Box mb={1} display='flex' justifyContent='space-between' alignItems='center'>
           <Typography>{bankName}</Typography>
-          <img alt={bankName} src={bankLogo} />
+          <img width={40} height={40} alt={bankName} src={logo} />
         </Box>
         <Typography variant='h4'>{splitCardNumber(cardNumber)}</Typography>
       </Box>
