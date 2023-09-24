@@ -5,7 +5,6 @@ import { Box, Button, OutlinedInput, SwipeableDrawer, Typography } from '@mui/ma
 import BackHeader from '../../../ui-component/BackHeader';
 import { strings } from '../../../localizedString';
 import { splitCardNumber } from '../../../utils/convertor/TomanConvertor';
-import bankLogo from '../../../assets/images/finance/pasargad.png';
 import { useEffect } from 'react';
 import { addNewBankCard } from '../../../api/user';
 import Loader from '../../../ui-component/Loader';
@@ -53,10 +52,6 @@ const AddCardDrawer = ({ open, onClose }) => {
         <BackHeader title={strings?.addNewCard} onClick={onClose} />
 
         <Box bgcolor="#E0E0E0" p={3} my={3} borderRadius={3}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-            <Typography>پاسارگاد</Typography>
-            <img alt="پاسارگاد" src={bankLogo} />
-          </Box>
           <OutlinedInput
             dir="ltr"
             fullWidth

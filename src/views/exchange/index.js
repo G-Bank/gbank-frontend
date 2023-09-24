@@ -10,10 +10,10 @@ import { cancelOrder, convertCurrency, getCurrencyList, getExchanges, openExchan
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { icons } from '../../assets/images';
 import { currencyDetails } from '../models/currency';
-import MoreOptions from '../../ui-component/MoreOptions';
 import { useSelector } from 'react-redux';
 import ExchangeRow from '../../ui-component/ExchangeRow';
 import { getUserTransactions } from '../../api/user';
+import LimitedList from '../../ui-component/LimitedList';
 
 const ExchangePage = () => {
   const [loading, setLoading] = useState(false);
@@ -156,24 +156,26 @@ const ExchangePage = () => {
       </MainCard>
 
       <MainCard title={strings?.openOrders}>
-        {orders.map((order) => (
-          <ExchangeRow
-            key={order.id}
-            source={order.from_currency}
-            destination={order.to_currency}
-            amount={order.amount}
-            cancelable
-            onCancelClick={() => setCancelPrompt({ open: true, deletingOrderId: order.id })}
-          />
-        ))}
-        <MoreOptions />
+        <LimitedList>
+          {orders.map((order) => (
+            <ExchangeRow
+              key={order.id}
+              source={order.from_currency}
+              destination={order.to_currency}
+              amount={order.amount}
+              cancelable
+              onCancelClick={() => setCancelPrompt({ open: true, deletingOrderId: order.id })}
+            />
+          ))}
+        </LimitedList>
       </MainCard>
 
       <MainCard title={strings?.transactions}>
-        {exchangeHistory.map((trx, index) => (
-          <ExchangeRow key={index} {...trx} />
-        ))}
-        <MoreOptions />
+        <LimitedList>
+          {exchangeHistory.map((trx, index) => (
+            <ExchangeRow key={index} {...trx} />
+          ))}
+        </LimitedList>
       </MainCard>
 
       <Dialog open={cancelPromot.open} onClose={handleCloseCancelPrompt}>

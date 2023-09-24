@@ -12,8 +12,8 @@ const HomePage = Loadable(lazy(() => import('../views/home')));
 const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
 const AuthPage = Loadable(lazy(() => import('../views/pages/profile/ProfileAuthentication')));
 const EditProfilePage = Loadable(lazy(() => import('../views/pages/profile/EditProfile')));
-const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 const ExchangePage = Loadable(lazy(() => import('../views/exchange')));
+const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -28,8 +28,8 @@ const MainRoutes = () => {
               <Route path="/profile" component={ProfilePage} />
               <Route path="/edit" component={EditProfilePage} />
               <Route path="/authentication" component={AuthPage} />
-              <Route path="/transfer" component={TransferPage} />
               <Route path="/exchange" component={ExchangePage} />
+              <Route path="/transfer" component={TransferPage} />
             </AccountGuard>
           </AuthGuard>
         </Switch>

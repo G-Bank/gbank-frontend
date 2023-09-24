@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const MainCard = ({ title, titleButton, children }) => {
+import { Box, Typography } from '@mui/material';
+
+const MainCard = ({ title, titleButton, bgcolor, children }) => {
   return (
     <Box my={2} width="100%">
       <Box display='flex' alignItems='center' gap={1}>
@@ -9,7 +10,7 @@ const MainCard = ({ title, titleButton, children }) => {
         {titleButton}
       </Box>
       {children && (
-        <Box mt={1} p={2} borderRadius={4} width="100%" bgcolor="white">
+        <Box mt={1} p={2} borderRadius={4} width="100%" bgcolor={bgcolor}>
           {children}
         </Box>
       )}
@@ -20,7 +21,12 @@ const MainCard = ({ title, titleButton, children }) => {
 MainCard.propTypes = {
   title: PropTypes.string,
   titleButton: PropTypes.node,
+  bgcolor: PropTypes.string,
   children: PropTypes.node,
+};
+
+MainCard.defaultProps = {
+  bgcolor: 'white',
 };
 
 export default MainCard;

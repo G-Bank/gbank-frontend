@@ -22,10 +22,14 @@ export const convertCurrency = async (from, to, amount) => {
   }
 
   if (lastRate.from !== from && lastRate.to !== to) {
-    const { data } = await getExchangeRate(from, to);
-    lastRate = data;
-    lastRate.from = from;
-    lastRate.to = to;
+    try {
+      const { data } = await getExchangeRate(from, to);
+      lastRate = data;
+      lastRate.from = from;
+      lastRate.to = to;
+    } catch (e) {
+      return { amount: 0, rate: 0 };
+    }
   }
 
   let result = { amount: 0, rate: 0 };
@@ -40,3 +44,6 @@ export const convertCurrency = async (from, to, amount) => {
 };
 
 export const cancelOrder = (orderId) => post('crypto/exchange/cancel/', { order_id: orderId });
+
+export const transferRequest = (from, toPhoneNumber, amount, currency, description) =>
+  post('transfer/', { to_phone_number: toPhoneNumber, from_account_id: from, amount, currency, description });

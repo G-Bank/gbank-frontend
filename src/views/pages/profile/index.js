@@ -62,7 +62,6 @@ const ProfilePage = () => {
           </Button>
         </Box>
 
-        {/* TODO: fetch bank name */}
         <Box my={2} width="100%">
           <Box display="flex" alignItems="center" gap={1} onClick={handleNewCard}>
             <Typography variant="h4">{strings?.cards}</Typography>
@@ -71,7 +70,7 @@ const ProfilePage = () => {
         </Box>
         {cards.map((card) => (
           <MainCard key={card.card_number}>
-            <BankCard bankName="پاسارگاد" cardNumber={card.card_number} />
+            <BankCard bankName={card.persian_name} logo={card.logo} cardNumber={card.card_number} />
           </MainCard>
         ))}
         {!user.is_national_code_verified && (

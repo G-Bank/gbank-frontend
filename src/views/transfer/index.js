@@ -1,164 +1,180 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-// third party
-import axios from 'axios';
-
-// material ui
-import {
-  Avatar,
-  Box,
-  CardContent,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Radio,
-  Typography
-} from '@mui/material';
+import { Box, Button, OutlinedInput, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import configData from '../../config';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
-import tether from '../../assets/images/icons/tether.svg';
-import rial from '../../assets/images/icons/rial.svg';
-import TomanConverter from '../../utils/convertor/TomanConvertor';
+import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import Loader from '../../ui-component/Loader';
+import BackHeader from '../../ui-component/BackHeader';
+import { images } from '../../assets/images';
+import TransactionRow from '../../ui-component/TransactionRow';
+import { currencyDetails } from '../models/currency';
+import ConfirmationDrawer from './ConfirmationDrawer';
+import { transferRequest } from '../../api/financial';
+import { getUserTransactions } from '../../api/user';
+import ResultDrawer from './ResultDrawer';
+import LimitedList from '../../ui-component/LimitedList';
 
-// style const
 const useStyles = makeStyles((theme) => ({
-  cardContent: {
-    padding: '16px !important'
+  card: {
+    width: 250,
+    height: 125,
+    padding: 16,
+    backgroundColor: '#393734',
+    borderRadius: 8,
+    transition: 'transform 0.1s ease-in-out'
   },
-  accountContainer: {
-    maxHeight: '300px',
-    width: '100%',
-    overflowY: 'scroll'
+  selectedCard: {
+    backgroundColor: '#1F1E1C',
+    transform: 'scale(1.1)'
+  },
+  cardContainer: {
+    marginTop: 16,
+    display: 'flex',
+    gap: 16,
+    minWidth: 'min-content',
+    height: 150
   }
 }));
 
-const TransferPage = () => {
-  const classes = useStyles();
-  const [accountWallet, setLimit] = useState(false);
-  const [accounts, setAccounts] = useState([]);
-  const [userOptions, setUserOpts] = useState({
-    to_account_id: 2,
-    from_account_id: 1,
-    amount: 10,
-    currency: 'usdt',
-    description: ''
-  });
+const Transfer = () => {
+  const styles = useStyles();
 
-  const account = useSelector((state) => state.account);
+  const { balances, accountId } = useSelector((state) => state.account);
 
-  function getLimitations() {
-    if (account)
-      // todo
-      // add account id to api
-      axios
-        .get(configData.API_SERVER + 'transfer/limit?account_id=1', { headers: { Authorization: `Token ${account.token}` } })
-        .then(function (response) {
-          setLimit(response.data);
-        })
-        .catch(function (error) {
-          console.log('error - ', error);
-        });
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [currency, setCurrency] = useState(balances?.[0]?.currency);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setAmount(0);
+  }, [currency]);
+
+  const handleSubmit = (description) => {
+    setLoading(true);
+    transferRequest(accountId, phoneNumber, amount, currency, description)
+      .then((response) => {
+        setLoading(false);
+        setResult(response.data);
+        getUserTransactions();
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+        setLoading(false);
+        setConfirmOpen(false);
+      });
+  };
+
+  const handleContinue = () => {
+    if (!amount) {
+      setError(strings?.enterTransferAmount);
+      return;
+    }
+    if (phoneNumber.length !== 11) {
+      setError(strings?.enterValidPhoneNumber);
+      return;
+    }
+    setError(null);
+    setConfirmOpen(true);
+  };
+
+  if (loading) {
+    return <Loader />;
   }
 
-  function getAccounts() {
-    // todo
-    // repace api
-    if (account)
-      axios
-        .get('https://randomuser.me/api/?results=10', { headers: { Authorization: `Token ${account.token}` } })
-        .then(function (response) {
-          setAccounts(response.data.results);
-        })
-        .catch(function (error) {
-          console.log('error - ', error);
-        });
-  }
-
-  useEffect(getLimitations, [account]);
-  useEffect(getAccounts, [account]);
-
-  if (!accountWallet) return <Loader />;
   return (
-    <Box sx={{ width: '100%' }}>
-      <Grid container gap={3} alignItems={'center'}>
-        <Grid item xs={12} sm={5} md={3}>
-          <MainCard border={false} elevation={16} content={false}>
-            <CardContent className={classes.cardContent}>
-              <Grid container direction="column" spacing={0}>
-                <Grid item>
-                  <Typography variant="h4">{strings?.selectTypeOfTransfer}</Typography>
-                </Grid>
-                <Grid item sx={{ mt: 5 }}>
-                  <Typography variant="subtitle">{strings?.currentWallet}</Typography>
-                </Grid>
-              </Grid>
-              <List component="nav">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Avatar alt="Tether" src={tether} sx={{ width: 'auto', height: { sm: '100%', xs: 50 } }} />
-                  </ListItemIcon>
-                  <ListItemText primary={<Typography variant="h5">{accountWallet.limit.usdt}</Typography>} />
-                </ListItemButton>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Avatar alt="Rial" src={rial} sx={{ width: 'auto', height: { sm: '100%', xs: 50 } }} />
-                  </ListItemIcon>
-                  <ListItemText primary={<Typography variant="h5">{TomanConverter(accountWallet.limit.irr)}</Typography>} />
-                </ListItemButton>
-              </List>
-            </CardContent>
-          </MainCard>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <MainCard border={false} elevation={16} content={false}>
-            <CardContent className={classes.cardContent}>
-              <Grid container direction="column" spacing={0}>
-                <Grid item>
-                  <Typography variant="h4">{strings?.messageForSelect}</Typography>
-                </Grid>
-              </Grid>
-              <List component="nav" className={classes.accountContainer}>
-                {accounts.map((item, value) => (
-                  <>
-                    <ListItem
-                      key={value}
-                      secondaryAction={
-                        <Radio
-                          edge="end"
-                          onClick={() => setUserOpts({ ...userOptions, to_account_id: value })}
-                          checked={userOptions.to_account_id === value}
-                          inputProps={{ 'aria-labelledby': value }}
-                        />
-                      }
-                      disablePadding
-                    >
-                      <ListItemButton>
-                        <ListItemAvatar>
-                          <Avatar alt={`Avatar n°${value + 1}`} src={item.picture.medium} />
-                        </ListItemAvatar>
-                        <ListItemText id={value} primary={[item.name.first, item.name.last].join(' ')} />
-                      </ListItemButton>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </>
-                ))}
-              </List>
-            </CardContent>
-          </MainCard>
-        </Grid>
-      </Grid>
+    <Box>
+      <BackHeader title={strings?.transfer} />
+
+      <MainCard title={strings?.messageForSelect}>
+        <OutlinedInput
+          fullWidth
+          type="tel"
+          placeholder={strings?.receiverPhoneNumber}
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+      </MainCard>
+
+      <MainCard title={strings?.enterTransferAmount}>
+        <OutlinedInput
+          fullWidth
+          type="tel"
+          placeholder={strings?.transferAmount}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <Box width="100%" overflow="auto">
+          <Box className={styles.cardContainer} px={2}>
+            {balances.map((balance) => {
+              const { title, picture } = currencyDetails[balance.currency];
+              const isSelected = balance.currency === currency;
+
+              return (
+                <Box
+                  className={`${styles.card} ${isSelected && styles.selectedCard}`}
+                  key={balance.currency}
+                  onClick={() => setCurrency(balance.currency)}
+                >
+                  <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                    <Typography variant="h5" color="#d0d0d0">
+                      {title}
+                    </Typography>
+                    <img width={25} height={25} alt={title} src={picture} style={{ borderRadius: '50%' }} />
+                  </Box>
+                  <Box display="flex" width="100%" justifyContent="center" alignItems="flex-end" gap={1}>
+                    <Typography variant="h5" color="#d0d0d0">
+                      {balance.currency}
+                    </Typography>
+                    <Typography variant="h3" color="white">
+                      {getPersianNumber(balance.amount)}
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      </MainCard>
+
+      <Typography my={1} mx="auto" variant="h5" color="error">
+        {error}
+      </Typography>
+      <Button fullWidth variant="contained" color="secondary" onClick={handleContinue}>
+        {strings?.continue}
+      </Button>
+
+      <MainCard title={strings?.frequentTransfers}>
+        <LimitedList>
+          {/* TODO: fetch frequent transactions */}
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        </LimitedList>
+      </MainCard>
+
+      {/* TODO: fetch fee */}
+      <ConfirmationDrawer
+        open={confirmOpen}
+        receiver={phoneNumber}
+        amount={amount}
+        currency={currency}
+        wage={1000}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleSubmit}
+      />
+
+      <ResultDrawer result={result} phoneNumber={phoneNumber} />
     </Box>
   );
 };
 
-export default TransferPage;
+export default Transfer;
