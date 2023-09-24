@@ -153,6 +153,7 @@ const Transfer = () => {
       </Button>
 
       <MainCard title={strings?.frequentTransfers}>
+        {/* TODO: fetch frequent transactions */}
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
         <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
