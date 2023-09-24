@@ -104,6 +104,7 @@ const HomePage = () => {
 
       <MainCard title={strings?.transactions}>
         {/* TODO: tranactions date */}
+        {/* TODO: receiver info */}
         {transferHistory.map((trx, index) => {
           const { title, picture } = currencyDetails[trx.currency];
           return (

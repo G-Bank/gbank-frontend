@@ -30,6 +30,7 @@ function ResultDrawer({ result }) {
           <Typography mt={2} variant="h5">
             {strings?.receiver}
           </Typography>
+          {/* TODO: receiver info */}
           <Typography mt={2} variant="body1">
             {getPersianNumber(result.destination, false)}
           </Typography>
