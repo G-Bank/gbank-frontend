@@ -110,6 +110,7 @@ const HomePage = () => {
             <TransactionRow key={index} title={trx.destination} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
           );
         })}
+        {/* TODO: limited list */}
         <MoreOptions />
       </MainCard>
 

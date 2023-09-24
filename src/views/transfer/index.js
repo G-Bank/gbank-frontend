@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     gap: 16,
     minWidth: 'min-content',
-    height: 150,
+    height: 150
   }
 }));
 
-const Receiver = () => {
+const Transfer = () => {
   const styles = useStyles();
 
   const { balances, accountId } = useSelector((state) => state.account);
@@ -83,7 +83,7 @@ const Receiver = () => {
     }
     setError(null);
     setConfirmOpen(true);
-  }
+  };
 
   if (loading) {
     return <Loader />;
@@ -159,6 +159,7 @@ const Receiver = () => {
         <MoreOptions />
       </MainCard>
 
+      {/* TODO: fetch fee */}
       <ConfirmationDrawer
         open={confirmOpen}
         receiver={phoneNumber}
@@ -174,4 +175,4 @@ const Receiver = () => {
   );
 };
 
-export default Receiver;
+export default Transfer;
