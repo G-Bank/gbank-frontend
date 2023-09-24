@@ -12,7 +12,7 @@ function ConfirmationDrawer({ open, receiver, amount, currency, wage, onClose, o
 
   return (
     <SwipeableDrawer anchor="bottom" open={open} onClose={onClose} onOpen={() => {}}>
-      <Box p={2} bgcolor="#e7e7e7">
+      <Box p={2} bgcolor="#e7e7e7" height='100vh'>
         <BackHeader title={strings?.transfer} onClick={onClose} />
 
         <MainCard>

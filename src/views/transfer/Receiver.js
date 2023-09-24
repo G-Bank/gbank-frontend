@@ -59,7 +59,7 @@ const Receiver = () => {
 
   const handleSubmit = (description) => {
     setLoading(true);
-    transferRequest(accountId, 3, amount, currency, description)
+    transferRequest(accountId, phoneNumber, amount, currency, description)
       .then(() => {
         setLoading(false);
         history.push('/');
@@ -68,11 +68,20 @@ const Receiver = () => {
       .catch((err) => {
         setError(err.response.data.error);
         setLoading(false);
+        setConfirmOpen(false);
       });
   };
 
   const handleContinue = () => {
-    // TODO: validate user and amount before opening confirmation 
+    if (!amount) {
+      setError(strings?.enterTransferAmount);
+      return;
+    }
+    if (phoneNumber.length !== 11) {
+      setError(strings?.enterValidPhoneNumber);
+      return;
+    }
+    setError(null);
     setConfirmOpen(true);
   }
 
@@ -92,7 +101,6 @@ const Receiver = () => {
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-        {/* TODO: show user name after phone number complete */}
       </MainCard>
 
       <MainCard title={strings?.enterTransferAmount}>
