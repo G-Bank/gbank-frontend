@@ -11,12 +11,12 @@ import Loader from '../../ui-component/Loader';
 import BackHeader from '../../ui-component/BackHeader';
 import { images } from '../../assets/images';
 import TransactionRow from '../../ui-component/TransactionRow';
-import MoreOptions from '../../ui-component/MoreOptions';
 import { currencyDetails } from '../models/currency';
 import ConfirmationDrawer from './ConfirmationDrawer';
 import { transferRequest } from '../../api/financial';
 import { getUserTransactions } from '../../api/user';
 import ResultDrawer from './ResultDrawer';
+import LimitedList from '../../ui-component/LimitedList';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -153,11 +153,12 @@ const Transfer = () => {
       </Button>
 
       <MainCard title={strings?.frequentTransfers}>
-        {/* TODO: fetch frequent transactions */}
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <MoreOptions />
+        <LimitedList>
+          {/* TODO: fetch frequent transactions */}
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        </LimitedList>
       </MainCard>
 
       {/* TODO: fetch fee */}

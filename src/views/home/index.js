@@ -14,13 +14,13 @@ import { Avatar, Button, Grid, Typography } from '@mui/material';
 import MainCard from '../../ui-component/cards/MainCard';
 import { strings } from '../../localizedString';
 import TransactionRow from '../../ui-component/TransactionRow';
-import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
 import { icons } from '../../assets/images';
 import { convertCurrency } from '../../api/financial';
 import { useMemo } from 'react';
 import ExchangeRow from '../../ui-component/ExchangeRow';
+import LimitedList from '../../ui-component/LimitedList';
 
 const baseCurrency = 'lotf-gold';
 
@@ -79,11 +79,12 @@ const HomePage = () => {
             <img width={60} height={60} alt="balance" src={currencyDetails[baseCurrency].picture} />
           </Box>
         </Box>
-        {balances.map((balance) => {
-          const { title, picture } = currencyDetails[balance.currency];
-          return <TransactionRow key={title} title={title} imageUrl={picture} amount={balance.amount} />;
-        })}
-        <MoreOptions />
+        <LimitedList>
+          {balances.map((balance) => {
+            const { title, picture } = currencyDetails[balance.currency];
+            return <TransactionRow key={title} title={title} imageUrl={picture} amount={balance.amount} />;
+          })}
+        </LimitedList>
 
         <Grid container gap={1} mt={3}>
           <Button variant="contained" color="secondary">
@@ -105,21 +106,22 @@ const HomePage = () => {
       <MainCard title={strings?.transactions}>
         {/* TODO: tranactions date */}
         {/* TODO: receiver info */}
-        {transferHistory.map((trx, index) => {
-          const { title, picture } = currencyDetails[trx.currency];
-          return (
-            <TransactionRow key={index} title={trx.destination} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
-          );
-        })}
-        {/* TODO: limited list */}
-        <MoreOptions />
+        <LimitedList>
+          {transferHistory.map((trx, index) => {
+            const { title, picture } = currencyDetails[trx.currency];
+            return (
+              <TransactionRow key={index} title={trx.destination} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
+            );
+          })}
+        </LimitedList>
       </MainCard>
 
       <MainCard title={strings?.exchange}>
-        {exchangeHistory.map((trx, index) => (
-          <ExchangeRow key={index} {...trx} />
-        ))}
-        <MoreOptions />
+        <LimitedList>
+          {exchangeHistory.map((trx, index) => (
+            <ExchangeRow key={index} {...trx} />
+          ))}
+        </LimitedList>
       </MainCard>
 
       <FloatingMenu />
