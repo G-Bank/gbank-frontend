@@ -16,6 +16,7 @@ import MoreOptions from '../../ui-component/MoreOptions';
 import { currencyDetails } from '../models/currency';
 import ConfirmationDrawer from './ConfirmationDrawer';
 import { transferRequest } from '../../api/financial';
+import { getUserTransactions } from '../../api/user';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -62,8 +63,9 @@ const Receiver = () => {
     transferRequest(accountId, phoneNumber, amount, currency, description)
       .then(() => {
         setLoading(false);
-        history.push('/');
+        getUserTransactions();
         // TODO: show toast after successful transfer
+        history.push('/');
       })
       .catch((err) => {
         setError(err.response.data.error);

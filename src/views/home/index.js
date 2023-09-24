@@ -17,7 +17,7 @@ import TransactionRow from '../../ui-component/TransactionRow';
 import MoreOptions from '../../ui-component/MoreOptions';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
-import { icons, images } from '../../assets/images';
+import { icons } from '../../assets/images';
 import { convertCurrency } from '../../api/financial';
 import { useMemo } from 'react';
 import ExchangeRow from '../../ui-component/ExchangeRow';
@@ -31,6 +31,8 @@ const HomePage = () => {
   const { user, balances, transactions } = useSelector((state) => state.account);
 
   const exchangeHistory = useMemo(() => transactions.filter((trx) => trx.type === 'exchange'), [transactions]);
+
+  const transferHistory = useMemo(() => transactions.filter((trx) => trx.type === 'transfer'), [transactions]);
 
   useEffect(() => {
     const loadTotalBalance = async () => {
@@ -101,10 +103,13 @@ const HomePage = () => {
       </MainCard>
 
       <MainCard title={strings?.transactions}>
-        {/* TODO: transactions history */}
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-        <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+        {/* TODO: tranactions date */}
+        {transferHistory.map((trx, index) => {
+          const { title, picture } = currencyDetails[trx.currency];
+          return (
+            <TransactionRow key={index} title={trx.destination} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
+          );
+        })}
         <MoreOptions />
       </MainCard>
 
