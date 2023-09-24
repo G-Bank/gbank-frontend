@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
+
+
 import { Button, OutlinedInput, SwipeableDrawer, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
 import BackHeader from '../../ui-component/BackHeader';
 import { strings } from '../../localizedString';
 import MainCard from '../../ui-component/cards/MainCard';
@@ -55,8 +57,6 @@ function ConfirmationDrawer({ open, receiver, amount, currency, wage, onClose, o
             {strings?.cancel}
           </Button>
         </Box>
-
-        <Box width="100%" height="30vh" />
       </Box>
     </SwipeableDrawer>
   );

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { Box, Button, OutlinedInput, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -17,6 +16,7 @@ import { currencyDetails } from '../models/currency';
 import ConfirmationDrawer from './ConfirmationDrawer';
 import { transferRequest } from '../../api/financial';
 import { getUserTransactions } from '../../api/user';
+import ResultDrawer from './ResultDrawer';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -49,10 +49,9 @@ const Receiver = () => {
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(balances?.[0]?.currency);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const history = useHistory();
 
   useEffect(() => {
     setAmount(0);
@@ -61,11 +60,10 @@ const Receiver = () => {
   const handleSubmit = (description) => {
     setLoading(true);
     transferRequest(accountId, phoneNumber, amount, currency, description)
-      .then(() => {
+      .then((response) => {
         setLoading(false);
+        setResult(response.data);
         getUserTransactions();
-        // TODO: show toast after successful transfer
-        history.push('/');
       })
       .catch((err) => {
         setError(err.response.data.error);
@@ -170,6 +168,8 @@ const Receiver = () => {
         onClose={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
       />
+
+      <ResultDrawer result={result} />
     </Box>
   );
 };
