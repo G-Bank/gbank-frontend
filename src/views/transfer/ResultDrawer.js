@@ -11,7 +11,7 @@ import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
 
 
-function ResultDrawer({ result }) {
+function ResultDrawer({ result, phoneNumber }) {
 
   const history = useHistory();
 
@@ -30,9 +30,8 @@ function ResultDrawer({ result }) {
           <Typography mt={2} variant="h5">
             {strings?.receiver}
           </Typography>
-          {/* TODO: receiver info */}
           <Typography mt={2} variant="body1">
-            {getPersianNumber(result.destination, false)}
+            {getPersianNumber(phoneNumber, false)}
           </Typography>
 
           <Typography mt={2} variant="h5">

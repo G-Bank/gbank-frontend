@@ -171,7 +171,7 @@ const Transfer = () => {
         onConfirm={handleSubmit}
       />
 
-      <ResultDrawer result={result} />
+      <ResultDrawer result={result} phoneNumber={phoneNumber} />
     </Box>
   );
 };
