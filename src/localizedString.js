@@ -15,6 +15,7 @@ export const strings = new LocalizedStrings({
     bio: 'bio',
     allServices: 'all services',
     cancel: 'cancel',
+    emptyList: 'No Item',
 
     // home
     crypto: 'Crypto',
@@ -113,6 +114,7 @@ export const strings = new LocalizedStrings({
     bio: 'احراز',
     allServices: 'همه خدمات',
     cancel: 'بستن',
+    emptyList: 'تراکنشی موجود نیست',
 
     // home
     crypto: 'کریپتو',
