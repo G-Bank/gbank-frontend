@@ -73,7 +73,7 @@ const Transfer = () => {
         getUserTransactions();
       })
       .catch((err) => {
-        setError(err.response.data.error);
+        setError(String(err.response.data.error));
         setLoading(false);
         setConfirmOpen(false);
       });
@@ -172,13 +172,11 @@ const Transfer = () => {
         </LimitedList>
       </MainCard>
 
-      {/* TODO: fetch fee */}
       <ConfirmationDrawer
         open={confirmOpen}
         receiver={phoneNumber}
         amount={amount}
         currency={currency}
-        wage={1000}
         onClose={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
       />

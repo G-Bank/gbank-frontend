@@ -49,3 +49,6 @@ export const transferRequest = (from, toPhoneNumber, amount, currency, descripti
   post('transfer/', { to_phone_number: toPhoneNumber, from_account_id: from, amount, currency, description });
 
 export const getFrequentTransfers = () => get('transfer/frequent/');
+
+export const getTransactionFee = (accountId, amount, currency, transactionType = 'transfer') =>
+  get('transaction/fee/', { amount, currency, transaction_type: transactionType, account_id: accountId });

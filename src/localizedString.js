@@ -86,7 +86,6 @@ export const strings = new LocalizedStrings({
     description: 'Description',
     youArePaying: 'You are paying',
     receiver: 'Receiver',
-    wage: 'wage',
     paymentSuccess: 'Payment success',
     count: 'Count',
 
@@ -187,7 +186,6 @@ export const strings = new LocalizedStrings({
     description: 'توضیحات',
     youArePaying: 'شما در حال پرداخت هستید',
     receiver: 'دریافت کننده',
-    wage: 'کارمزد',
     paymentSuccess: 'پرداخت موفقیت آمیز بود',
     count: 'تعداد',
 
