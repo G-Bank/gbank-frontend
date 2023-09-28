@@ -9,11 +9,11 @@ import { strings } from '../../localizedString';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import Loader from '../../ui-component/Loader';
 import BackHeader from '../../ui-component/BackHeader';
-import { images } from '../../assets/images';
+import { icons } from '../../assets/images';
 import TransactionRow from '../../ui-component/TransactionRow';
 import { currencyDetails } from '../models/currency';
 import ConfirmationDrawer from './ConfirmationDrawer';
-import { transferRequest } from '../../api/financial';
+import { getFrequentTransfers, transferRequest } from '../../api/financial';
 import { getUserTransactions } from '../../api/user';
 import ResultDrawer from './ResultDrawer';
 import LimitedList from '../../ui-component/LimitedList';
@@ -48,14 +48,21 @@ const Transfer = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(balances?.[0]?.currency);
+  const [frequentTransfers, setFrequentTransfers] = useState([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setAmount(0);
-  }, [currency]);
+    setLoading(true);
+    getFrequentTransfers()
+      .then((res) => {
+        setFrequentTransfers(res.data.frequent_transfers);
+        setLoading(false);
+      })
+      .catch((err) => setLoading(false));
+  }, []);
 
   const handleSubmit = (description) => {
     setLoading(true);
@@ -154,10 +161,14 @@ const Transfer = () => {
 
       <MainCard title={strings?.frequentTransfers}>
         <LimitedList>
-          {/* TODO: fetch frequent transactions */}
-          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
-          <TransactionRow title="alibaba" subtitle="۱۰:۱۲" imageUrl={images.gold} amount={25432003} />
+          {frequentTransfers.map((trx) => (
+            <TransactionRow
+              title={trx.to_phone_number}
+              subtitle={`${strings?.count}: ${trx.count}`}
+              imageUrl={icons.switchIcon}
+              onClick={() => setPhoneNumber(trx.to_phone_number)}
+            />
+          ))}
         </LimitedList>
       </MainCard>
 

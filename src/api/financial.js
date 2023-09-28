@@ -47,3 +47,5 @@ export const cancelOrder = (orderId) => post('crypto/exchange/cancel/', { order_
 
 export const transferRequest = (from, toPhoneNumber, amount, currency, description) =>
   post('transfer/', { to_phone_number: toPhoneNumber, from_account_id: from, amount, currency, description });
+
+export const getFrequentTransfers = () => get('transfer/frequent/');

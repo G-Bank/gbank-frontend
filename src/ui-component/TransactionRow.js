@@ -2,15 +2,15 @@ import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { getPersianNumber } from '../utils/convertor/TomanConvertor';
 
-const TransactionRow = ({ title, subtitle, imageUrl, amount, unit }) => {
+const TransactionRow = ({ title, subtitle, imageUrl, amount, unit, onClick }) => {
   return (
-    <Box display="flex" justifyContent="space-between" alignItems='center' my={1} width="100%">
+    <Box display="flex" justifyContent="space-between" alignItems="center" my={1} width="100%" onClick={onClick}>
       <Box display="flex" gap={1}>
-        <Typography variant='subtitle2'>{unit}</Typography>
-        <Typography variant='h4'>{getPersianNumber(amount)}</Typography>
+        <Typography variant="subtitle2">{unit}</Typography>
+        <Typography variant="h4">{getPersianNumber(amount)}</Typography>
       </Box>
       <Box display="flex" gap={1}>
-        <Box display="flex" flexDirection="column" alignItems="flex-end" justifyContent='center'>
+        <Box display="flex" flexDirection="column" alignItems="flex-end" justifyContent="center">
           <Typography variant="h4">{title}</Typography>
           <Typography variant="subtitle2">{subtitle}</Typography>
         </Box>
@@ -25,11 +25,13 @@ TransactionRow.propTypes = {
   subtitle: PropTypes.string,
   imageUrl: PropTypes.string,
   amount: PropTypes.number,
-  unit: PropTypes.string
+  unit: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 TransactionRow.defaultProps = {
   unit: null,
+  onClick: () => {}
 };
 
 export default TransactionRow;

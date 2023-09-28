@@ -88,6 +88,7 @@ export const strings = new LocalizedStrings({
     receiver: 'Receiver',
     wage: 'wage',
     paymentSuccess: 'Payment success',
+    count: 'Count',
 
     // exchange
     amountYouPay: 'The amount you pay',
@@ -188,6 +189,7 @@ export const strings = new LocalizedStrings({
     receiver: 'دریافت کننده',
     wage: 'کارمزد',
     paymentSuccess: 'پرداخت موفقیت آمیز بود',
+    count: 'تعداد',
 
     // exchange
     amountYouPay: 'مقداری که پرداخت می‌کنید',
