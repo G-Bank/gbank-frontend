@@ -62,6 +62,18 @@ const ProfilePage = () => {
           </Button>
         </Box>
 
+        {user.is_national_code_verified ? (
+          <Button fullWidth variant='contained' color='success'>
+            {strings?.authenticationDone}
+          </Button>
+        ) : (
+          <Link to="/authentication">
+            <Button fullWidth variant="contained">
+              {strings?.authenticationRequiredForCards}
+            </Button>
+          </Link>
+        )}
+
         <Box my={2} width="100%">
           <Box display="flex" alignItems="center" gap={1} onClick={handleNewCard}>
             <Typography variant="h4">{strings?.cards}</Typography>
@@ -73,13 +85,6 @@ const ProfilePage = () => {
             <BankCard bankName={card.persian_name} logo={card.logo} cardNumber={card.card_number} />
           </MainCard>
         ))}
-        {!user.is_national_code_verified && (
-          <Link to="/authentication">
-            <Button fullWidth variant="contained">
-              {strings?.authenticationRequiredForCards}
-            </Button>
-          </Link>
-        )}
 
         <MainCard>
           <Box width="calc(100% + 32px)" m={-2} mb={1} borderRadius="16px 16px 0 0" textAlign="center" p={1} bgcolor="#28A745">

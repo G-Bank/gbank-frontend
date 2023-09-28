@@ -21,6 +21,7 @@ import { convertCurrency } from '../../api/financial';
 import { useMemo } from 'react';
 import ExchangeRow from '../../ui-component/ExchangeRow';
 import LimitedList from '../../ui-component/LimitedList';
+import { getUserAccount, getUserBankCards, getUserProfile, getUserTransactions } from '../../api/user';
 
 const baseCurrency = 'lotf-gold';
 
@@ -33,6 +34,16 @@ const HomePage = () => {
   const exchangeHistory = useMemo(() => transactions.filter((trx) => trx.type === 'exchange'), [transactions]);
 
   const transferHistory = useMemo(() => transactions.filter((trx) => trx.type === 'transfer'), [transactions]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      await getUserAccount();
+      await getUserProfile();
+      await getUserBankCards();
+      await getUserTransactions();
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     const loadTotalBalance = async () => {

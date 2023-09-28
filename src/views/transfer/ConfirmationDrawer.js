@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 import { Button, OutlinedInput, SwipeableDrawer, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -8,13 +7,31 @@ import { strings } from '../../localizedString';
 import MainCard from '../../ui-component/cards/MainCard';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
+import { useSelector } from 'react-redux';
+import { getTransactionFee } from '../../api/financial';
 
-function ConfirmationDrawer({ open, receiver, amount, currency, wage, onClose, onConfirm }) {
+function ConfirmationDrawer({ open, receiver, amount, currency, onClose, onConfirm }) {
+  const { accountId } = useSelector((state) => state.account);
+
   const [description, setDescription] = useState('');
+  const [fee, setFee] = useState({ name: '', amount: 0 });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setLoading(true);
+      getTransactionFee(accountId, amount, currency)
+        .then(({ data }) => {
+          setFee({ name: data.name, amount: data.fee });
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [open, amount, currency, accountId]);
 
   return (
     <SwipeableDrawer anchor="bottom" open={open} onClose={onClose} onOpen={() => {}}>
-      <Box p={2} bgcolor="#e7e7e7" height='100vh'>
+      <Box p={2} bgcolor="#e7e7e7" height="100vh">
         <BackHeader title={strings?.transfer} onClick={onClose} />
 
         <MainCard>
@@ -35,10 +52,10 @@ function ConfirmationDrawer({ open, receiver, amount, currency, wage, onClose, o
           </Typography>
 
           <Typography mt={2} variant="h5">
-            {strings?.wage}
+            {fee.name}
           </Typography>
           <Typography my={2} variant="body1">
-            {getPersianNumber(wage)} {currencyDetails[currency].title}
+            {getPersianNumber(fee.amount)} {currencyDetails[currency].title}
           </Typography>
 
           <OutlinedInput
@@ -50,7 +67,7 @@ function ConfirmationDrawer({ open, receiver, amount, currency, wage, onClose, o
         </MainCard>
 
         <Box display="flex" gap={1}>
-          <Button fullWidth variant="contained" color="secondary" onClick={() => onConfirm(description)}>
+          <Button fullWidth disabled={loading} variant="contained" color="secondary" onClick={() => onConfirm(description)}>
             {strings?.submit}
           </Button>
           <Button fullWidth variant="outlined" color="primary" onClick={onClose}>

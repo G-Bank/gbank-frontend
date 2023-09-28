@@ -15,6 +15,7 @@ export const strings = new LocalizedStrings({
     bio: 'bio',
     allServices: 'all services',
     cancel: 'cancel',
+    emptyList: 'No Item',
 
     // home
     crypto: 'Crypto',
@@ -46,6 +47,7 @@ export const strings = new LocalizedStrings({
     addNewCard: 'Add New Card',
     cardAlreadyExists: 'Card already exists',
     authenticationRequiredForCards: 'authentication Required for cards',
+    authenticationDone: 'Authentication done',
     maxDailyWithdraw: 'Max Daily Withdraw',
     authentication: 'authentication',
     authLevel: 'Authentication Level',
@@ -84,8 +86,8 @@ export const strings = new LocalizedStrings({
     description: 'Description',
     youArePaying: 'You are paying',
     receiver: 'Receiver',
-    wage: 'wage',
     paymentSuccess: 'Payment success',
+    count: 'Count',
 
     // exchange
     amountYouPay: 'The amount you pay',
@@ -113,6 +115,7 @@ export const strings = new LocalizedStrings({
     bio: 'احراز',
     allServices: 'همه خدمات',
     cancel: 'بستن',
+    emptyList: 'تراکنشی موجود نیست',
 
     // home
     crypto: 'کریپتو',
@@ -144,6 +147,7 @@ export const strings = new LocalizedStrings({
     addNewCard: 'افزودن کارت جدید',
     cardAlreadyExists: 'کارت موجود است',
     authenticationRequiredForCards: 'برای افزودن کارت احراز هویت کنید',
+    authenticationDone: 'احراز هویت شما با موفقیت انجام شده است',
     maxDailyWithdraw: 'سقف برداشت روزانه',
     authentication: 'احراز هویت',
     authLevel: 'سطح کاربری',
@@ -182,8 +186,8 @@ export const strings = new LocalizedStrings({
     description: 'توضیحات',
     youArePaying: 'شما در حال پرداخت هستید',
     receiver: 'دریافت کننده',
-    wage: 'کارمزد',
     paymentSuccess: 'پرداخت موفقیت آمیز بود',
+    count: 'تعداد',
 
     // exchange
     amountYouPay: 'مقداری که پرداخت می‌کنید',

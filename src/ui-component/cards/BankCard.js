@@ -10,7 +10,7 @@ const MainCard = ({ bankName, logo, cardNumber }) => {
           <Typography>{bankName}</Typography>
           <img width={40} height={40} alt={bankName} src={logo} />
         </Box>
-        <Typography variant='h4'>{splitCardNumber(cardNumber)}</Typography>
+        <Typography style={{ direction: 'ltr' }} variant='h4'>{splitCardNumber(cardNumber)}</Typography>
       </Box>
     </Box>
   )
