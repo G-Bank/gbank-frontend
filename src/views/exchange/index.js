@@ -34,8 +34,10 @@ const ExchangePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      await fetchCurrencies();
-      await fetchHistory();
+      try {
+        await fetchCurrencies();
+        await fetchHistory();
+      } catch (e) {}
       setLoading(false);
     };
     fetchData();

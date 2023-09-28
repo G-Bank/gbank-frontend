@@ -10,10 +10,6 @@ export const loginUser = async (phoneNumber, otp) => {
     type: LOGIN,
     payload: { token: response.data.token, hasAccount: true }
   });
-  getUserAccount();
-  getUserProfile();
-  getUserBankCards();
-  getUserTransactions();
 };
 
 export const logoutUser = async () => {
