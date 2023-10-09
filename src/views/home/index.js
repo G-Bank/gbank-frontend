@@ -22,6 +22,7 @@ import { useMemo } from 'react';
 import ExchangeRow from '../../ui-component/ExchangeRow';
 import LimitedList from '../../ui-component/LimitedList';
 import { getUserAccount, getUserBankCards, getUserProfile, getUserTransactions } from '../../api/user';
+import config from '../../config';
 
 const baseCurrency = 'lotf-gold';
 
@@ -73,7 +74,8 @@ const HomePage = () => {
         <Link to="/profile">
           <Avatar alt={user.firstname} src={user.picture} />
         </Link>
-        <Box display="flex" gap={1}>
+        <Box display="flex" alignItems='center' gap={1}>
+          <Typography variant='h5'>V {config.appVersion}</Typography>
           {/* TODO: click on these buttons */}
           <img alt="alert" src={icons.alertIcon} />
           <img alt="settings" src={icons.settingsIcon} />
