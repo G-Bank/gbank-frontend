@@ -137,7 +137,7 @@ const PaymentRequestPage = () => {
             {Object.keys(methods)
               .filter((m) => m !== method)
               .map((m) => (
-                <Button variant="contained" color="info" onClick={() => setMethod(m)}>
+                <Button key={m} variant="contained" color="info" onClick={() => setMethod(m)}>
                   {strings?.payWith} {strings?.[m]}
                 </Button>
               ))}

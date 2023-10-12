@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Transfer = () => {
+const Transfer = ({ location }) => {
   const styles = useStyles();
 
   const { balances, accountId } = useSelector((state) => state.account);
@@ -63,6 +63,20 @@ const Transfer = () => {
       })
       .catch((err) => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const urlPhoneNumber = params.get('phone_number');
+    const urlAmount = params.get('amount');
+    const urlCurrency = params.get('currency');
+
+    if (urlPhoneNumber && urlAmount && urlCurrency) {
+      setPhoneNumber(urlPhoneNumber);
+      setAmount(urlAmount);
+      setCurrency(urlCurrency);
+      setConfirmOpen(true);
+    }
+  }, [location.search]);
 
   const handleSubmit = (description) => {
     setLoading(true);
@@ -163,6 +177,7 @@ const Transfer = () => {
         <LimitedList>
           {frequentTransfers.map((trx) => (
             <TransactionRow
+              key={trx.to_phone_number}
               title={trx.to_phone_number}
               subtitle={`${strings?.count}: ${trx.count}`}
               imageUrl={icons.switchIcon}
