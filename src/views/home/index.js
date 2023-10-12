@@ -74,8 +74,8 @@ const HomePage = () => {
         <Link to="/profile">
           <Avatar alt={user.firstname} src={user.picture} />
         </Link>
-        <Box display="flex" alignItems='center' gap={1}>
-          <Typography variant='h5'>V {config.appVersion}</Typography>
+        <Box display="flex" alignItems="center" gap={1}>
+          <Typography variant="h5">V {config.appVersion}</Typography>
           {/* TODO: click on these buttons */}
           <img alt="alert" src={icons.alertIcon} />
           <img alt="settings" src={icons.settingsIcon} />
@@ -115,6 +115,14 @@ const HomePage = () => {
           </Link>
         </Grid>
       </MainCard>
+
+      <Box width="100%" px={2}>
+        <Link to="/payment-request">
+          <Button fullWidth variant="contained" color="primary">
+            {strings?.paymentRequest}
+          </Button>
+        </Link>
+      </Box>
 
       <MainCard title={strings?.transactions}>
         {/* TODO: tranactions date */}
