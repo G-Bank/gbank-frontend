@@ -8,12 +8,16 @@ import servicesIcon from './icons/services.svg';
 import switchIcon from './icons/switch.svg';
 import settingsIcon from './icons/settings.svg';
 import alertIcon from './icons/alert.svg';
+import card_image from './finance/card.svg';
+import nfc_image from './finance/nfc.svg';
 
 const images = {
   gold,
   tether,
   rial,
   bitcoin,
+  card_image,
+  nfc_image
 };
 
 const icons = {

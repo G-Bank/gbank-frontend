@@ -54,3 +54,6 @@ export const getTransactionFee = (accountId, amount, currency, transactionType =
   get('transaction/fee/', { amount, currency, transaction_type: transactionType, account_id: accountId });
 
 export const getUserPaymentRequests = () => get('payment-request/');
+
+export const createPaymentRequest = (fromPhoneNumber, account, amount, currency, description) =>
+  post('payment-request/', { from_user: fromPhoneNumber, account, amount, currency, description });

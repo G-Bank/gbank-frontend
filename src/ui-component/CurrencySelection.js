@@ -1,9 +1,9 @@
-import { Select, MenuItem, Box, Typography } from "@mui/material";
-import { currencyDetails } from "../views/models/currency";
+import { Select, MenuItem, Box, Typography } from '@mui/material';
+import { currencyDetails } from '../views/models/currency';
 
-function CurrencySelection({ value, currencyList, onChange }) {
+function CurrencySelection({ disabled, value, currencyList, onChange }) {
   return (
-    <Select value={value} onChange={onChange}>
+    <Select disabled={disabled} value={value} onChange={onChange}>
       {currencyList.map((currency) => {
         const { title, picture } = currencyDetails[currency];
 

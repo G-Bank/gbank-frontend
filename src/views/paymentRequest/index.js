@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Box, Button } from '@mui/material';
 import { OutlinedInput, Typography } from '@mui/material';
@@ -9,18 +10,30 @@ import MainCard from '../../ui-component/cards/MainCard';
 import LimitedList from '../../ui-component/LimitedList';
 import TransactionRow from '../../ui-component/TransactionRow';
 import { currencyDetails } from '../models/currency';
-import { getCurrencyList, getUserPaymentRequests } from '../../api/financial';
+import { createPaymentRequest, getCurrencyList, getUserPaymentRequests } from '../../api/financial';
 import Loader from '../../ui-component/Loader';
 import CurrencySelection from '../../ui-component/CurrencySelection';
+import { images } from '../../assets/images';
+
+const methods = {
+  nfc: 'nfc',
+  qrCode: 'qrCode',
+  card: 'card'
+};
 
 const PaymentRequestPage = () => {
   const [loading, setLoading] = useState(false);
+  const [isRequestCreated, setRequestCreated] = useState(false);
+  const [method, setMethod] = useState(methods.nfc);
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(0);
   const [currencyList, setCurrencyList] = useState([]);
   const [payerPhoneNumber, setPayerPhoneNumber] = useState('');
+  const [description, setDescription] = useState('');
   const [error, setError] = useState('');
   const [requests, setRequests] = useState({ for_me: [], for_others_by_me: [] });
+
+  const { accountId } = useSelector((state) => state.account);
 
   useEffect(() => {
     const fetchPaymentInfo = async () => {
@@ -28,18 +41,31 @@ const PaymentRequestPage = () => {
         setLoading(true);
         const { data } = await getUserPaymentRequests();
         setRequests(data);
-        const { data: { currencies }} = await getCurrencyList();
+        const {
+          data: { currencies }
+        } = await getCurrencyList();
         setCurrencyList(currencies);
-        setCurrency(currencies[0]);
+        setCurrency(currencies?.[0]);
       } catch (err) {
-        setError(String(err.response.data.error));
+        setError(String(err.response));
       }
       setLoading(false);
     };
     fetchPaymentInfo();
   }, []);
 
-  const handleContinue = () => {};
+  const createRequest = () => {
+    setLoading(true);
+    createPaymentRequest(payerPhoneNumber, accountId, amount, currency, description)
+      .then(() => {
+        setRequestCreated(true);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(String(err.response));
+        setLoading(false);
+      });
+  };
 
   if (loading) {
     return <Loader />;
@@ -47,33 +73,77 @@ const PaymentRequestPage = () => {
 
   return (
     <Box>
-      <BackHeader title={strings?.transfer} />
+      <BackHeader title={strings?.paymentRequest} />
 
       <MainCard title={strings?.messageForSelect}>
-        <Box display='flex' alignItems='center' my={2} gap={1}>
+        <Box display="flex" flexDirection="column" gap={2}>
+          <Box display="flex" alignItems="center" gap={1}>
+            <OutlinedInput
+              fullWidth
+              type="tel"
+              placeholder={strings?.receivingAmount}
+              value={amount}
+              disabled={isRequestCreated}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <CurrencySelection
+              disabled={isRequestCreated}
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              currencyList={currencyList}
+            />
+          </Box>
           <OutlinedInput
             fullWidth
-            type="tel"
-            placeholder={strings?.receivingAmount}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            disabled={isRequestCreated}
+            type="text"
+            placeholder={strings?.payer}
+            value={payerPhoneNumber}
+            onChange={(e) => setPayerPhoneNumber(e.target.value)}
           />
-          <CurrencySelection value={currency} onChange={(e) => setCurrency(e.target.value)} currencyList={currencyList} />
+          <OutlinedInput
+            fullWidth
+            disabled={isRequestCreated}
+            type="text"
+            placeholder={strings?.description}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </Box>
-        <OutlinedInput
-          fullWidth
-          type="text"
-          placeholder={strings?.payer}
-          value={payerPhoneNumber}
-          onChange={(e) => setPayerPhoneNumber(e.target.value)}
-        />
-        <Typography my={1} mx="auto" variant="h5" color="error">
-          {error}
-        </Typography>
-        <Button fullWidth variant="contained" color="secondary" onClick={handleContinue}>
-          {strings?.paymentRequest}
-        </Button>
+        {!isRequestCreated && (
+          <>
+            <Typography my={1} mx="auto" variant="h5" color="error">
+              {error}
+            </Typography>
+            <Button fullWidth variant="contained" color="secondary" onClick={createRequest}>
+              {strings?.paymentRequest}
+            </Button>
+          </>
+        )}
       </MainCard>
+
+      {isRequestCreated && (
+        <>
+          <MainCard>
+            <Box my={5}>
+              {method === methods.qrCode ? <></> : <img alt={method} src={images[`${method}_image`]} width="100%" height="100%" />}
+            </Box>
+            <Typography variant="h4" textAlign="center">
+              {strings?.[`${method}_description`]}
+            </Typography>
+          </MainCard>
+
+          <Box display="flex" justifyContent="space-between" px={1} gap={1}>
+            {Object.keys(methods)
+              .filter((m) => m !== method)
+              .map((m) => (
+                <Button variant="contained" color="info" onClick={() => setMethod(m)}>
+                  {strings?.payWith} {strings?.[m]}
+                </Button>
+              ))}
+          </Box>
+        </>
+      )}
 
       <MainCard title={strings?.forMe}>
         {/* TODO: tranactions date */}

@@ -106,6 +106,11 @@ export const strings = new LocalizedStrings({
     forMe: 'Your Payment Requests',
     forOthersByMe: 'For Others By Me',
     payer: 'Payer',
+    payWith: 'Pay With',
+    phoneNumber: 'phone number',
+    nfc: 'nfc',
+    card: 'card',
+    qrCode: 'qr code',
   },
   fa: {
     // brand
@@ -211,6 +216,14 @@ export const strings = new LocalizedStrings({
     paymentRequest: 'ساخت پرداخت',
     forMe: 'پرداخت های ارسال شده برای من',
     forOthersByMe: 'پرداخت های ساخته شده من',
-    payer: 'پرداخت کننده'
+    payer: 'پرداخت کننده',
+    payWith: 'پرداخت با',
+    phoneNumber: 'شماره تلفن',
+    nfc: 'تلفن همراه',
+    nfc_description: 'برای پرداخت بدون لمس، تلفن های همراه را به هم نزدیک کنید.',
+    card: 'کارت',
+    card_description: 'برای پرداخت بدون لمس، کارت فیزیکی را به تلفن همراه نزدیک کنید.',
+    qrCode: 'اسکن بارکد',
+    qrCode_description: 'برای پرداخت بدون لمس، QR Code را اسکن کنید.',
   }
 });
