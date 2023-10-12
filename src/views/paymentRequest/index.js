@@ -50,14 +50,16 @@ const PaymentRequestPage = () => {
       <BackHeader title={strings?.transfer} />
 
       <MainCard title={strings?.messageForSelect}>
-        <OutlinedInput
-          fullWidth
-          type="tel"
-          placeholder={strings?.receivingAmount}
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <CurrencySelection value={currency} onChange={(e) => setCurrency(e.target.value)} currencyList={currencyList} />
+        <Box display='flex' alignItems='center' my={2} gap={1}>
+          <OutlinedInput
+            fullWidth
+            type="tel"
+            placeholder={strings?.receivingAmount}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <CurrencySelection value={currency} onChange={(e) => setCurrency(e.target.value)} currencyList={currencyList} />
+        </Box>
         <OutlinedInput
           fullWidth
           type="text"
