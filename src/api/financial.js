@@ -52,3 +52,5 @@ export const getFrequentTransfers = () => get('transfer/frequent/');
 
 export const getTransactionFee = (accountId, amount, currency, transactionType = 'transfer') =>
   get('transaction/fee/', { amount, currency, transaction_type: transactionType, account_id: accountId });
+
+export const getUserPaymentRequests = () => get('payment-request/');

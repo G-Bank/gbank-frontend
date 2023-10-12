@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Box, Button, Dialog, DialogActions, DialogTitle, Input, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogTitle, Input, Typography } from '@mui/material';
 
 import BackHeader from '../../ui-component/BackHeader';
 import Loader from '../../ui-component/Loader';
@@ -9,11 +9,11 @@ import { strings } from '../../localizedString';
 import { cancelOrder, convertCurrency, getCurrencyList, getExchanges, openExchangeOrder } from '../../api/financial';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { icons } from '../../assets/images';
-import { currencyDetails } from '../models/currency';
 import { useSelector } from 'react-redux';
 import ExchangeRow from '../../ui-component/ExchangeRow';
 import { getUserTransactions } from '../../api/user';
 import LimitedList from '../../ui-component/LimitedList';
+import CurrencySelection from '../../ui-component/CurrencySelection';
 
 const ExchangePage = () => {
   const [loading, setLoading] = useState(false);
@@ -104,23 +104,6 @@ const ExchangePage = () => {
       .catch(() => setLoading(false));
   };
 
-  const renderSelect = (value, onChange) => (
-    <Select value={value} onChange={onChange}>
-      {currencyList.map((currency) => {
-        const { title, picture } = currencyDetails[currency];
-
-        return (
-          <MenuItem key={currency} value={currency}>
-            <Box width="100%" gap={1} display="flex" justifyContent="space-between">
-              <Typography>{title}</Typography>
-              <img width={24} height={24} alt={currency} src={picture} />
-            </Box>
-          </MenuItem>
-        );
-      })}
-    </Select>
-  );
-
   if (loading || !transactions) {
     return <Loader />;
   }
@@ -133,7 +116,7 @@ const ExchangePage = () => {
         <Typography>{strings?.amountYouPay}</Typography>
         <Box my={2} display="flex" justifyContent="space-between">
           <Input value={payAmount} placeholder={strings?.stock} onChange={(e) => setPayAmount(e.target.value)} />
-          {renderSelect(originCurrency, (e) => setOriginCurrency(e.target.value))}
+          <CurrencySelection value={originCurrency} currencyList={currencyList} onChange={(e) => setOriginCurrency(e.target.value)} />
         </Box>
 
         <Box display="flex" justifyContent="space-between" my={3}>
@@ -146,7 +129,11 @@ const ExchangePage = () => {
         <Typography>{strings?.amountYouReceive}</Typography>
         <Box my={2} display="flex" justifyContent="space-between">
           <Input readOnly value={getPersianNumber(exchange.amount)} />
-          {renderSelect(destinationCurrency, (e) => setDestinationCurrency(e.target.value))}
+          <CurrencySelection
+            value={destinationCurrency}
+            currencyList={currencyList}
+            onChange={(e) => setDestinationCurrency(e.target.value)}
+          />
         </Box>
 
         <Typography my={1} mx="auto" variant="h5" color="error">

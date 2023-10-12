@@ -100,6 +100,12 @@ export const strings = new LocalizedStrings({
     areYouSure: 'Are You Sure?',
     yes: 'Yes',
     no: 'No',
+
+    // payment request
+    paymentRequest: 'Payment Request',
+    forMe: 'Your Payment Requests',
+    forOthersByMe: 'For Others By Me',
+    payer: 'Payer',
   },
   fa: {
     // brand
@@ -200,5 +206,11 @@ export const strings = new LocalizedStrings({
     areYouSure: 'آیا مطمئن هستید؟',
     yes: 'بله',
     no: 'خیر',
+
+    // payment request
+    paymentRequest: 'ساخت پرداخت',
+    forMe: 'پرداخت های ارسال شده برای من',
+    forOthersByMe: 'پرداخت های ساخته شده من',
+    payer: 'پرداخت کننده'
   }
 });
