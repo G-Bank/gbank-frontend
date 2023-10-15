@@ -48,6 +48,7 @@ const Transfer = ({ location }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(balances?.[0]?.currency);
+  const [description, setDescription] = useState('');
   const [frequentTransfers, setFrequentTransfers] = useState([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [result, setResult] = useState(null);
@@ -69,16 +70,18 @@ const Transfer = ({ location }) => {
     const urlPhoneNumber = params.get('phone_number');
     const urlAmount = params.get('amount');
     const urlCurrency = params.get('currency');
+    const urlDescription = params.get('description');
 
     if (urlPhoneNumber && urlAmount && urlCurrency) {
       setPhoneNumber(urlPhoneNumber);
       setAmount(urlAmount);
       setCurrency(urlCurrency);
+      setDescription(urlDescription);
       setConfirmOpen(true);
     }
   }, [location.search]);
 
-  const handleSubmit = (description) => {
+  const handleSubmit = () => {
     setLoading(true);
     transferRequest(accountId, phoneNumber, amount, currency, description)
       .then((response) => {
@@ -192,8 +195,10 @@ const Transfer = ({ location }) => {
         receiver={phoneNumber}
         amount={amount}
         currency={currency}
+        description={description}
         onClose={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
+        onDescriptionChange={e => setDescription(e.target.value)}
       />
 
       <ResultDrawer result={result} phoneNumber={phoneNumber} />

@@ -10,10 +10,9 @@ import { currencyDetails } from '../models/currency';
 import { useSelector } from 'react-redux';
 import { getTransactionFee } from '../../api/financial';
 
-function ConfirmationDrawer({ open, receiver, amount, currency, onClose, onConfirm }) {
+function ConfirmationDrawer({ open, receiver, amount, currency, description, onClose, onConfirm, onDescriptionChange }) {
   const { accountId } = useSelector((state) => state.account);
 
-  const [description, setDescription] = useState('');
   const [fee, setFee] = useState({ name: '', amount: 0 });
   const [loading, setLoading] = useState(false);
 
@@ -58,12 +57,7 @@ function ConfirmationDrawer({ open, receiver, amount, currency, onClose, onConfi
             {getPersianNumber(fee.amount)} {currencyDetails[currency].title}
           </Typography>
 
-          <OutlinedInput
-            fullWidth
-            value={description}
-            placeholder={strings?.description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <OutlinedInput fullWidth value={description} placeholder={strings?.description} onChange={onDescriptionChange} />
         </MainCard>
 
         <Box display="flex" gap={1}>

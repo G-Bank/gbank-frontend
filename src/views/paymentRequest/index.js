@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import QRCode from 'react-qr-code';
 
 import { Box, Button } from '@mui/material';
 import { OutlinedInput, Typography } from '@mui/material';
@@ -35,6 +37,8 @@ const PaymentRequestPage = () => {
 
   const { accountId } = useSelector((state) => state.account);
 
+  const history = useHistory();
+
   useEffect(() => {
     const fetchPaymentInfo = async () => {
       try {
@@ -65,6 +69,28 @@ const PaymentRequestPage = () => {
         setError(String(err.response));
         setLoading(false);
       });
+  };
+
+  // TODO: fetch phone number of sender
+  const getTransferUrl = (trx) =>
+    `/transfer/?phone_number=${trx.phone_number}&amount=${trx.amount}&currency=${trx.currency}&description=${trx.description}`;
+
+  const qrCodeValue = useMemo(
+    () =>
+      window.location.href.replace('/payment-request', getTransferUrl({ phone_number: payerPhoneNumber, amount, currency, description })),
+    [payerPhoneNumber, amount, currency, description]
+  );
+
+  const redirectToTransfer = (trx) => {
+    history.push(getTransferUrl(trx));
+  };
+
+  const loadRequest = (trx) => {
+    setRequestCreated(true);
+    setPayerPhoneNumber(trx.phone_number);
+    setAmount(trx.amount);
+    setCurrency(trx.currency);
+    setDescription(trx.description);
   };
 
   if (loading) {
@@ -126,7 +152,13 @@ const PaymentRequestPage = () => {
         <>
           <MainCard>
             <Box my={5}>
-              {method === methods.qrCode ? <></> : <img alt={method} src={images[`${method}_image`]} width="100%" height="100%" />}
+              {method === methods.qrCode ? (
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <QRCode value={qrCodeValue} />
+                </Box>
+              ) : (
+                <img alt={method} src={images[`${method}_image`]} width="100%" height="100%" />
+              )}
             </Box>
             <Typography variant="h4" textAlign="center">
               {strings?.[`${method}_description`]}
@@ -146,26 +178,42 @@ const PaymentRequestPage = () => {
       )}
 
       <MainCard title={strings?.forMe}>
-        {/* TODO: tranactions date */}
+        {/* TODO: transactions date */}
         {/* TODO: receiver info */}
         <LimitedList>
           {requests.for_me.map((trx, index) => {
             const { title, picture } = currencyDetails[trx.currency];
             return (
-              <TransactionRow key={index} title={trx.from_user} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
+              <TransactionRow
+                key={index}
+                title={trx.from_user}
+                subtitle="۱۰:۱۲"
+                imageUrl={picture}
+                amount={trx.amount}
+                unit={title}
+                onClick={() => redirectToTransfer(trx)}
+              />
             );
           })}
         </LimitedList>
       </MainCard>
 
       <MainCard title={strings?.forOthersByMe}>
-        {/* TODO: tranactions date */}
+        {/* TODO: transactions date */}
         {/* TODO: receiver info */}
         <LimitedList>
           {requests.for_others_by_me.map((trx, index) => {
             const { title, picture } = currencyDetails[trx.currency];
             return (
-              <TransactionRow key={index} title={trx.from_user} subtitle="۱۰:۱۲" imageUrl={picture} amount={trx.amount} unit={title} />
+              <TransactionRow
+                key={index}
+                title={trx.from_user}
+                subtitle="۱۰:۱۲"
+                imageUrl={picture}
+                amount={trx.amount}
+                unit={title}
+                onClick={() => loadRequest(trx)}
+              />
             );
           })}
         </LimitedList>
