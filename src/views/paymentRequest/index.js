@@ -71,13 +71,15 @@ const PaymentRequestPage = () => {
       });
   };
 
-  // TODO: fetch phone number of sender
   const getTransferUrl = (trx) =>
-    `/transfer/?phone_number=${trx.phone_number}&amount=${trx.amount}&currency=${trx.currency}&description=${trx.description}`;
+    `/transfer/?phone_number=${trx.from_user_phone_number}&amount=${trx.amount}&currency=${trx.currency}&description=${trx.description}`;
 
   const qrCodeValue = useMemo(
     () =>
-      window.location.href.replace('/payment-request', getTransferUrl({ phone_number: payerPhoneNumber, amount, currency, description })),
+      window.location.href.replace(
+        '/payment-request',
+        getTransferUrl({ from_user_phone_number: payerPhoneNumber, amount, currency, description })
+      ),
     [payerPhoneNumber, amount, currency, description]
   );
 
@@ -87,7 +89,7 @@ const PaymentRequestPage = () => {
 
   const loadRequest = (trx) => {
     setRequestCreated(true);
-    setPayerPhoneNumber(trx.phone_number);
+    setPayerPhoneNumber(trx.from_user_phone_number);
     setAmount(trx.amount);
     setCurrency(trx.currency);
     setDescription(trx.description);
@@ -179,14 +181,13 @@ const PaymentRequestPage = () => {
 
       <MainCard title={strings?.forMe}>
         {/* TODO: transactions date */}
-        {/* TODO: receiver info */}
         <LimitedList>
           {requests.for_me.map((trx, index) => {
             const { title, picture } = currencyDetails[trx.currency];
             return (
               <TransactionRow
                 key={index}
-                title={trx.from_user}
+                title={trx.from_user_phone_number}
                 subtitle="۱۰:۱۲"
                 imageUrl={picture}
                 amount={trx.amount}
@@ -200,14 +201,13 @@ const PaymentRequestPage = () => {
 
       <MainCard title={strings?.forOthersByMe}>
         {/* TODO: transactions date */}
-        {/* TODO: receiver info */}
         <LimitedList>
           {requests.for_others_by_me.map((trx, index) => {
             const { title, picture } = currencyDetails[trx.currency];
             return (
               <TransactionRow
                 key={index}
-                title={trx.from_user}
+                title={trx.from_user_phone_number}
                 subtitle="۱۰:۱۲"
                 imageUrl={picture}
                 amount={trx.amount}
