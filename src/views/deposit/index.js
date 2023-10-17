@@ -1,50 +1,39 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Alert, Box, Button, OutlinedInput, Typography } from '@mui/material';
+import { Close } from '@mui/icons-material';
 import Num2persian from 'num2persian';
 
 import BackHeader from '../../ui-component/BackHeader';
 import { strings } from '../../localizedString';
 import MainCard from '../../ui-component/cards/MainCard';
-import { useSelector } from 'react-redux';
-import { depositCallback, depositRequest, getCurrencyList } from '../../api/financial';
+import { depositCallback, depositRequest } from '../../api/financial';
 import Loader from '../../ui-component/Loader';
 import CurrencySelection from '../../ui-component/CurrencySelection';
 import { currencyDetails } from '../models/currency';
 import LimitedList from '../../ui-component/LimitedList';
 import TransactionRow from '../../ui-component/TransactionRow';
 import { getUserTransactions } from '../../api/user';
-import { Close } from '@mui/icons-material';
+
+const allowedCurrency = 'irr';
 
 function Deposit({ location }) {
   const [loading, setLoading] = useState(false);
   const [callbackStatus, setCallbackStatus] = useState(null);
   const [isSuccessful, setIsSuccessful] = useState(true);
   const [amount, setAmount] = useState(0);
-  const [currency, setCurrency] = useState(0);
   const [error, setError] = useState('');
-  const [currencyList, setCurrencyList] = useState([]);
 
   const { accountId, transactions } = useSelector((state) => state.account);
 
   const depositHistory = useMemo(() => transactions.filter((trx) => trx.type === 'deposit' && trx.status !== 'pending'), [transactions]);
 
   useEffect(() => {
-    const fetchPaymentInfo = async () => {
-      try {
-        setLoading(true);
-        const {
-          data: { currencies }
-        } = await getCurrencyList();
-        setCurrencyList(currencies);
-        setCurrency(currencies?.[0]);
-        await getUserTransactions();
-      } catch (err) {
-        setError(String(err.response));
-      }
-      setLoading(false);
-    };
-    fetchPaymentInfo();
+    setLoading(true);
+    getUserTransactions()
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -73,7 +62,7 @@ function Deposit({ location }) {
   const handleSubmit = () => {
     if (amount) {
       setLoading(true);
-      depositRequest(accountId, amount, currency)
+      depositRequest(accountId, amount, allowedCurrency)
         .then((response) => {
           window.open(response.data.link, '_blank');
           setLoading(false);
@@ -102,11 +91,11 @@ function Deposit({ location }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-          <CurrencySelection value={currency} onChange={(e) => setCurrency(e.target.value)} currencyList={currencyList} />
+          <CurrencySelection value={allowedCurrency} currencyList={[allowedCurrency]} />
         </Box>
 
         <Typography variant="h5" my={2}>
-          {Num2persian(Math.floor(amount / 10))} {currencyDetails[currency === 'irr' ? 'toman' : currency]?.title}
+          {Num2persian(Math.floor(amount / 10))} {currencyDetails.toman.title}
         </Typography>
 
         <Typography my={1} mx="auto" variant="h5" color="error">
