@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 
-import { Box, Button } from '@mui/material';
-import { OutlinedInput, Typography } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import BackHeader from '../../ui-component/BackHeader';
 import { strings } from '../../localizedString';
@@ -51,7 +51,7 @@ const PaymentRequestPage = () => {
         setCurrencyList(currencies);
         setCurrency(currencies?.[0]);
       } catch (err) {
-        setError(String(err.response));
+        setError(err.response.data.error);
       }
       setLoading(false);
     };
@@ -66,7 +66,7 @@ const PaymentRequestPage = () => {
         setLoading(false);
       })
       .catch((err) => {
-        setError(String(err.response));
+        setError(err.response.data.error);
         setLoading(false);
       });
   };
@@ -106,12 +106,16 @@ const PaymentRequestPage = () => {
       <MainCard title={strings?.messageForSelect}>
         <Box display="flex" flexDirection="column" gap={2}>
           <Box display="flex" alignItems="center" gap={1}>
-            <OutlinedInput
+            <TextField
               fullWidth
               type="number"
+              variant="outlined"
+              dir='ltr'
               placeholder={strings?.receivingAmount}
               value={amount}
               disabled={isRequestCreated}
+              helperText={error?.amount?.join?.()}
+              error={error?.amount}
               onChange={(e) => setAmount(e.target.value)}
             />
             <CurrencySelection
@@ -121,29 +125,30 @@ const PaymentRequestPage = () => {
               currencyList={currencyList}
             />
           </Box>
-          <OutlinedInput
+          <TextField
             fullWidth
             disabled={isRequestCreated}
             type="text"
             placeholder={strings?.payer}
             value={payerPhoneNumber}
+            helperText={error?.from_user?.join?.()}
+            error={error?.from_user}
             onChange={(e) => setPayerPhoneNumber(e.target.value)}
           />
-          <OutlinedInput
+          <TextField
             fullWidth
             disabled={isRequestCreated}
             type="text"
             placeholder={strings?.description}
             value={description}
+            helperText={error?.description?.join?.()}
+            error={error?.description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </Box>
         {!isRequestCreated && (
           <>
-            <Typography my={1} mx="auto" variant="h5" color="error">
-              {error}
-            </Typography>
-            <Button fullWidth variant="contained" color="secondary" onClick={createRequest}>
+            <Button style={{ marginTop: 8 }} fullWidth variant="contained" color="secondary" onClick={createRequest}>
               {strings?.paymentRequest}
             </Button>
           </>
