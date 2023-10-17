@@ -93,7 +93,7 @@ function Deposit({ location }) {
     <Box>
       <BackHeader title={strings?.deposit} />
 
-      <MainCard title={strings?.amountYouPay}>
+      <MainCard title={strings?.depositAmount}>
         <Box display="flex" alignItems="center" gap={1}>
           <OutlinedInput
             fullWidth

@@ -113,6 +113,7 @@ export const strings = new LocalizedStrings({
     qrCode: 'qr code',
 
     // deposit
+    depositAmount: 'Deposit Amount',
     goToIPG: 'go to IPG',
   },
   fa: {
@@ -230,6 +231,7 @@ export const strings = new LocalizedStrings({
     qrCode_description: 'برای پرداخت بدون لمس، QR Code را اسکن کنید.',
 
     // deposit
+    depositAmount: 'مقدار واریز',
     goToIPG: 'انتقال به درگاه پرداخت',
   }
 });
