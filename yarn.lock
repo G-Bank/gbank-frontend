@@ -8689,6 +8689,11 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==
 
+num2persian@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/num2persian/-/num2persian-3.2.2.tgz#3d53096920597dc03df45fc1e3c4cc38d58c78fd"
+  integrity sha512-xwT+fAiVWq6Nde+JWf5/PlW3qAGRNa0TJEUJwoJmaXjmLp1dewOFiX2+jUSreAsTrX2qi/rzgk3diSt36f6ouQ==
+
 nwsapi@^2.2.0:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.7.tgz#738e0707d3128cb750dddcfe90e4610482df0f30"

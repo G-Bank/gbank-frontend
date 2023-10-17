@@ -32,7 +32,7 @@ export const strings = new LocalizedStrings({
     charge: 'charge',
     wallet: 'wallet',
     transactions: 'transactions',
-    deposite: 'deposite',
+    deposit: 'deposit',
 
     // profile
     generalError: 'Field is required!',
@@ -111,6 +111,9 @@ export const strings = new LocalizedStrings({
     nfc: 'nfc',
     card: 'card',
     qrCode: 'qr code',
+
+    // deposit
+    goToIPG: 'go to IPG',
   },
   fa: {
     // brand
@@ -143,7 +146,7 @@ export const strings = new LocalizedStrings({
     charge: 'واریز',
     wallet: 'کیف پول',
     transactions: 'تراکنش‌ها',
-    deposite: 'واریز',
+    deposit: 'واریز',
 
     // profile
     generalError: 'لطفا این فیلد را پر کنید!',
@@ -225,5 +228,8 @@ export const strings = new LocalizedStrings({
     card_description: 'برای پرداخت بدون لمس، کارت فیزیکی را به تلفن همراه نزدیک کنید.',
     qrCode: 'اسکن بارکد',
     qrCode_description: 'برای پرداخت بدون لمس، QR Code را اسکن کنید.',
+
+    // deposit
+    goToIPG: 'انتقال به درگاه پرداخت',
   }
 });

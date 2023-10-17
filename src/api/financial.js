@@ -57,3 +57,5 @@ export const getUserPaymentRequests = () => get('payment-request/');
 
 export const createPaymentRequest = (fromPhoneNumber, account, amount, currency, description) =>
   post('payment-request/', { from_user: fromPhoneNumber, account, amount, currency, description });
+
+export const depositRequest = (account, amount, currency) => post('deposit/request/', { account_id: account, amount, currency });

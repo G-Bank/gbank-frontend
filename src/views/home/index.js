@@ -100,9 +100,11 @@ const HomePage = () => {
         </LimitedList>
 
         <Grid container gap={1} mt={3}>
-          <Button variant="contained" color="secondary">
-            {strings?.deposite}
-          </Button>
+          <Link to="/deposit">
+            <Button variant="contained" color="secondary">
+              {strings?.deposit}
+            </Button>
+          </Link>
           <Link to="/transfer">
             <Button variant="contained" color="secondary">
               {strings?.transfer}
