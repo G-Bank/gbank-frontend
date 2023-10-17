@@ -108,7 +108,7 @@ const PaymentRequestPage = () => {
           <Box display="flex" alignItems="center" gap={1}>
             <OutlinedInput
               fullWidth
-              type="tel"
+              type="number"
               placeholder={strings?.receivingAmount}
               value={amount}
               disabled={isRequestCreated}

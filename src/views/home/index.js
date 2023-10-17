@@ -50,7 +50,7 @@ const HomePage = () => {
     fetchUserData();
   }, [accountId]);
 
-  if (loading) {
+  if (loading || !user) {
     return <Loader />;
   }
 

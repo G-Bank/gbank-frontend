@@ -120,8 +120,8 @@ const Transfer = ({ location }) => {
       <MainCard title={strings?.messageForSelect}>
         <OutlinedInput
           fullWidth
-          type="tel"
-          placeholder={strings?.receiverPhoneNumber}
+          type="number"
+          placeholder={strings?.receiverInfo}
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
@@ -130,7 +130,7 @@ const Transfer = ({ location }) => {
       <MainCard title={strings?.enterTransferAmount}>
         <OutlinedInput
           fullWidth
-          type="tel"
+          type="number"
           placeholder={strings?.transferAmount}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}

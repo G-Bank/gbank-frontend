@@ -56,7 +56,7 @@ function Deposit({ location }) {
     if (trackId && success && status) {
       setLoading(true);
       depositCallback(trackId, success, status)
-      .then((response) => {
+        .then((response) => {
           const { message, successful } = response.data;
           setCallbackStatus(message);
           setIsSuccessful(successful);
@@ -97,7 +97,7 @@ function Deposit({ location }) {
         <Box display="flex" alignItems="center" gap={1}>
           <OutlinedInput
             fullWidth
-            type="tel"
+            type="number"
             placeholder={strings?.receivingAmount}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -106,7 +106,7 @@ function Deposit({ location }) {
         </Box>
 
         <Typography variant="h5" my={2}>
-          {Num2persian(amount)} {currencyDetails[currency]?.title}
+          {Num2persian(Math.floor(amount / 10))} {currencyDetails[currency === 'irr' ? 'toman' : currency]?.title}
         </Typography>
 
         <Typography my={1} mx="auto" variant="h5" color="error">
@@ -120,7 +120,7 @@ function Deposit({ location }) {
 
       {callbackStatus && (
         <Box>
-          <Alert severity={isSuccessful ? "success" : "error"}>
+          <Alert severity={isSuccessful ? 'success' : 'error'}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Typography mx={1} variant="h5">
                 {callbackStatus}
