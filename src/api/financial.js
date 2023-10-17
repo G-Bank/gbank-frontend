@@ -58,8 +58,11 @@ export const getUserPaymentRequests = () => get('payment-request/');
 export const createPaymentRequest = (fromPhoneNumber, account, amount, currency, description) =>
   post('payment-request/', { from_user: fromPhoneNumber, account, amount, currency, description });
 
-export const depositRequest = (account, amount, currency) => post('deposit/request/', { account_id: account, amount, currency });
+export const depositRequest = (accountId, amount, currency) => post('deposit/request/', { account_id: accountId, amount, currency });
 
 export const getEquivalentProperty = (accountId) => get('equivalent-property/', { account_id: accountId });
 
 export const depositCallback = (trackId, success, status) => get('ipg/callback', { trackId, success, status });
+
+export const withdrawRequest = (accountId, amount, currency, bankAccount) =>
+  post('withdraw/request/', { account_id: accountId, amount, currency, bank_account: bankAccount });

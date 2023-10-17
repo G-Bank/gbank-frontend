@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Box, Button, OutlinedInput, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import MainCard from '../../ui-component/cards/MainCard';
@@ -13,7 +13,7 @@ import { icons } from '../../assets/images';
 import TransactionRow from '../../ui-component/TransactionRow';
 import { currencyDetails } from '../models/currency';
 import ConfirmationDrawer from './ConfirmationDrawer';
-import { getFrequentTransfers, transferRequest } from '../../api/financial';
+import { getFrequentTransfers, transferRequest, withdrawRequest } from '../../api/financial';
 import { getUserTransactions } from '../../api/user';
 import ResultDrawer from './ResultDrawer';
 import LimitedList from '../../ui-component/LimitedList';
@@ -45,7 +45,7 @@ const Transfer = ({ location }) => {
 
   const { balances, accountId } = useSelector((state) => state.account);
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [receiverInfo, setReceiverInfo] = useState('');
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(balances?.[0]?.currency);
   const [description, setDescription] = useState('');
@@ -73,7 +73,7 @@ const Transfer = ({ location }) => {
     const urlDescription = params.get('description');
 
     if (urlPhoneNumber && urlAmount && urlCurrency) {
-      setPhoneNumber(urlPhoneNumber);
+      setReceiverInfo(urlPhoneNumber);
       setAmount(urlAmount);
       setCurrency(urlCurrency);
       setDescription(urlDescription);
@@ -81,30 +81,29 @@ const Transfer = ({ location }) => {
     }
   }, [location.search]);
 
-  const handleSubmit = () => {
+  const handleRequest = () => {
     setLoading(true);
-    transferRequest(accountId, phoneNumber, amount, currency, description)
+    if (receiverInfo?.length === 26 || receiverInfo?.length === 16) {
+      return withdrawRequest(accountId, amount, currency, receiverInfo);
+    }
+    return transferRequest(accountId, receiverInfo, amount, currency, description);
+  };
+
+  const handleSubmit = () => {
+    handleRequest()
       .then((response) => {
         setLoading(false);
         setResult(response.data);
         getUserTransactions();
       })
       .catch((err) => {
-        setError(String(err.response.data.error));
+        setError(err.response.data.error);
         setLoading(false);
         setConfirmOpen(false);
       });
   };
 
   const handleContinue = () => {
-    if (!amount) {
-      setError(strings?.enterTransferAmount);
-      return;
-    }
-    if (phoneNumber.length !== 11) {
-      setError(strings?.enterValidPhoneNumber);
-      return;
-    }
     setError(null);
     setConfirmOpen(true);
   };
@@ -118,21 +117,26 @@ const Transfer = ({ location }) => {
       <BackHeader title={strings?.transfer} />
 
       <MainCard title={strings?.messageForSelect}>
-        <OutlinedInput
+        <TextField
           fullWidth
-          type="number"
+          variant='outlined'
           placeholder={strings?.receiverInfo}
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={receiverInfo}
+          error={error?.to_phone_number}
+          helperText={error?.bank_account?.join?.() || error?.to_phone_number?.join?.()}
+          onChange={(e) => setReceiverInfo(e.target.value)}
         />
       </MainCard>
 
       <MainCard title={strings?.enterTransferAmount}>
-        <OutlinedInput
+        <TextField
           fullWidth
           type="number"
+          variant='outlined'
           placeholder={strings?.transferAmount}
           value={amount}
+          error={error?.amount}
+          helperText={error?.amount?.join?.()}
           onChange={(e) => setAmount(e.target.value)}
         />
 
@@ -169,9 +173,9 @@ const Transfer = ({ location }) => {
         </Box>
       </MainCard>
 
-      <Typography my={1} mx="auto" variant="h5" color="error">
+      {typeof error === 'string' && <Typography my={1} mx="auto" variant="h5" color="error">
         {error}
-      </Typography>
+      </Typography>}
       <Button fullWidth variant="contained" color="secondary" onClick={handleContinue}>
         {strings?.continue}
       </Button>
@@ -184,7 +188,7 @@ const Transfer = ({ location }) => {
               title={trx.to_phone_number}
               subtitle={`${strings?.count}: ${trx.count}`}
               imageUrl={icons.switchIcon}
-              onClick={() => setPhoneNumber(trx.to_phone_number)}
+              onClick={() => setReceiverInfo(trx.to_phone_number)}
             />
           ))}
         </LimitedList>
@@ -192,16 +196,16 @@ const Transfer = ({ location }) => {
 
       <ConfirmationDrawer
         open={confirmOpen}
-        receiver={phoneNumber}
+        receiver={receiverInfo}
         amount={amount}
         currency={currency}
         description={description}
         onClose={() => setConfirmOpen(false)}
         onConfirm={handleSubmit}
-        onDescriptionChange={e => setDescription(e.target.value)}
+        onDescriptionChange={(e) => setDescription(e.target.value)}
       />
 
-      <ResultDrawer result={result} phoneNumber={phoneNumber} />
+      <ResultDrawer result={result} phoneNumber={receiverInfo} />
     </Box>
   );
 };
