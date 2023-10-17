@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { Box, Button, Dialog, DialogActions, DialogTitle, Input, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogTitle, Input, TextField, Typography } from '@mui/material';
 
 import BackHeader from '../../ui-component/BackHeader';
 import Loader from '../../ui-component/Loader';
@@ -115,7 +115,13 @@ const ExchangePage = () => {
       <MainCard>
         <Typography>{strings?.amountYouPay}</Typography>
         <Box my={2} display="flex" justifyContent="space-between">
-          <Input value={payAmount} placeholder={strings?.stock} onChange={(e) => setPayAmount(e.target.value)} />
+          <TextField
+            variant="standard"
+            type="number"
+            value={payAmount}
+            placeholder={strings?.stock}
+            onChange={(e) => setPayAmount(e.target.value)}
+          />
           <CurrencySelection value={originCurrency} currencyList={currencyList} onChange={(e) => setOriginCurrency(e.target.value)} />
         </Box>
 

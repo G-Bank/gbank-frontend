@@ -128,7 +128,7 @@ const PaymentRequestPage = () => {
           <TextField
             fullWidth
             disabled={isRequestCreated}
-            type="text"
+            type="number"
             placeholder={strings?.payer}
             value={payerPhoneNumber}
             helperText={error?.from_user?.join?.()}
