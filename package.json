@@ -1,6 +1,6 @@
 {
   "name": "react-gbank",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "homepage": "https://g-bank.github.io/gbank-frontend/",
   "build": {
