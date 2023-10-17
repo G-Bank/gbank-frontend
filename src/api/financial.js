@@ -61,3 +61,5 @@ export const createPaymentRequest = (fromPhoneNumber, account, amount, currency,
 export const depositRequest = (account, amount, currency) => post('deposit/request/', { account_id: account, amount, currency });
 
 export const getEquivalentProperty = (accountId) => get('equivalent-property/', { account_id: accountId });
+
+export const depositCallback = (trackId, success, status) => get('ipg/callback', { trackId, success, status });
