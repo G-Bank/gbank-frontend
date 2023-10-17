@@ -110,7 +110,7 @@ const PaymentRequestPage = () => {
               fullWidth
               type="number"
               variant="outlined"
-              dir='ltr'
+              dir="ltr"
               placeholder={strings?.receivingAmount}
               value={amount}
               disabled={isRequestCreated}
@@ -146,6 +146,12 @@ const PaymentRequestPage = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </Box>
+
+        {typeof error === 'string' && (
+          <Typography my={1} mx="auto" variant="h5" color="error">
+            {error}
+          </Typography>
+        )}
         {!isRequestCreated && (
           <>
             <Button style={{ marginTop: 8 }} fullWidth variant="contained" color="secondary" onClick={createRequest}>
