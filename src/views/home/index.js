@@ -17,20 +17,18 @@ import TransactionRow from '../../ui-component/TransactionRow';
 import { getPersianNumber } from '../../utils/convertor/TomanConvertor';
 import { currencyDetails } from '../models/currency';
 import { icons } from '../../assets/images';
-import { convertCurrency } from '../../api/financial';
+import { getEquivalentProperty } from '../../api/financial';
 import { useMemo } from 'react';
 import ExchangeRow from '../../ui-component/ExchangeRow';
 import LimitedList from '../../ui-component/LimitedList';
 import { getUserAccount, getUserBankCards, getUserProfile, getUserTransactions } from '../../api/user';
 import config from '../../config';
 
-const baseCurrency = 'lotf-gold';
-
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const [allBalance, setAllBalance] = useState(0);
+  const [equivalentProperty, setEquivalentProperty] = useState(0);
 
-  const { user, balances, transactions } = useSelector((state) => state.account);
+  const { user, balances, transactions, accountId } = useSelector((state) => state.account);
 
   const exchangeHistory = useMemo(() => transactions.filter((trx) => trx.type === 'exchange'), [transactions]);
 
@@ -38,33 +36,21 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setLoading(true);
       await getUserAccount();
       await getUserProfile();
       await getUserBankCards();
       await getUserTransactions();
-    };
-    fetchUserData();
-  }, []);
+      
+      const { data } = await getEquivalentProperty(accountId);
+      setEquivalentProperty(data);
 
-  useEffect(() => {
-    const loadTotalBalance = async () => {
-      if (!balances?.length) {
-        setAllBalance(0);
-        return;
-      }
-
-      setLoading(true);
-      for (const balance of balances) {
-        const { amount } = await convertCurrency(balance.currency, baseCurrency, balance.amount);
-        setAllBalance((ab) => ab + amount);
-      }
       setLoading(false);
     };
+    fetchUserData();
+  }, [accountId]);
 
-    loadTotalBalance();
-  }, [balances]);
-
-  if (!balances || !user || !transactions || loading) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -85,11 +71,11 @@ const HomePage = () => {
       <MainCard title={strings?.wallet}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} mb={3} width="100%">
           <Box display="flex" flexDirection="column" gap={1}>
-            <Typography variant="subtitle2">معادل موجودی شما به {currencyDetails[baseCurrency].title}</Typography>
-            <Typography variant="h2">{getPersianNumber(Number(allBalance).toFixed(5))}</Typography>
+            <Typography variant="subtitle2">معادل موجودی شما به {currencyDetails[equivalentProperty?.currency]?.title}</Typography>
+            <Typography variant="h2">{getPersianNumber(equivalentProperty?.total)}</Typography>
           </Box>
           <Box display="flex" gap={1}>
-            <img width={60} height={60} alt="balance" src={currencyDetails[baseCurrency].picture} />
+            <img width={60} height={60} alt="balance" src={currencyDetails[equivalentProperty?.currency]?.picture} />
           </Box>
         </Box>
         <LimitedList>
