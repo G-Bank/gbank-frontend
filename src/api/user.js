@@ -67,6 +67,15 @@ export const addNewBankCard = async (cardNumber) => {
 
 export const getMaxWithdrawLimit = (accountId, currency) => get('withdraw/limit/', { account_id: accountId, currency });
 
+export const getMaxDepositLimit = (accountId, currency) => get('deposit/limit/', { account_id: accountId, currency });
+
+export const getMaxLimits = async (accountId, currency) => {
+  const { data: { limit: withdraw } } = await getMaxWithdrawLimit(accountId, currency);
+  const { data: { limit: deposit } } = await getMaxDepositLimit(accountId, currency);
+
+  return { withdraw, deposit };
+};
+
 export const getUserTransactions = async () => {
   const response = await get('transactions/');
   store.dispatch({
@@ -74,3 +83,5 @@ export const getUserTransactions = async () => {
     payload: { transactions: response.data.transactions }
   });
 };
+
+export const getUserTiers = () => get('tiers/');

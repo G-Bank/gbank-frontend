@@ -9,14 +9,15 @@ import { strings } from '../../../localizedString';
 import MainCard from '../../../ui-component/cards/MainCard';
 import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle, Edit } from '@mui/icons-material';
-import { getPersianNumber, getPersianTextOfNumber } from '../../../utils/convertor/TomanConvertor';
+import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getMaxWithdrawLimit, logoutUser } from '../../../api/user';
+import { getMaxLimits, logoutUser } from '../../../api/user';
 import AddCardDrawer from './AddCardDrawer';
+import AuthLevelCard from '../../../ui-component/cards/AuthLevelCard';
 
 const ProfilePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [maxWithdrawLimit, setMaxWithdrawLimit] = useState(null);
+  const [maxLimits, setMaxLimits] = useState(null);
 
   const { user, cards, accountId } = useSelector((state) => state.account);
 
@@ -27,8 +28,8 @@ const ProfilePage = () => {
   }, [user]);
 
   useEffect(() => {
-    getMaxWithdrawLimit(accountId, 'irr').then((res) => {
-      setMaxWithdrawLimit(res.data.limit);
+    getMaxLimits(accountId, 'irr').then((limits) => {
+      setMaxLimits(limits);
     });
   }, [accountId]);
 
@@ -40,7 +41,7 @@ const ProfilePage = () => {
     }
   };
 
-  if (!maxWithdrawLimit) {
+  if (!maxLimits) {
     return <Loader />;
   }
 
@@ -63,16 +64,7 @@ const ProfilePage = () => {
         </Box>
 
         <MainCard>
-          <Link to="/auth-level" style={{ textDecoration: 'none' }}>
-            <Box width="calc(100% + 32px)" m={-2} mb={1} borderRadius="16px 16px 0 0" textAlign="center" p={1} bgcolor="#28A745">
-              <Typography color="white">
-                {strings?.authLevel} {getPersianTextOfNumber(user.auth_level)}
-              </Typography>
-            </Box>
-          </Link>
-          <Box display="flex" justifyContent="space-between">
-            <Typography>{maxWithdrawLimit}</Typography>
-          </Box>
+          <AuthLevelCard link="/auth-level" level={user.auth_level} limits={maxLimits} />
         </MainCard>
 
         {!user.is_national_code_verified && (
