@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-import { Box, Button, OutlinedInput, SwipeableDrawer, Typography } from '@mui/material';
+import { Box, Button, SwipeableDrawer, TextField, Typography } from '@mui/material';
 
 import BackHeader from '../../../ui-component/BackHeader';
 import { strings } from '../../../localizedString';
-import { splitCardNumber } from '../../../utils/convertor/TomanConvertor';
 import { useEffect } from 'react';
 import { addNewBankCard } from '../../../api/user';
 import Loader from '../../../ui-component/Loader';
@@ -26,7 +25,7 @@ const AddCardDrawer = ({ open, onClose }) => {
         if (code === 'finance-05') {
           setError(strings?.cardAlreadyExists);
         } else {
-          console.log(err);
+          setError(err.response.data.error);
         }
         setLoading(false);
       });
@@ -52,20 +51,25 @@ const AddCardDrawer = ({ open, onClose }) => {
         <BackHeader title={strings?.addNewCard} onClick={onClose} />
 
         <Box bgcolor="#E0E0E0" p={3} my={3} borderRadius={3}>
-          <OutlinedInput
-            dir="ltr"
+          <TextField
             fullWidth
-            value={splitCardNumber(cardNumber)}
+            dir="ltr"
+            type="number"
+            value={cardNumber}
             onChange={handleSetCardNumber}
+            helperText={error?.card_number?.join?.()}
+            error={error?.card_number}
             inputProps={{
               style: { textAlign: 'center', fontSize: 18 }
             }}
           />
         </Box>
 
-        <Typography my={1} mx="auto" variant="h5" color="error">
-          {error}
-        </Typography>
+        {typeof error === 'string' && (
+          <Typography my={1} mx="auto" variant="h5" color="error">
+            {error}
+          </Typography>
+        )}
 
         <Button fullWidth variant="contained" color="secondary" onClick={handleAdd}>
           {strings?.submit}
