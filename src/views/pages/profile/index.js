@@ -11,15 +11,16 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle, Edit } from '@mui/icons-material';
 import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getMaxLimits, logoutUser } from '../../../api/user';
+import { getMaxLimits, getUserProfile, logoutUser } from '../../../api/user';
 import AddCardDrawer from './AddCardDrawer';
 import AuthLevelCard from '../../../ui-component/cards/AuthLevelCard';
 
 const ProfilePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [maxLimits, setMaxLimits] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const { user, cards, accountId } = useSelector((state) => state.account);
+  const { user, cards, accountId, authLevels } = useSelector((state) => state.account);
 
   const userName = useMemo(() => {
     if (user.firstname || user.lastname) {
@@ -28,10 +29,23 @@ const ProfilePage = () => {
   }, [user]);
 
   useEffect(() => {
-    getMaxLimits(accountId, 'irr').then((limits) => {
+    const fetchUserData = async () => {
+      setLoading(true);
+
+      await getUserProfile();
+
+      const limits = await getMaxLimits(accountId, 'irr');
       setMaxLimits(limits);
-    });
+
+      setLoading(false);
+    };
+    fetchUserData();
   }, [accountId]);
+
+  const currentLevel = useMemo(
+    () => Object.entries(authLevels).find(([key]) => key === String(user.auth_level))?.[1],
+    [authLevels, user.auth_level]
+  );
 
   const handleLogout = () => logoutUser();
 
@@ -41,7 +55,7 @@ const ProfilePage = () => {
     }
   };
 
-  if (!maxLimits) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -64,7 +78,7 @@ const ProfilePage = () => {
         </Box>
 
         <MainCard>
-          <AuthLevelCard link="/auth-level" level={user.auth_level} limits={maxLimits} />
+          <AuthLevelCard link="/auth-level" level={currentLevel?.title} limits={maxLimits} />
         </MainCard>
 
         {!user.is_national_code_verified && (

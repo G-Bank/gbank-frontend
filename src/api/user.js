@@ -1,5 +1,14 @@
 import { store } from '../store';
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_TRANSACTIONS, SET_USER_PICTURE, SET_USER_PROFILE } from '../store/actions';
+import {
+  ACCOUNT_INITIALIZE,
+  LOGIN,
+  LOGOUT,
+  SET_AUTH_LEVELS,
+  SET_BANK_CARDS,
+  SET_TRANSACTIONS,
+  SET_USER_PICTURE,
+  SET_USER_PROFILE
+} from '../store/actions';
 import { get, post } from './server';
 
 export const getOTP = (phoneNumber) => post('login/', { phone_number: phoneNumber });
@@ -70,8 +79,12 @@ export const getMaxWithdrawLimit = (accountId, currency) => get('withdraw/limit/
 export const getMaxDepositLimit = (accountId, currency) => get('deposit/limit/', { account_id: accountId, currency });
 
 export const getMaxLimits = async (accountId, currency) => {
-  const { data: { limit: withdraw } } = await getMaxWithdrawLimit(accountId, currency);
-  const { data: { limit: deposit } } = await getMaxDepositLimit(accountId, currency);
+  const {
+    data: { limit: withdraw }
+  } = await getMaxWithdrawLimit(accountId, currency);
+  const {
+    data: { limit: deposit }
+  } = await getMaxDepositLimit(accountId, currency);
 
   return { withdraw, deposit };
 };
@@ -84,4 +97,12 @@ export const getUserTransactions = async () => {
   });
 };
 
-export const getUserTiers = () => get('tiers/');
+export const getUserTiers = async () => {
+  const {
+    data: { auth_levels }
+  } = await get('tiers/');
+  store.dispatch({
+    type: SET_AUTH_LEVELS,
+    payload: { authLevels: auth_levels }
+  });
+};

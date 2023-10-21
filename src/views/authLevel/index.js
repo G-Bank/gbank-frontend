@@ -12,20 +12,15 @@ import { useSelector } from 'react-redux';
 
 const AuthLevelPage = () => {
   const [loading, setLoading] = useState(false);
-  const [tiers, setTiers] = useState({});
   const [maxLimits, setMaxLimits] = useState('');
 
-  const { user, accountId } = useSelector((state) => state.account);
+  const { user, accountId, authLevels } = useSelector((state) => state.account);
 
   useEffect(() => {
     const fetchUserData = async () => {
       setLoading(true);
 
-      const {
-        data: { auth_levels }
-      } = await getUserTiers();
-      setTiers(auth_levels);
-
+      await getUserTiers();
       await getUserProfile();
 
       const limits = await getMaxLimits(accountId, 'irr');
@@ -36,11 +31,14 @@ const AuthLevelPage = () => {
     fetchUserData();
   }, [accountId]);
 
-  const currentLevel = useMemo(() => Object.entries(tiers).find(([key]) => key === String(user.auth_level))?.[1], [tiers, user.auth_level]);
+  const currentLevel = useMemo(
+    () => Object.entries(authLevels).find(([key]) => key === String(user.auth_level))?.[1],
+    [authLevels, user.auth_level]
+  );
 
   const nextLevel = useMemo(
-    () => Object.entries(tiers).find(([key]) => key - String(user.auth_level) === 1)?.[1],
-    [tiers, user.auth_level]
+    () => Object.entries(authLevels).find(([key]) => key - String(user.auth_level) === 1)?.[1],
+    [authLevels, user.auth_level]
   );
 
   if (loading) {

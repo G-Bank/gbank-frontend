@@ -1,5 +1,14 @@
 // action - state management
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT, SET_BANK_CARDS, SET_TRANSACTIONS, SET_USER_PICTURE, SET_USER_PROFILE } from './actions';
+import {
+  ACCOUNT_INITIALIZE,
+  LOGIN,
+  LOGOUT,
+  SET_AUTH_LEVELS,
+  SET_BANK_CARDS,
+  SET_TRANSACTIONS,
+  SET_USER_PICTURE,
+  SET_USER_PROFILE
+} from './actions';
 
 export const initialState = {
   token: '',
@@ -9,7 +18,8 @@ export const initialState = {
   balances: [],
   transactions: [],
   cards: [],
-  accountId: null
+  accountId: null,
+  authLevels: []
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -60,6 +70,13 @@ const accountReducer = (state = initialState, action) => {
         isLoggedIn: true,
         hasAccount,
         token
+      };
+    }
+    case SET_AUTH_LEVELS: {
+      const { authLevels } = action.payload;
+      return {
+        ...state,
+        authLevels
       };
     }
     case LOGOUT: {

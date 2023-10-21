@@ -6,6 +6,7 @@ export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 export const SET_USER_PICTURE = 'SET_USER_PICTURE';
 export const SET_BANK_CARDS = 'SET_BANK_CARDS';
 export const SET_TRANSACTIONS = 'SET_TRANSACTIONS';
+export const SET_AUTH_LEVELS = 'SET_AUTH_LEVELS';
 
 // action - customization reducer
 export const SET_MENU = '@customization/SET_MENU';
