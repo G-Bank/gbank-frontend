@@ -62,11 +62,20 @@ const ProfilePage = () => {
           </Button>
         </Box>
 
-        {user.is_national_code_verified ? (
-          <Button fullWidth variant='contained' color='success'>
-            {strings?.authenticationDone}
-          </Button>
-        ) : (
+        <MainCard>
+          <Link to="/auth-level" style={{ textDecoration: 'none' }}>
+            <Box width="calc(100% + 32px)" m={-2} mb={1} borderRadius="16px 16px 0 0" textAlign="center" p={1} bgcolor="#28A745">
+              <Typography color="white">
+                {strings?.authLevel} {getPersianTextOfNumber(user.auth_level)}
+              </Typography>
+            </Box>
+          </Link>
+          <Box display="flex" justifyContent="space-between">
+            <Typography>{maxWithdrawLimit}</Typography>
+          </Box>
+        </MainCard>
+
+        {!user.is_national_code_verified && (
           <Link to="/authentication">
             <Button fullWidth variant="contained">
               {strings?.authenticationRequiredForCards}
@@ -85,20 +94,6 @@ const ProfilePage = () => {
             <BankCard bankName={card.persian_name} logo={card.logo} cardNumber={card.card_number} />
           </MainCard>
         ))}
-
-        <MainCard>
-          <Box width="calc(100% + 32px)" m={-2} mb={1} borderRadius="16px 16px 0 0" textAlign="center" p={1} bgcolor="#28A745">
-            <Typography color="white">
-              {strings?.authLevel} {getPersianTextOfNumber(user.auth_level)}
-            </Typography>
-          </Box>
-          <Box display="flex" justifyContent="space-between">
-            <Typography>{strings?.maxDailyWithdraw}</Typography>
-            <Typography>
-              {getPersianNumber(maxWithdrawLimit)} {strings?.toman}
-            </Typography>
-          </Box>
-        </MainCard>
       </Box>
 
       <AddCardDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
