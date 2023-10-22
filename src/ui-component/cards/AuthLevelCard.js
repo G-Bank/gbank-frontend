@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Box, Typography } from '@mui/material';
+import { strings } from '../../localizedString';
 
 function AuthLevelCard({ level, limits, link, authLink }) {
   return (
@@ -26,7 +27,7 @@ function AuthLevelCard({ level, limits, link, authLink }) {
       {authLink && (
         <Link to={authLink} style={{ textDecoration: 'none' }}>
           <Box width="calc(100% + 32px)" m={-2} mt={1} borderRadius="0 0 16px 16px" textAlign="center" p={1} bgcolor="#0077DB">
-            <Typography color="white">{level}</Typography>
+            <Typography color="white">{strings.updateTo} {level}</Typography>
           </Box>
         </Link>
       )}

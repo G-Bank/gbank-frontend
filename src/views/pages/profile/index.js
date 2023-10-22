@@ -11,7 +11,7 @@ import BankCard from '../../../ui-component/cards/BankCard';
 import { AddCircle, Edit } from '@mui/icons-material';
 import { getPersianNumber } from '../../../utils/convertor/TomanConvertor';
 import Loader from '../../../ui-component/Loader';
-import { getMaxLimits, getUserProfile, logoutUser } from '../../../api/user';
+import { getMaxLimits, getUserProfile, getUserTiers, logoutUser } from '../../../api/user';
 import AddCardDrawer from './AddCardDrawer';
 import AuthLevelCard from '../../../ui-component/cards/AuthLevelCard';
 
@@ -33,6 +33,7 @@ const ProfilePage = () => {
       setLoading(true);
 
       await getUserProfile();
+      await getUserTiers();
 
       const limits = await getMaxLimits(accountId, 'irr');
       setMaxLimits(limits);
