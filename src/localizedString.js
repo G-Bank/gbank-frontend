@@ -4,7 +4,9 @@ export const strings = new LocalizedStrings({
   en: {
     // brand
     name: 'felexin',
-
+    landingTitle: 'Your Smart Assistant for Investment and Financial Management',
+    landingSubtitle: 'find your payment options easily through the application',
+    signUpBanner: 'sign up in less than 10 minutes and start investing',
     // general
     dashboard: 'dashboard',
     home: 'home',
@@ -70,6 +72,7 @@ export const strings = new LocalizedStrings({
     otp: 'otp',
     otpWarning: "Didn't get the otp?",
     signIn: 'sign in',
+    signUp: 'sign up',
     phoneNumberError: 'phone number is required',
     otpError: 'OTP code is required',
     otpText: 'Your otp is ',
@@ -120,6 +123,9 @@ export const strings = new LocalizedStrings({
   fa: {
     // brand
     name: 'فلکسین',
+    landingTitle: 'دستیار هوشمند سرمایه‌گذاری و مدیریت مالی شما',
+    landingSubtitle: 'به راحتی از بین گزینه‌های مناسب خودتان سرمایه گذاری کنید و از طریق برنامه پرداخت‌های خود را انجام دهید.',
+    signUpBanner: 'در کمتر از ۱۰ دقیقه احراز هویت و شروع به سرمایه گذاری کنید.',
 
     // general
     dashboard: 'داشبرد',
@@ -186,6 +192,7 @@ export const strings = new LocalizedStrings({
     otp: 'کد 4 رقمی',
     otpWarning: 'کد 4 رقمی را دریافت نکردم!',
     signIn: 'ورود',
+    signUp: 'ثبت نام',
     phoneNumberError: 'شماره تماس ضروری است',
     otpError: 'کد 4 رقمی ضروری است',
     otpText: 'کد شما: ',

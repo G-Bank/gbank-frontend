@@ -13,20 +13,35 @@ const ProfilePage = Loadable(lazy(() => import('../views/pages/profile')));
 const AuthLevelPage = Loadable(lazy(() => import('../views/authLevel')));
 const AuthPage = Loadable(lazy(() => import('../views/pages/profile/ProfileAuthentication')));
 const EditProfilePage = Loadable(lazy(() => import('../views/pages/profile/EditProfile')));
-const DepositPage = Loadable(lazy(() => import('../views/deposit')))
+const DepositPage = Loadable(lazy(() => import('../views/deposit')));
 const ExchangePage = Loadable(lazy(() => import('../views/exchange')));
 const TransferPage = Loadable(lazy(() => import('../views/transfer')));
 const PaymentRequestPage = Loadable(lazy(() => import('../views/paymentRequest')));
+const LandingPage = Loadable(lazy(() => import('../views/pages/landing')));
 
 const MainRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/dashboard', '/profile', '/auth-level','/authentication', '/edit', '/deposit', '/transfer', '/exchange', '/payment-request']}>
+    <Route
+      path={[
+        '/landing',
+        '/dashboard',
+        '/profile',
+        '/auth-level',
+        '/authentication',
+        '/edit',
+        '/deposit',
+        '/transfer',
+        '/exchange',
+        '/payment-request'
+      ]}
+    >
       <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <AuthGuard>
             <AccountGuard>
+              <Route path="/landing" component={LandingPage} />
               <Route path="/dashboard" component={HomePage} />
               <Route path="/profile" component={ProfilePage} />
               <Route path="/edit" component={EditProfilePage} />

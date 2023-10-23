@@ -10,6 +10,8 @@ import settingsIcon from './icons/settings.svg';
 import alertIcon from './icons/alert.svg';
 import card_image from './finance/card.svg';
 import nfc_image from './finance/nfc.svg';
+import appIcon from './logo.svg';
+import appBanner from './appBanner.png';
 
 const images = {
   gold,
@@ -17,7 +19,8 @@ const images = {
   rial,
   bitcoin,
   card_image,
-  nfc_image
+  nfc_image,
+  appBanner,
 };
 
 const icons = {
@@ -27,6 +30,7 @@ const icons = {
   switchIcon,
   settingsIcon,
   alertIcon,
+  appIcon,
 }
 
 export { images, icons };
