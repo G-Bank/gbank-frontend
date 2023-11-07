@@ -2,7 +2,7 @@
   "name": "react-gbank",
   "version": "0.1.0",
   "private": true,
-  "homepage": "felexin.ir/app",
+  "homepage": "https://g-bank.github.io/gbank-frontend/app/",
   "build": {
     "yarn": "v14.0.0,v16.0.0",
     "npm": "v14.0.0,v16.0.0"
