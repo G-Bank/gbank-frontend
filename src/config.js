@@ -6,7 +6,7 @@ if (process.env.REACT_APP_BACKEND_SERVER) {
 }
 
 const config = {
-  basename: '/',
+  basename: '/app',
   defaultPath: '/dashboard',
   appVersion: process.env.REACT_APP_VERSION,
   fontFamily: `'Vazirmatn', 'Roboto', sans-serif`,
